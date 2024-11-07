@@ -19,7 +19,7 @@ struct BITBrainApp: App {
                 switch appRootManager.currentRoot {
                 case .splash:
                     SplashScreenView()
-                        .background(.black)
+                        .background(.primaryBlue)
                 case .authentication:
                     LoginView(authNavViewModel: AuthNavigationViewModel(coordinator: AuthCoordinator()) )
                 case .home:

@@ -30,7 +30,7 @@ struct SettingsViewCell: View {
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.opacity(0.7))
+        .background(Color.primaryBlue.opacity(0.7))
         .cornerRadius(10)
         .onTapGesture {
             print("Cell \(item.title) tapped")

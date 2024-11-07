@@ -26,9 +26,11 @@ struct CustomTabBarView: View {
                         Text("Settings")
                     }
             }
-            .toolbarBackground(.black, for: .tabBar)
+            .toolbarBackground(.primaryBlue, for: .tabBar)
             .toolbarBackground(.visible, for: .tabBar)
+
         }
+        .tint(.darkYellow)
     }
 }
 

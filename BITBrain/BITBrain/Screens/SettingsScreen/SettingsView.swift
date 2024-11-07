@@ -27,7 +27,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.gray
+                Color.white
                     .edgesIgnoringSafeArea(.all)
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
@@ -38,11 +38,14 @@ struct SettingsView: View {
                         }
                     }
                 }
+                .padding(.top, 10)
                 .padding(.leading, 10)
                 .padding(.trailing, 10)
             }
             .navigationTitle("Settings")
             .toolbarTitleDisplayMode(.inline)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarBackground(.primaryBlue, for: .navigationBar)
             .alert(isPresented: $alertViewModel.showAlert) {
                 Alert(title: Text(alertViewModel.alert?.title ?? "Unknown"),
                       message: Text(alertViewModel.alert?.message ?? "Unknown"),

@@ -14,11 +14,12 @@ struct ThreadArchiveView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.gray
+                Color.white
                     .edgesIgnoringSafeArea(.all)
                 VStack {
                     Text("Thread Archive screen")
                         .fontWeight(.bold)
+                        .foregroundStyle(Color.darkBlue)
                     
                 }
             }
@@ -32,7 +33,7 @@ struct ThreadArchiveView: View {
                     print("back back ...")
                 }) {
                     Image(systemName: "arrow.backward")
-                        .foregroundColor(.black)
+                        .foregroundColor(.primaryBlue)
                         .font(.title2)
                 }
             }

@@ -19,30 +19,50 @@ struct ChatView: View {
         NavigationStack {
             
             ZStack {
-                Color.gray
+                Color.white
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    
-                    if isLoading {
-                        ProgressView("Loading...") // Show a spinner when loading
-                            .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                            .font(.headline)
-                    } else {
-                        Text(message) // Simulated chat message or content
-                            .font(.system(size: 20.0))
-                            .foregroundStyle(.white)
-                    }
-                    
+                   Spacer()
+                    Button(action: {
+                        print("test ... open tutorial")
+                    }, label: {
+                        Text("Introduction ... open tuttorial slideshow view...")
+                            .frame(width: UIScreen.main.bounds.width*0.90, height: UIScreen.main.bounds.height/3, alignment: .center)
+                            .foregroundColor(.darkBlue)
+                            .background(Color.primaryBlue.opacity(0.7))
+                            .overlay(RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.primaryBlue, lineWidth: 1)
+                            )
+                    })
+                    .clipShape(.rect(cornerRadii: RectangleCornerRadii(topLeading: 20, bottomLeading: 20, bottomTrailing: 20, topTrailing: 20)))
+                    .shadow(color: .gray, radius: 2, x: 0, y: 6)
+                    Spacer(minLength: 20)
+                    Button(action: {
+                        print("test ... alert popup for entering Api Key")
+                    }, label: {
+                        Text("Please enter your valid API Key for chat")
+                            .frame(width: UIScreen.main.bounds.width*0.90, height: UIScreen.main.bounds.height/3, alignment: .center)
+                            .foregroundColor(.darkBlue)
+                            .background(Color.primaryBlue.opacity(0.7))
+                            .overlay(RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.primaryBlue, lineWidth: 1)
+                            )
+                    })
+                    .clipShape(.rect(cornerRadii: RectangleCornerRadii(topLeading: 20, bottomLeading: 20, bottomTrailing: 20, topTrailing: 20)))
+                    .shadow(color: .gray, radius: 2, x: 0, y: 6)
+                    Spacer(minLength: 60)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
-                
+               
                 
                 
             }
-            .navigationTitle("Chat")
+            .navigationTitle("Welcome to Smart Spark")
             .toolbarTitleDisplayMode(.inline)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarBackground(.primaryBlue, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
@@ -52,6 +72,7 @@ struct ChatView: View {
                     }) {
                         Image(systemName: "list.bullet.rectangle")
                             .foregroundColor(.black)
+                            .tint(.darkBlue)
                             .font(.title2)
                     }
                 }

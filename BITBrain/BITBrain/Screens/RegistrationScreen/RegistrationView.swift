@@ -28,20 +28,22 @@ struct RegistrationView: View {
         
         NavigationView {
             ZStack {
-                Color.black
+                Color(.primaryBlue)
                     .ignoresSafeArea()
                 Circle()
                     .scale(1.7)
                     .foregroundColor(.white.opacity(0.25))
                 Circle()
-                    .scale(1.35)
+                    .scale(1.5)
+                    .foregroundColor(.white.opacity(0.50))
+                Circle()
+                    .scale(1.3)
                     .foregroundColor(.white)
-                
                 
                 VStack {
                     Text("Registration")
                         .font(.largeTitle)
-                        .foregroundStyle(Color.black)
+                        .foregroundStyle(Color.darkBlue)
                         .bold()
                         .padding()
                     TextField("Username", text: $username)
@@ -80,7 +82,7 @@ struct RegistrationView: View {
                     }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
-                    .background(Color.black)
+                    .background(Color.darkBlue)
                     .cornerRadius(10)
                 }
             }

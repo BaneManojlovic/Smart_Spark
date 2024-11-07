@@ -14,11 +14,12 @@ struct PrivacyPolicyView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.gray
+                Color.white
                     .edgesIgnoringSafeArea(.all)
                 VStack {
                     Text("Privacy Policy screen")
                         .fontWeight(.bold)
+                        .foregroundStyle(Color.darkBlue)
                     
                 }
             }
@@ -32,7 +33,7 @@ struct PrivacyPolicyView: View {
                     print("back back ...")
                 }) {
                     Image(systemName: "arrow.backward")
-                        .foregroundColor(.black)
+                        .foregroundColor(.primaryBlue)
                         .font(.title2)
                 }
             }

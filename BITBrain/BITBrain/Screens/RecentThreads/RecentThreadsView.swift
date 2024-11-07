@@ -37,6 +37,7 @@ struct RecentThreadsView: View {
                 }
                 .padding()
             }
+            .background(.white)
 //            ZStack {
 //                Color.gray
 //                    .edgesIgnoringSafeArea(.all)
@@ -71,7 +72,7 @@ struct RecentThreadsView: View {
                     print("back back ...")
                 }) {
                     Image(systemName: "arrow.backward")
-                        .foregroundColor(.white)
+                        .foregroundColor(.primaryBlue)
                         .font(.title2)
                 }
             }
