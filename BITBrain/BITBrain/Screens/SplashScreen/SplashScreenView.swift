@@ -24,7 +24,7 @@ struct SplashScreenView: View {
             
             VStack {
                 VStack {
-                    Image("brain_icon_image")
+                    Image("spark_icon_image")
                         .resizable()
                         .frame(width: 120.0, height: 120.0)
                     Text("Smart Spark")

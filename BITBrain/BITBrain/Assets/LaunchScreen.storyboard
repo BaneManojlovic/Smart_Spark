@@ -15,15 +15,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="brain_icon_image" translatesAutoresizingMaskIntoConstraints="NO" id="emy-wD-xaj">
-                                <rect key="frame" x="148.66666666666666" y="353" width="96" height="96"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spark_icon_image" translatesAutoresizingMaskIntoConstraints="NO" id="emy-wD-xaj">
+                                <rect key="frame" x="136.66666666666666" y="337" width="119.99999999999997" height="120"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="96" id="Zy2-mS-dcd"/>
-                                    <constraint firstAttribute="height" constant="96" id="f9L-gz-317"/>
+                                    <constraint firstAttribute="width" constant="120" id="Zy2-mS-dcd"/>
+                                    <constraint firstAttribute="height" constant="120" id="f9L-gz-317"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Smart Spark" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5QU-U2-tu8">
-                                <rect key="frame" x="46.666666666666657" y="472" width="300" height="50"/>
+                                <rect key="frame" x="46.666666666666657" y="480" width="300" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="3d7-09-Opb"/>
                                     <constraint firstAttribute="width" constant="300" id="gcO-ev-ZZ6"/>
@@ -38,7 +38,7 @@
                         <constraints>
                             <constraint firstItem="emy-wD-xaj" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="PZG-de-hk2"/>
                             <constraint firstItem="5QU-U2-tu8" firstAttribute="top" secondItem="emy-wD-xaj" secondAttribute="bottom" constant="23" id="Uqq-ez-VEg"/>
-                            <constraint firstItem="emy-wD-xaj" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-25" id="xNa-Hs-jda"/>
+                            <constraint firstItem="emy-wD-xaj" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-29" id="xNa-Hs-jda"/>
                             <constraint firstItem="5QU-U2-tu8" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="zU8-dP-5vX"/>
                         </constraints>
                     </view>
@@ -49,6 +49,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="brain_icon_image" width="682.66668701171875" height="682.66668701171875"/>
+        <image name="spark_icon_image" width="170.66667175292969" height="170.66667175292969"/>
     </resources>
 </document>
