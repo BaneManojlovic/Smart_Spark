@@ -25,7 +25,7 @@ struct Message: Identifiable {
 
 class ChatController: ObservableObject {
     @Published var messages: [Message] = []
-    
+    // TODO: - Uradi logiku da korisnik za ovo prvo mora da unese vrednost, da bi mogao da koristi chat
     let openAI = OpenAI(apiToken: "")
     
     func sendMessage(content: String) {
