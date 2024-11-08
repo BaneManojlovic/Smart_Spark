@@ -11,23 +11,49 @@ struct ChatView: View {
     
     @ObservedObject var chatNavViewModel: ChatNavigationViewModel
 
+    @State private var isPresented = false
     @State private var isLoading = false
     @State private var message: String = "No messages for now."
+    @State private var scale = 1.0
     
     var body: some View {
         
         NavigationStack {
-            
             ZStack {
                 Color.white
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
+                    ZStack {
+                        Color.primaryBlue
+                            .edgesIgnoringSafeArea(.all)
+                        HStack {
+                            Spacer()
+                            Text("Welcome to Smart Spark!")
+                                .font(.system(size: 22, weight: .semibold, design: .serif))
+                                .foregroundStyle(Color.white)
+                            Spacer()
+                            Button(action: {
+                                //                            dismiss()
+                            }) {
+                                Image(systemName: "info.circle")
+                                    .foregroundColor(.white)
+                                    .font(.title2)
+                            }
+                        }
+                        .padding(.leading, 10)
+                        .padding(.trailing, 10)
+                        .padding(.top, 0)
+                        .padding(.bottom, 14)
+                    }
+                    
                    Spacer()
                     Button(action: {
-                        print("test ... open tutorial")
+                        scale += 1
                     }, label: {
-                        Text("Introduction ... open tuttorial slideshow view...")
+                        Text("Welcome animation!")
+                            .scaleEffect(scale)
+                            .animation(.easeIn, value: scale)
                             .frame(width: UIScreen.main.bounds.width*0.90, height: UIScreen.main.bounds.height/3, alignment: .center)
                             .foregroundColor(.darkBlue)
                             .background(Color.primaryBlue.opacity(0.7))
@@ -40,8 +66,9 @@ struct ChatView: View {
                     Spacer(minLength: 20)
                     Button(action: {
                         print("test ... alert popup for entering Api Key")
+                        isPresented.toggle()
                     }, label: {
-                        Text("Please enter your valid API Key for chat")
+                        Text("To start chatting,\n please enter your valid API Key.")
                             .frame(width: UIScreen.main.bounds.width*0.90, height: UIScreen.main.bounds.height/3, alignment: .center)
                             .foregroundColor(.darkBlue)
                             .background(Color.primaryBlue.opacity(0.7))
@@ -54,55 +81,12 @@ struct ChatView: View {
                     Spacer(minLength: 60)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                
-               
-                
-                
             }
-            .navigationTitle("Welcome to Smart Spark")
-            .toolbarTitleDisplayMode(.inline)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarBackground(.primaryBlue, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        // Action when the "New Chat" button is tapped list.bullet.rectangle
-                        print("Recent chat's")
-                        chatNavViewModel.coordinator.navigateToRecentThreads()
-                    }) {
-                        Image(systemName: "list.bullet.rectangle")
-                            .foregroundColor(.black)
-                            .tint(.darkBlue)
-                            .font(.title2)
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        // Action when the "New Chat" button is tapped list.bullet.rectangle
-                        print("New Chat tapped!")
-                        reloadChat()
-                    }) {
-                        Image(systemName: "square.and.pencil")
-                            .foregroundColor(.black)
-                            .font(.title2)
-                    }
-                }
-            }
-            .background(Color.black)
-            .applyNavigation(coordinator: chatNavViewModel.coordinator)
-        }
-    }
-    
-    private func reloadChat() {
-        isLoading = true // Start loading
-        message = "Loading new chat..." // Optional: update the message
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // Simulate loading delay
-            isLoading = false // Stop loading
-            message = "New message received!" // Update the message or chat content
+            .navigationBarHidden(false)
+            .navigationBarBackButtonHidden()
+            .toolbar(.visible, for: .tabBar)
+            .fullScreenCover(isPresented: $isPresented, content: ActiveChatView.init)
         }
     }
 }
 
-//#Preview {
-//    ChatView()
-//}

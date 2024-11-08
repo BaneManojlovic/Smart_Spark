@@ -27,8 +27,7 @@ extension ChatCoordinator: Coordinator {
     func redirect(_ path: ChatDestination) -> some View {
         switch path {
         case .recentThreads:
-            let viewModel = ChatNavigationViewModel(coordinator: self)
-            RecentThreadsView(chatNavViewModel: viewModel)
+            ActiveChatView()
                 .toolbar(.hidden, for: .tabBar)
         }
     }

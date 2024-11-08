@@ -17,7 +17,7 @@
 		8D2D02BF2CC771B400ED852E /* SettingsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02BE2CC771B400ED852E /* SettingsViewCell.swift */; };
 		8D2D02C12CC7752300ED852E /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02C02CC7752300ED852E /* SplashScreenView.swift */; };
 		8D2D02C62CC7DF5F00ED852E /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02C52CC7DF5F00ED852E /* SettingsItem.swift */; };
-		8D2D02C92CC7EE6600ED852E /* RecentThreadsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02C82CC7EE6600ED852E /* RecentThreadsView.swift */; };
+		8D2D02C92CC7EE6600ED852E /* ActiveChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02C82CC7EE6600ED852E /* ActiveChatView.swift */; };
 		8D2D02D42CCA93B800ED852E /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02D32CCA93B800ED852E /* CustomAlert.swift */; };
 		8D2D02D62CCA9EC800ED852E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02D52CCA9EC800ED852E /* LoginView.swift */; };
 		8D2D02D82CCB794600ED852E /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02D72CCB794600ED852E /* RegistrationView.swift */; };
@@ -45,6 +45,7 @@
 		8D2D03142CCCC85D00ED852E /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 8D2D03132CCCC85D00ED852E /* OpenAI */; };
 		8D2D03192CD11B5500ED852E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D2D03182CD11B5500ED852E /* LaunchScreen.storyboard */; };
 		8D2D03202CD13C0D00ED852E /* SettingsNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D031F2CD13C0D00ED852E /* SettingsNavigationViewModel.swift */; };
+		8D47AD992CDE057000D85C31 /* UITabBarController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */; };
 		8DF498822CD279F800261CA9 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */; };
 		8DF498842CD31BC400261CA9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8DF498832CD31BC400261CA9 /* FirebaseAnalytics */; };
 		8DF498862CD31F4400261CA9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498852CD31F4400261CA9 /* User.swift */; };
@@ -70,7 +71,7 @@
 		8D2D02BE2CC771B400ED852E /* SettingsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewCell.swift; sourceTree = "<group>"; };
 		8D2D02C02CC7752300ED852E /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		8D2D02C52CC7DF5F00ED852E /* SettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
-		8D2D02C82CC7EE6600ED852E /* RecentThreadsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentThreadsView.swift; sourceTree = "<group>"; };
+		8D2D02C82CC7EE6600ED852E /* ActiveChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChatView.swift; sourceTree = "<group>"; };
 		8D2D02CF2CC9367100ED852E /* BITBrain.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BITBrain.entitlements; sourceTree = "<group>"; };
 		8D2D02D32CCA93B800ED852E /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		8D2D02D52CCA9EC800ED852E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 		8D2D03172CD1194100ED852E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D2D03182CD11B5500ED852E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D2D031F2CD13C0D00ED852E /* SettingsNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationViewModel.swift; sourceTree = "<group>"; };
+		8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+Extensions.swift"; sourceTree = "<group>"; };
 		8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		8DF498852CD31F4400261CA9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8DF498872CD3313700261CA9 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 		8D2D02A92CC6A93100ED852E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -210,7 +213,7 @@
 				8D2D02AE2CC6AA3000ED852E /* LoginScreen */,
 				8D2D02AF2CC6AA3B00ED852E /* RegistrationScreen */,
 				8D2D02B02CC6AA4400ED852E /* ChatScreen */,
-				8D2D02C22CC7AA7C00ED852E /* RecentThreads */,
+				8D2D02C22CC7AA7C00ED852E /* ActiveChatView */,
 				8D2D02B22CC6AA5D00ED852E /* SettingsScreen */,
 				8D2D02F52CCBDB5700ED852E /* ProfileScreen */,
 				8D2D02F42CCBDB3500ED852E /* ThreadArchiveScreen */,
@@ -330,12 +333,12 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		8D2D02C22CC7AA7C00ED852E /* RecentThreads */ = {
+		8D2D02C22CC7AA7C00ED852E /* ActiveChatView */ = {
 			isa = PBXGroup;
 			children = (
-				8D2D02C82CC7EE6600ED852E /* RecentThreadsView.swift */,
+				8D2D02C82CC7EE6600ED852E /* ActiveChatView.swift */,
 			);
-			path = RecentThreads;
+			path = ActiveChatView;
 			sourceTree = "<group>";
 		};
 		8D2D02D02CCA935E00ED852E /* CustomAlertView */ = {
@@ -540,13 +543,14 @@
 				8D2D02BB2CC76DCB00ED852E /* ChatView.swift in Sources */,
 				8D2D02DD2CCB8CAB00ED852E /* Coordinator.swift in Sources */,
 				8D2D02B92CC76D7600ED852E /* CustomTabBarView.swift in Sources */,
-				8D2D02C92CC7EE6600ED852E /* RecentThreadsView.swift in Sources */,
+				8D2D02C92CC7EE6600ED852E /* ActiveChatView.swift in Sources */,
 				8DF498882CD3313700261CA9 /* SplashScreenViewModel.swift in Sources */,
 				8D2D029B2CC6A1EA00ED852E /* ContentView.swift in Sources */,
 				8D2D02E02CCB8D9100ED852E /* AuthCoordinator.swift in Sources */,
 				8D2D02E42CCB93FC00ED852E /* SettingsCoordinator.swift in Sources */,
 				8D2D02F82CCBDBA900ED852E /* ProfileView.swift in Sources */,
 				8D2D02E72CCB9BFC00ED852E /* NavigationDestinationModifier.swift in Sources */,
+				8D47AD992CDE057000D85C31 /* UITabBarController+Extensions.swift in Sources */,
 				8D2D030F2CCC618A00ED852E /* AppState.swift in Sources */,
 				8D2D03112CCCC65200ED852E /* AppDelegate.swift in Sources */,
 				8D2D030D2CCC5FAA00ED852E /* LoginViewModel.swift in Sources */,
