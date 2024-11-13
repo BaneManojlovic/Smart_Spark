@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct CustomTabBarView: View {
-    
-    @StateObject var chatCoordinator = ChatCoordinator()
+
     @StateObject var settingsCoordinator = SettingsCoordinator()
+    @StateObject var chatController = ChatController(apiToken: "")
 
     var body: some View {
         TabView {
             Group {
-                ChatView(chatNavViewModel: ChatNavigationViewModel(coordinator: chatCoordinator))
+                ChatView(chatController: chatController)
                     .tabItem {
                         Image(systemName: "message")
                         Text("Chat")

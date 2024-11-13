@@ -12,7 +12,7 @@ struct ActiveChatView: View {
     @Environment(\.dismiss) var dismiss
 
     @State var showAlert: Bool = false
-    @StateObject var chatController: ChatController = .init()
+    @StateObject var chatController: ChatController
     @State var messageText: String = ""
     
     var body: some View {

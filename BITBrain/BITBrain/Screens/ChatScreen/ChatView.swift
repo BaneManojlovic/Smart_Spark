@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct ChatView: View {
-    
-    @ObservedObject var chatNavViewModel: ChatNavigationViewModel
+
+    @StateObject var chatController: ChatController
 
     @State private var isPresented = false
-    @State private var isLoading = false
+    @State private var isAlertPresented = false
+    @State private var isTutorialPresented = false
     @State private var message: String = "No messages for now."
     @State private var scale = 1.0
+    @StateObject var alertViewModel = AlertViewModel()
+    @State private var apiKeyValue = ""
+    
     
     var body: some View {
         
@@ -34,7 +38,7 @@ struct ChatView: View {
                                 .foregroundStyle(Color.white)
                             Spacer()
                             Button(action: {
-                                //                            dismiss()
+                                isTutorialPresented = true
                             }) {
                                 Image(systemName: "info.circle")
                                     .foregroundColor(.white)
@@ -51,7 +55,8 @@ struct ChatView: View {
                     Button(action: {
                         scale += 1
                     }, label: {
-                        Text("Welcome animation!")
+                        Text("Welcome animation! \n Will be done soon.")
+                            .italic()
                             .scaleEffect(scale)
                             .animation(.easeIn, value: scale)
                             .frame(width: UIScreen.main.bounds.width*0.90, height: UIScreen.main.bounds.height/3, alignment: .center)
@@ -65,10 +70,17 @@ struct ChatView: View {
                     .shadow(color: .gray, radius: 2, x: 0, y: 6)
                     Spacer(minLength: 20)
                     Button(action: {
-                        print("test ... alert popup for entering Api Key")
-                        isPresented.toggle()
+                        if apiKeyValue.isEmpty {
+                            isAlertPresented = true
+                        } else {
+                            chatController.setApiToken(apiKeyValue)
+                            isPresented = true
+                        }
+                        
                     }, label: {
-                        Text("To start chatting,\n please enter your valid API Key.")
+                        Text("Tap here \n to learn how you can \n start using your \n Smart Spark chat.")
+                            .font(.system(size: 24, weight: .semibold, design: .serif))
+                            .italic()
                             .frame(width: UIScreen.main.bounds.width*0.90, height: UIScreen.main.bounds.height/3, alignment: .center)
                             .foregroundColor(.darkBlue)
                             .background(Color.primaryBlue.opacity(0.7))
@@ -85,7 +97,29 @@ struct ChatView: View {
             .navigationBarHidden(false)
             .navigationBarBackButtonHidden()
             .toolbar(.visible, for: .tabBar)
-            .fullScreenCover(isPresented: $isPresented, content: ActiveChatView.init)
+            .fullScreenCover(isPresented: $isPresented) {
+                ActiveChatView(chatController: ChatController(apiToken: apiKeyValue))
+            }
+            .fullScreenCover(isPresented: $isTutorialPresented, content: TutorialView.init)
+            .alert("To start chatting,\n please enter your valid API Key.", isPresented: $isAlertPresented) {
+                TextField("", text: $apiKeyValue)
+                HStack {
+                    Button("Cancel") { }
+                    Button("Ok") {
+                        if apiKeyValue != "" {
+                            print("API Key = \(apiKeyValue)")
+                            self.apiKeyValue = apiKeyValue
+                            chatController.setApiToken(apiKeyValue)
+                            isPresented.toggle()
+                        } else {
+                            print("API Key is empty!")
+                        }
+                    }
+                    
+                }
+               
+            }
+            
         }
     }
 }

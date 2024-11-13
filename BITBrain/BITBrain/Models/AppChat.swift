@@ -25,10 +25,18 @@ struct Message: Identifiable {
 
 class ChatController: ObservableObject {
     @Published var messages: [Message] = []
-    // TODO: - Uradi logiku da korisnik za ovo prvo mora da unese vrednost, da bi mogao da koristi chat
-    let openAI = OpenAI(apiToken: "")
-   
+    var openAI: OpenAI?
 
+    init(messages: [Message] = [], apiToken: String) {
+        self.messages = messages
+        self.openAI = OpenAI(apiToken: apiToken)
+    }
+    
+    func setApiToken(_ apiToken: String) {
+        DispatchQueue.main.async {
+            self.openAI = OpenAI(apiToken: apiToken)
+        }
+    }
     
     func sendMessage(content: String) {
         let userMessage = Message(content: content, isUser: true)
@@ -38,12 +46,14 @@ class ChatController: ObservableObject {
     }
     
     func getBotReply(content: String) {
+        guard let openAI = self.openAI else { return }
         let messageParam = ChatQuery.ChatCompletionMessageParam.user(.init(content: .string(content)))
-        // ovo fejluje iz nekog razloga??
+
         openAI.chats(query: .init(messages: [messageParam], model: .gpt3_5Turbo)) { result in
             
             switch result {
             case .success(let success):
+                print("bane - success")
                 guard let choice = success.choices.first else { return }
                 let message = choice.message.content?.string
                 DispatchQueue.main.async {
@@ -53,9 +63,7 @@ class ChatController: ObservableObject {
                 print("failure")
             }
         }
-            
         
-        
-        }
     }
+}
 

@@ -70,6 +70,7 @@ struct LoginView: View {
                         .frame(width: 300, height: 50)
                         .background(Color.darkBlue)
                         .cornerRadius(10)
+                        .padding()
                         
                         Button("Register new user") {
                             // Register user
