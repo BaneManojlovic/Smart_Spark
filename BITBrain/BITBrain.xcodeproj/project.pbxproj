@@ -47,6 +47,7 @@
 		8D2D03202CD13C0D00ED852E /* SettingsNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D031F2CD13C0D00ED852E /* SettingsNavigationViewModel.swift */; };
 		8D47AD992CDE057000D85C31 /* UITabBarController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */; };
 		8D47AD9E2CDE64B400D85C31 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD9D2CDE64B400D85C31 /* TutorialView.swift */; };
+		8D47ADA02CE4CCCD00D85C31 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD9F2CE4CCCD00D85C31 /* UserDefaultsHelper.swift */; };
 		8DF498822CD279F800261CA9 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */; };
 		8DF498842CD31BC400261CA9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8DF498832CD31BC400261CA9 /* FirebaseAnalytics */; };
 		8DF498862CD31F4400261CA9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498852CD31F4400261CA9 /* User.swift */; };
@@ -99,6 +100,7 @@
 		8D2D031F2CD13C0D00ED852E /* SettingsNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationViewModel.swift; sourceTree = "<group>"; };
 		8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+Extensions.swift"; sourceTree = "<group>"; };
 		8D47AD9D2CDE64B400D85C31 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		8D47AD9F2CE4CCCD00D85C31 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		8DF498852CD31F4400261CA9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8DF498872CD3313700261CA9 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 		8D2D02A82CC6A92500ED852E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				8D47AD9F2CE4CCCD00D85C31 /* UserDefaultsHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -566,6 +569,7 @@
 				8D2D030F2CCC618A00ED852E /* AppState.swift in Sources */,
 				8D2D03112CCCC65200ED852E /* AppDelegate.swift in Sources */,
 				8D2D030D2CCC5FAA00ED852E /* LoginViewModel.swift in Sources */,
+				8D47ADA02CE4CCCD00D85C31 /* UserDefaultsHelper.swift in Sources */,
 				8D2D02992CC6A1EA00ED852E /* BITBrainApp.swift in Sources */,
 				8D2D02D62CCA9EC800ED852E /* LoginView.swift in Sources */,
 				8D2D02C62CC7DF5F00ED852E /* SettingsItem.swift in Sources */,

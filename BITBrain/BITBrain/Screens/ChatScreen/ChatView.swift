@@ -10,7 +10,7 @@ import SwiftUI
 struct ChatView: View {
 
     @StateObject var chatController: ChatController
-
+    @ObservedObject var userDefaultsHelper = UserDefaultsHelper()
     @State private var isPresented = false
     @State private var isAlertPresented = false
     @State private var isTutorialPresented = false
@@ -23,10 +23,14 @@ struct ChatView: View {
     var body: some View {
         
         NavigationStack {
-            ZStack {
+            ZStack(alignment: .center) {
                 Color.white
                     .edgesIgnoringSafeArea(.all)
-                
+                Image("chat_background_image")
+                    .resizable()
+                    .scaledToFit()
+                    .edgesIgnoringSafeArea(.all)
+                    
                 VStack {
                     ZStack {
                         Color.primaryBlue
@@ -50,39 +54,35 @@ struct ChatView: View {
                         .padding(.top, 0)
                         .padding(.bottom, 14)
                     }
-                    
-                   Spacer()
+                    .frame(height: 40.0)
+
                     Button(action: {
-                        scale += 1
-                    }, label: {
-                        Text("Welcome animation! \n Will be done soon.")
-                            .italic()
-                            .scaleEffect(scale)
-                            .animation(.easeIn, value: scale)
-                            .frame(width: UIScreen.main.bounds.width*0.90, height: UIScreen.main.bounds.height/3, alignment: .center)
-                            .foregroundColor(.darkBlue)
-                            .background(Color.primaryBlue.opacity(0.7))
-                            .overlay(RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.primaryBlue, lineWidth: 1)
-                            )
-                    })
-                    .clipShape(.rect(cornerRadii: RectangleCornerRadii(topLeading: 20, bottomLeading: 20, bottomTrailing: 20, topTrailing: 20)))
-                    .shadow(color: .gray, radius: 2, x: 0, y: 6)
-                    Spacer(minLength: 20)
-                    Button(action: {
-                        if apiKeyValue.isEmpty {
-                            isAlertPresented = true
-                        } else {
-                            chatController.setApiToken(apiKeyValue)
+//                        if apiKeyValue.isEmpty {
+//                            isAlertPresented = true
+//                        } else {
+//                            chatController.setApiToken(apiKeyValue)
+//                            isPresented = true
+//                        }
+                        if let existingApiKey = userDefaultsHelper.getOpenAiAPIToken(), !existingApiKey.isEmpty {
+                            self.apiKeyValue = existingApiKey
+                            chatController.setApiToken(self.apiKeyValue)
                             isPresented = true
+                        } else {
+                            if self.apiKeyValue.isEmpty {
+                                print("bane = \(apiKeyValue)")
+                                isAlertPresented = true
+                            } else {
+                                chatController.setApiToken(self.apiKeyValue)
+                                isPresented = true
+                            }
                         }
                         
                     }, label: {
-                        Text("Tap here \n to learn how you can \n start using your \n Smart Spark chat.")
-                            .font(.system(size: 24, weight: .semibold, design: .serif))
+                        Text("Tap here to start using \n your Smart Spark chat.")
+                            .font(.system(size: 18, weight: .semibold, design: .serif))
                             .italic()
-                            .frame(width: UIScreen.main.bounds.width*0.90, height: UIScreen.main.bounds.height/3, alignment: .center)
-                            .foregroundColor(.darkBlue)
+                            .frame(width: UIScreen.main.bounds.width*0.94, height: 60.0, alignment: .center)
+                            .foregroundColor(.white)
                             .background(Color.primaryBlue.opacity(0.7))
                             .overlay(RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color.primaryBlue, lineWidth: 1)
@@ -90,10 +90,11 @@ struct ChatView: View {
                     })
                     .clipShape(.rect(cornerRadii: RectangleCornerRadii(topLeading: 20, bottomLeading: 20, bottomTrailing: 20, topTrailing: 20)))
                     .shadow(color: .gray, radius: 2, x: 0, y: 6)
-                    Spacer(minLength: 60)
+                    Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+            .ignoresSafeArea(.keyboard)
             .navigationBarHidden(false)
             .navigationBarBackButtonHidden()
             .toolbar(.visible, for: .tabBar)
@@ -108,8 +109,9 @@ struct ChatView: View {
                     Button("Ok") {
                         if apiKeyValue != "" {
                             print("API Key = \(apiKeyValue)")
-                            self.apiKeyValue = apiKeyValue
                             chatController.setApiToken(apiKeyValue)
+                            self.apiKeyValue = apiKeyValue
+                            self.userDefaultsHelper.setOpenAiAPIToken(apiKeyValue)
                             isPresented.toggle()
                         } else {
                             print("API Key is empty!")
@@ -120,6 +122,14 @@ struct ChatView: View {
                
             }
             
+        }
+        .onAppear {
+            if let existingApiKey = userDefaultsHelper.getOpenAiAPIToken(), 
+                (!existingApiKey.isEmpty || existingApiKey != "") {
+                apiKeyValue = existingApiKey
+            } else {
+                apiKeyValue = ""
+            }
         }
     }
 }
