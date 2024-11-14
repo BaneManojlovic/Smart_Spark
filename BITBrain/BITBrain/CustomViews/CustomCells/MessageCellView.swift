@@ -13,25 +13,40 @@ struct MessageCellView: View {
     
     var body: some View {
         if message.isUser {
-            HStack {
+            HStack(alignment: .bottom) {
                 Spacer()
                 Text(message.content)
                     .padding()
-                    .background(Color.cyan.opacity(0.5))
-                    .clipShape(Capsule())
+                    .foregroundColor(.black)
+                    .background(Color.primaryBlue.opacity(0.7))
+                    .clipShape(.rect(cornerRadii: RectangleCornerRadii(topLeading: 20, bottomLeading: 20, bottomTrailing: 0, topTrailing: 20)))
+                Image(systemName: "person.fill")
+                    .resizable()
+                    .background(Color.primaryBlue)
+                    .frame(width: 36.0, height: 36.0)
+                    .foregroundColor(.white)
+                    .clipShape(.circle)
+                    .overlay(Circle()
+                        .stroke(Color.primaryBlue, lineWidth: 1))
+                    
             }
         } else {
-            HStack {
+            HStack(alignment: .bottom) {
+                Image("spark_icon_image")
+                    .resizable()
+                    .background(Color.primaryBlue)
+                    .frame(width: 36.0, height: 36.0)
+                    .clipShape(.circle)
+                    .overlay(Circle()
+                        .stroke(Color.primaryBlue, lineWidth: 1))
                 Text(message.content)
                     .padding()
-                    .background(Color.gray.opacity(0.5))
-                    .clipShape(Capsule())
+                    .foregroundColor(.black)
+                    .background(Color.darkGrayBit.opacity(0.6))
+                    .clipShape(.rect(cornerRadii: RectangleCornerRadii(topLeading: 20, bottomLeading: 0, bottomTrailing: 20, topTrailing: 20)))
                 Spacer()
             }
         }
     }
 }
-//
-//#Preview {
-//    MessageCellView(message: Message.init(content: "Hello world", isUser: true))
-//}
+

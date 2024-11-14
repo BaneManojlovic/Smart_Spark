@@ -18,7 +18,7 @@ struct SplashScreenView: View {
     
     var body: some View {
         ZStack {
-            Color.black
+            Color(.primaryBlue)
                 .edgesIgnoringSafeArea(.all)
             
             
@@ -33,7 +33,7 @@ struct SplashScreenView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.black)
+            .background(.primaryBlue)
             .scaleEffect(size)
             .opacity(opacity)
             .onAppear {

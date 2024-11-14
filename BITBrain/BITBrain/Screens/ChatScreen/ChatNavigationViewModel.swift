@@ -7,11 +7,11 @@
 
 import Foundation
 
-final class ChatNavigationViewModel: ObservableObject {
-    
-    @Published var coordinator: ChatCoordinator
-    
-    init(coordinator: ChatCoordinator) {
-        self.coordinator = coordinator
-    }
-}
+//final class ChatNavigationViewModel: ObservableObject {
+//    
+//    @Published var coordinator: ChatCoordinator
+//    
+//    init(coordinator: ChatCoordinator) {
+//        self.coordinator = coordinator
+//    }
+//}

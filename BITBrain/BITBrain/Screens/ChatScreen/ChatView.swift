@@ -8,80 +8,139 @@
 import SwiftUI
 
 struct ChatView: View {
-    
-    @ObservedObject var chatNavViewModel: ChatNavigationViewModel
 
-    @State private var isLoading = false
+    @StateObject var chatController: ChatController
+    @ObservedObject var userDefaultsHelper = UserDefaultsHelper()
+    @State private var isPresented = false
+    @State private var isAlertPresented = false
+    @State private var isTutorialPresented = false
     @State private var message: String = "No messages for now."
+    @State private var scale = 1.0
+    @StateObject var alertViewModel = AlertViewModel()
+    @State private var apiKeyValue = ""
+    
     
     var body: some View {
         
         NavigationStack {
-            
-            ZStack {
-                Color.gray
+            ZStack(alignment: .center) {
+                Color.white
                     .edgesIgnoringSafeArea(.all)
-                
+                Image("chat_background_image")
+                    .resizable()
+                    .scaledToFit()
+                    .edgesIgnoringSafeArea(.all)
+                    
                 VStack {
-                    
-                    if isLoading {
-                        ProgressView("Loading...") // Show a spinner when loading
-                            .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                            .font(.headline)
-                    } else {
-                        Text(message) // Simulated chat message or content
-                            .font(.system(size: 20.0))
-                            .foregroundStyle(.white)
+                    ZStack {
+                        Color.primaryBlue
+                            .edgesIgnoringSafeArea(.all)
+                        HStack {
+                            Spacer()
+                            Text("Welcome to Smart Spark!")
+                                .font(.system(size: 22, weight: .semibold, design: .serif))
+                                .foregroundStyle(Color.white)
+                            Spacer()
+                            Button(action: {
+                                isTutorialPresented = true
+                            }) {
+                                Image(systemName: "info.circle")
+                                    .foregroundColor(.white)
+                                    .font(.title2)
+                            }
+                        }
+                        .padding(.leading, 10)
+                        .padding(.trailing, 10)
+                        .padding(.top, 0)
+                        .padding(.bottom, 14)
                     }
+                    .frame(height: 40.0)
                     
+                    HStack(alignment: .center) {
+                        if let existingApiKey = userDefaultsHelper.getOpenAiAPIToken(), !existingApiKey.isEmpty {
+                            Text("•" + " " + "Active")
+                                .foregroundStyle(Color.green)
+                                .bold()
+                                .italic()
+                        } else {
+                            Text("•" + " " + "Inactive")
+                                .foregroundStyle(Color.gray)
+                                .bold()
+                                .italic()
+                        }
+                    }
+                    .frame(height: 12.0)
+
+                    Button(action: {
+
+                        if let existingApiKey = userDefaultsHelper.getOpenAiAPIToken(), !existingApiKey.isEmpty {
+                            self.apiKeyValue = existingApiKey
+                            chatController.setApiToken(self.apiKeyValue)
+                            isPresented = true
+                        } else {
+                            if self.apiKeyValue.isEmpty {
+                                print("bane = \(apiKeyValue)")
+                                isAlertPresented = true
+                            } else {
+                                chatController.setApiToken(self.apiKeyValue)
+                                isPresented = true
+                            }
+                        }
+                        
+                    }, label: {
+                        Text("Tap here to activate and start \n using your Smart Spark chat.")
+                            .font(.system(size: 18, weight: .semibold, design: .serif))
+                            .italic()
+                            .frame(width: UIScreen.main.bounds.width*0.94, height: 60.0, alignment: .center)
+                            .foregroundColor(.white)
+                            .background(Color.primaryBlue.opacity(0.7))
+                            .overlay(RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.primaryBlue, lineWidth: 1)
+                            )
+                    })
+                    .clipShape(.rect(cornerRadii: RectangleCornerRadii(topLeading: 20, bottomLeading: 20, bottomTrailing: 20, topTrailing: 20)))
+                    .shadow(color: .gray, radius: 2, x: 0, y: 6)
+                    Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                
-                
-                
-                
             }
-            .navigationTitle("Chat")
-            .toolbarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        // Action when the "New Chat" button is tapped list.bullet.rectangle
-                        print("Recent chat's")
-                        chatNavViewModel.coordinator.navigateToRecentThreads()
-                    }) {
-                        Image(systemName: "list.bullet.rectangle")
-                            .foregroundColor(.black)
-                            .font(.title2)
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        // Action when the "New Chat" button is tapped list.bullet.rectangle
-                        print("New Chat tapped!")
-                        reloadChat()
-                    }) {
-                        Image(systemName: "square.and.pencil")
-                            .foregroundColor(.black)
-                            .font(.title2)
-                    }
-                }
+            .ignoresSafeArea(.keyboard)
+            .navigationBarHidden(false)
+            .navigationBarBackButtonHidden()
+            .toolbar(.visible, for: .tabBar)
+            .fullScreenCover(isPresented: $isPresented) {
+                ActiveChatView(chatController: ChatController(apiToken: apiKeyValue))
             }
-            .background(Color.black)
-            .applyNavigation(coordinator: chatNavViewModel.coordinator)
+            .fullScreenCover(isPresented: $isTutorialPresented, content: TutorialView.init)
+            .alert("To start chatting,\n please enter your valid API Key.", isPresented: $isAlertPresented) {
+                TextField("", text: $apiKeyValue)
+                HStack {
+                    Button("Cancel") { }
+                    Button("Ok") {
+                        if apiKeyValue != "" {
+                            print("API Key = \(apiKeyValue)")
+                            chatController.setApiToken(apiKeyValue)
+                            self.apiKeyValue = apiKeyValue
+                            self.userDefaultsHelper.setOpenAiAPIToken(apiKeyValue)
+                            isPresented.toggle()
+                        } else {
+                            print("API Key is empty!")
+                        }
+                    }
+                    
+                }
+               
+            }
+            
         }
-    }
-    
-    private func reloadChat() {
-        isLoading = true // Start loading
-        message = "Loading new chat..." // Optional: update the message
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // Simulate loading delay
-            isLoading = false // Stop loading
-            message = "New message received!" // Update the message or chat content
+        .onAppear {
+            if let existingApiKey = userDefaultsHelper.getOpenAiAPIToken(), 
+                (!existingApiKey.isEmpty || existingApiKey != "") {
+                apiKeyValue = existingApiKey
+            } else {
+                apiKeyValue = ""
+            }
         }
     }
 }
 
-//#Preview {
-//    ChatView()
-//}
