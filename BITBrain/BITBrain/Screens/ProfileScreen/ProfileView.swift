@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileView: View {
     
     @ObservedObject var settingsNavViewModel: SettingsNavigationViewModel
+    @ObservedObject var viewModel = ProfileViewModel()
 
     var body: some View {
         
@@ -18,10 +19,10 @@ struct ProfileView: View {
                 Color.white
                     .edgesIgnoringSafeArea(.all)
                 VStack {
-                    Text("Profile screen")
+                    Text("Profile screen \n\n profile: \n \(viewModel.showUserData())")
+                        .frame(alignment: .center)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.darkBlue)
-                    
                 }
             }
         }

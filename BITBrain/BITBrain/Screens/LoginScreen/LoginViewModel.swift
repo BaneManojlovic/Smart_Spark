@@ -18,16 +18,21 @@ class LoginViewModel: ObservableObject {
     @Published var isPasswordVisible = false
 
     let authService = AuthenticationManager()
+    let userDefaultsHelper = UserDefaultsHelper()
     
     func login(email: String, password: String) async -> UserModel? {
         do {
             let user = try await authService.login(email: email, password: password)
-            print("User = \(user?.email)")
+            print("User = \(String(describing: user?.email))")
             Analytics.logEvent("login", parameters: nil)
             return user
         } catch {
             print("login failed")
             return nil
         }
+    }
+
+    func saveUserData(user: UserModel) {
+        userDefaultsHelper.setUser(user: user)
     }
 }

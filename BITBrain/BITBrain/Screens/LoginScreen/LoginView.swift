@@ -10,11 +10,8 @@ import SwiftUI
 struct LoginView: View {
     
     @EnvironmentObject private var appRootManager: AppRootManager
-//    @EnvironmentObject var appState: AppState
-
     @ObservedObject var authNavViewModel: AuthNavigationViewModel
     @ObservedObject var loginViewModel = LoginViewModel()
-//    @ObservedObject var alertViewModel: AlertViewModel
     
     @State private var username = ""
     @State private var password = ""
@@ -93,8 +90,9 @@ struct LoginView: View {
             let email = "bane1@gmail.com"
             let password = "BakiMaki106@"
             let user = await loginViewModel.login(email: email, password: password)
-            
-            if user != nil {
+
+            if let userData = user {
+                loginViewModel.saveUserData(user: userData)
                 appRootManager.currentRoot = .home
             } else {
                 print("login failed")

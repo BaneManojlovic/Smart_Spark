@@ -48,6 +48,7 @@
 		8D47AD992CDE057000D85C31 /* UITabBarController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */; };
 		8D47AD9E2CDE64B400D85C31 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD9D2CDE64B400D85C31 /* TutorialView.swift */; };
 		8D47ADA02CE4CCCD00D85C31 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD9F2CE4CCCD00D85C31 /* UserDefaultsHelper.swift */; };
+		8D47ADA22CE622BC00D85C31 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47ADA12CE622BC00D85C31 /* ProfileViewModel.swift */; };
 		8DF498822CD279F800261CA9 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */; };
 		8DF498842CD31BC400261CA9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8DF498832CD31BC400261CA9 /* FirebaseAnalytics */; };
 		8DF498862CD31F4400261CA9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498852CD31F4400261CA9 /* User.swift */; };
@@ -101,6 +102,7 @@
 		8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+Extensions.swift"; sourceTree = "<group>"; };
 		8D47AD9D2CDE64B400D85C31 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		8D47AD9F2CE4CCCD00D85C31 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		8D47ADA12CE622BC00D85C31 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		8DF498852CD31F4400261CA9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8DF498872CD3313700261CA9 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
@@ -395,6 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				8D2D02F72CCBDBA900ED852E /* ProfileView.swift */,
+				8D47ADA12CE622BC00D85C31 /* ProfileViewModel.swift */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				8D2D02FC2CCBDE3900ED852E /* PrivacyPolicyView.swift in Sources */,
 				8D2D02BB2CC76DCB00ED852E /* ChatView.swift in Sources */,
 				8D47AD9E2CDE64B400D85C31 /* TutorialView.swift in Sources */,
+				8D47ADA22CE622BC00D85C31 /* ProfileViewModel.swift in Sources */,
 				8D2D02DD2CCB8CAB00ED852E /* Coordinator.swift in Sources */,
 				8D2D02B92CC76D7600ED852E /* CustomTabBarView.swift in Sources */,
 				8D2D02C92CC7EE6600ED852E /* ActiveChatView.swift in Sources */,
