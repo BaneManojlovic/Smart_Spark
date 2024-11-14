@@ -55,14 +55,24 @@ struct ChatView: View {
                         .padding(.bottom, 14)
                     }
                     .frame(height: 40.0)
+                    
+                    HStack(alignment: .center) {
+                        if let existingApiKey = userDefaultsHelper.getOpenAiAPIToken(), !existingApiKey.isEmpty {
+                            Text("•" + " " + "Active")
+                                .foregroundStyle(Color.green)
+                                .bold()
+                                .italic()
+                        } else {
+                            Text("•" + " " + "Inactive")
+                                .foregroundStyle(Color.gray)
+                                .bold()
+                                .italic()
+                        }
+                    }
+                    .frame(height: 12.0)
 
                     Button(action: {
-//                        if apiKeyValue.isEmpty {
-//                            isAlertPresented = true
-//                        } else {
-//                            chatController.setApiToken(apiKeyValue)
-//                            isPresented = true
-//                        }
+
                         if let existingApiKey = userDefaultsHelper.getOpenAiAPIToken(), !existingApiKey.isEmpty {
                             self.apiKeyValue = existingApiKey
                             chatController.setApiToken(self.apiKeyValue)
@@ -78,7 +88,7 @@ struct ChatView: View {
                         }
                         
                     }, label: {
-                        Text("Tap here to start using \n your Smart Spark chat.")
+                        Text("Tap here to activate and start \n using your Smart Spark chat.")
                             .font(.system(size: 18, weight: .semibold, design: .serif))
                             .italic()
                             .frame(width: UIScreen.main.bounds.width*0.94, height: 60.0, alignment: .center)
