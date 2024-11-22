@@ -20,7 +20,9 @@ class AlertViewModel: ObservableObject {
     var alert: CustomAlert? = nil
     
     func presentAlert(alert: CustomAlert) {
-        self.alert = alert
-        self.showAlert = true
+        DispatchQueue.main.async {
+            self.alert = alert
+            self.showAlert = true
+        }
     }
 }
