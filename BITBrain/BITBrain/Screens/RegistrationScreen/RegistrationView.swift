@@ -95,7 +95,7 @@ struct RegistrationView: View {
                 Button(action: {
                     authNavViewModel.coordinator.goBack()
                 }) {
-                    Image(systemName: "arrow.backward")
+                    Image(systemName: "chevron.left")
                         .foregroundColor(.white)
                         .font(.title2)
                 }

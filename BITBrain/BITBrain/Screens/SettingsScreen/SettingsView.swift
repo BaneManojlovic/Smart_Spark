@@ -42,10 +42,25 @@ struct SettingsView: View {
                 .padding(.leading, 10)
                 .padding(.trailing, 10)
             }
-            .navigationTitle("Settings")
             .toolbarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Settings")
+                        .foregroundStyle(Color.darkBlue)
+                        .bold()
+                }
+            }
+            .overlay(
+                VStack {
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundColor(.lightGrayBit) // Border color
+                        .edgesIgnoringSafeArea(.horizontal)
+                },
+                alignment: .top
+            )
             .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarBackground(.primaryBlue, for: .navigationBar)
+            .toolbarBackground(.white, for: .navigationBar)
             .alert(isPresented: $alertViewModel.showAlert) {
                 Alert(title: Text(alertViewModel.alert?.title ?? "Unknown"),
                       message: Text(alertViewModel.alert?.message ?? "Unknown"),

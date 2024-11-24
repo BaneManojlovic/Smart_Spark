@@ -13,27 +13,41 @@ struct CustomTabBarView: View {
     @StateObject var chatController = ChatController(apiToken: "")
 
     var body: some View {
-        TabView {
-            Group {
-                ChatView(chatController: chatController)
-                    .tabItem {
-                        Image(systemName: "message")
-                        Text("Chat")
-                    }
-                SettingsView(settingsNavViewModel: SettingsNavigationViewModel(coordinator: settingsCoordinator))
-                    .tabItem {
-                        Image(systemName: "gearshape")
-                        Text("Settings")
-                    }
+        
+        ZStack(alignment: .bottom) {
+            
+            TabView {
+                Group {
+                    ChatView(chatController: chatController)
+                        .tabItem {
+                            Image(systemName: "bubble.left.and.text.bubble.right.fill")
+                            Text("Chat")
+                        }
+                    SettingsView(settingsNavViewModel: SettingsNavigationViewModel(coordinator: settingsCoordinator))
+                        .tabItem {
+                            Image(systemName: "gearshape.2")
+                            Text("Settings")
+                        }
+                }
+                .clipShape(Rectangle())
+                .background(Color.white)
+                .toolbarBackground(.white, for: .tabBar)
+                .toolbarBackground(.visible, for: .tabBar)
+                
             }
-            .toolbarBackground(.primaryBlue, for: .tabBar)
-            .toolbarBackground(.visible, for: .tabBar)
-
+            .tint(.darkYellow)
+            
+            
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(.lightGrayBit) // Border color
+                .edgesIgnoringSafeArea(.bottom)
+                .offset(y: -49)
         }
-        .tint(.darkYellow)
     }
 }
 
 //#Preview {
 //    CustomTabBarView()
 //}
+//.border(Color.primaryBlue, width: 2.0)

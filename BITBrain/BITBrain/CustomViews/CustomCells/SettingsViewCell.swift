@@ -21,17 +21,21 @@ struct SettingsViewCell: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 60, height: 60)
-                .foregroundColor(.white)
+                .foregroundColor(.primaryBlue)
             
             
             Text(item.title)
                 .font(.headline)
-                .foregroundColor(.white)
+                .foregroundColor(.primaryBlue)
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.primaryBlue.opacity(0.7))
+        .background(Color.white.opacity(0.7))
         .cornerRadius(10)
+        .overlay( /// apply a rounded border
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(.primaryBlue, lineWidth: 2)
+        )
         .onTapGesture {
             print("Cell \(item.title) tapped")
             
