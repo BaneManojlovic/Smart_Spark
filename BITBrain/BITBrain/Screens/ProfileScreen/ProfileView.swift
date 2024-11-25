@@ -34,9 +34,11 @@ struct ProfileView: View {
                     settingsNavViewModel.coordinator.goBack()
                     print("back back ...")
                 }) {
-                    Image(systemName: "arrow.backward")
+                    Image(systemName: "chevron.left")
                         .foregroundColor(.primaryBlue)
                         .font(.title2)
+                    Text("Settings")
+                        .foregroundStyle(.primaryBlue)
                 }
             }
         }

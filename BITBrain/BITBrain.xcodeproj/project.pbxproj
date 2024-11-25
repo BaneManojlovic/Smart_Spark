@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D1352F92CF0965D00F386DA /* BaseTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1352F82CF0965D00F386DA /* BaseTextFieldView.swift */; };
+		8D1352FB2CF0984B00F386DA /* TextualCustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1352FA2CF0984B00F386DA /* TextualCustomTextField.swift */; };
+		8D1352FD2CF09F1000F386DA /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1352FC2CF09F1000F386DA /* StringHelper.swift */; };
+		8D1352FF2CF0A51500F386DA /* BaseSecureTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1352FE2CF0A51500F386DA /* BaseSecureTextFieldView.swift */; };
+		8D1353012CF0A5C900F386DA /* PasswordCustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1353002CF0A5C900F386DA /* PasswordCustomTextField.swift */; };
+		8D1353042CF0AB6200F386DA /* ValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1353032CF0AB6200F386DA /* ValidationError.swift */; };
+		8D1353062CF0AB8E00F386DA /* PasswordErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1353052CF0AB8E00F386DA /* PasswordErrorType.swift */; };
+		8D1353092CF0B2C200F386DA /* SecuredEyeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1353082CF0B2C200F386DA /* SecuredEyeButtonView.swift */; };
 		8D2D02992CC6A1EA00ED852E /* BITBrainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02982CC6A1EA00ED852E /* BITBrainApp.swift */; };
 		8D2D029B2CC6A1EA00ED852E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D029A2CC6A1EA00ED852E /* ContentView.swift */; };
 		8D2D029D2CC6A1EC00ED852E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D2D029C2CC6A1EC00ED852E /* Assets.xcassets */; };
@@ -63,6 +71,14 @@
 /* Begin PBXFileReference section */
 		4A51E21EB168599D6C330177 /* Pods-BITBrain.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BITBrain.release.xcconfig"; path = "Target Support Files/Pods-BITBrain/Pods-BITBrain.release.xcconfig"; sourceTree = "<group>"; };
 		5E279F225DDD7A82B8E4FC06 /* Pods-BITBrain.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BITBrain.debug.xcconfig"; path = "Target Support Files/Pods-BITBrain/Pods-BITBrain.debug.xcconfig"; sourceTree = "<group>"; };
+		8D1352F82CF0965D00F386DA /* BaseTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextFieldView.swift; sourceTree = "<group>"; };
+		8D1352FA2CF0984B00F386DA /* TextualCustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextualCustomTextField.swift; sourceTree = "<group>"; };
+		8D1352FC2CF09F1000F386DA /* StringHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
+		8D1352FE2CF0A51500F386DA /* BaseSecureTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSecureTextFieldView.swift; sourceTree = "<group>"; };
+		8D1353002CF0A5C900F386DA /* PasswordCustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCustomTextField.swift; sourceTree = "<group>"; };
+		8D1353032CF0AB6200F386DA /* ValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationError.swift; sourceTree = "<group>"; };
+		8D1353052CF0AB8E00F386DA /* PasswordErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordErrorType.swift; sourceTree = "<group>"; };
+		8D1353082CF0B2C200F386DA /* SecuredEyeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecuredEyeButtonView.swift; sourceTree = "<group>"; };
 		8D2D02952CC6A1EA00ED852E /* BITBrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BITBrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D2D02982CC6A1EA00ED852E /* BITBrainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BITBrainApp.swift; sourceTree = "<group>"; };
 		8D2D029A2CC6A1EA00ED852E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -131,6 +147,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D1352F72CF0963800F386DA /* CustomTextFields */ = {
+			isa = PBXGroup;
+			children = (
+				8D1352F82CF0965D00F386DA /* BaseTextFieldView.swift */,
+				8D1352FA2CF0984B00F386DA /* TextualCustomTextField.swift */,
+				8D1352FE2CF0A51500F386DA /* BaseSecureTextFieldView.swift */,
+				8D1353002CF0A5C900F386DA /* PasswordCustomTextField.swift */,
+			);
+			path = CustomTextFields;
+			sourceTree = "<group>";
+		};
+		8D1353022CF0AB3300F386DA /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				8D1353032CF0AB6200F386DA /* ValidationError.swift */,
+				8D1353052CF0AB8E00F386DA /* PasswordErrorType.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		8D1353072CF0B2A000F386DA /* SecuredEyeButtonView */ = {
+			isa = PBXGroup;
+			children = (
+				8D1353082CF0B2C200F386DA /* SecuredEyeButtonView.swift */,
+			);
+			path = SecuredEyeButtonView;
+			sourceTree = "<group>";
+		};
 		8D2D028C2CC6A1EA00ED852E = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +205,7 @@
 				8D2D02DE2CCB8D7400ED852E /* Coordinators */,
 				8D2D02D92CCB894400ED852E /* Protocols */,
 				8D2D02E52CCB959B00ED852E /* NavigationSetupModifier */,
+				8D1353022CF0AB3300F386DA /* Enums */,
 				8D2D02A92CC6A93100ED852E /* Extensions */,
 				8D2D02A82CC6A92500ED852E /* Helpers */,
 				8D2D02B62CC7163700ED852E /* Utils */,
@@ -189,6 +234,8 @@
 		8D2D02A72CC6A91900ED852E /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				8D1353072CF0B2A000F386DA /* SecuredEyeButtonView */,
+				8D1352F72CF0963800F386DA /* CustomTextFields */,
 				8D2D02D02CCA935E00ED852E /* CustomAlertViews */,
 				8D2D02B52CC6AA9D00ED852E /* CustomCells */,
 				8D2D02B42CC6AA8E00ED852E /* TabBarView */,
@@ -200,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				8D47AD9F2CE4CCCD00D85C31 /* UserDefaultsHelper.swift */,
+				8D1352FC2CF09F1000F386DA /* StringHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -545,12 +593,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D1353062CF0AB8E00F386DA /* PasswordErrorType.swift in Sources */,
 				8D2D02C12CC7752300ED852E /* SplashScreenView.swift in Sources */,
 				8D2D02BD2CC76EC500ED852E /* SettingsView.swift in Sources */,
 				8D2D02BF2CC771B400ED852E /* SettingsViewCell.swift in Sources */,
+				8D1353042CF0AB6200F386DA /* ValidationError.swift in Sources */,
 				8D2D02D82CCB794600ED852E /* RegistrationView.swift in Sources */,
 				8D2D02E22CCB932400ED852E /* ChatCoordinator.swift in Sources */,
 				8D2D02FA2CCBDE0900ED852E /* ThreadArchiveView.swift in Sources */,
+				8D1352FF2CF0A51500F386DA /* BaseSecureTextFieldView.swift in Sources */,
 				8DF4988C2CD345A900261CA9 /* ChatViewModel.swift in Sources */,
 				8D2D02DB2CCB8A8D00ED852E /* Destinations.swift in Sources */,
 				8DF498912CD38C8F00261CA9 /* MessageCellView.swift in Sources */,
@@ -568,9 +619,12 @@
 				8D2D02E02CCB8D9100ED852E /* AuthCoordinator.swift in Sources */,
 				8D2D02E42CCB93FC00ED852E /* SettingsCoordinator.swift in Sources */,
 				8D2D02F82CCBDBA900ED852E /* ProfileView.swift in Sources */,
+				8D1353092CF0B2C200F386DA /* SecuredEyeButtonView.swift in Sources */,
+				8D1352FD2CF09F1000F386DA /* StringHelper.swift in Sources */,
 				8D2D02E72CCB9BFC00ED852E /* NavigationDestinationModifier.swift in Sources */,
 				8D47AD992CDE057000D85C31 /* UITabBarController+Extensions.swift in Sources */,
 				8D2D030F2CCC618A00ED852E /* AppState.swift in Sources */,
+				8D1352FB2CF0984B00F386DA /* TextualCustomTextField.swift in Sources */,
 				8D2D03112CCCC65200ED852E /* AppDelegate.swift in Sources */,
 				8D2D030D2CCC5FAA00ED852E /* LoginViewModel.swift in Sources */,
 				8D47ADA02CE4CCCD00D85C31 /* UserDefaultsHelper.swift in Sources */,
@@ -583,8 +637,10 @@
 				8DF498822CD279F800261CA9 /* RegistrationViewModel.swift in Sources */,
 				8D2D02F32CCBCDD100ED852E /* AppRootManager.swift in Sources */,
 				8D2D030B2CCC5BED00ED852E /* AuthenticationManager.swift in Sources */,
+				8D1353012CF0A5C900F386DA /* PasswordCustomTextField.swift in Sources */,
 				8DF498862CD31F4400261CA9 /* User.swift in Sources */,
 				8DF4988F2CD380BA00261CA9 /* AppChat.swift in Sources */,
+				8D1352F92CF0965D00F386DA /* BaseTextFieldView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,29 +32,37 @@ struct ChatView: View {
                     .edgesIgnoringSafeArea(.all)
                     
                 VStack {
-                    ZStack {
-                        Color.primaryBlue
-                            .edgesIgnoringSafeArea(.all)
+//                    ZStack {
+//                        Color.primaryBlue
+//                            .edgesIgnoringSafeArea(.all)
                         HStack {
                             Spacer()
                             Text("Welcome to Smart Spark!")
-                                .font(.system(size: 22, weight: .semibold, design: .serif))
-                                .foregroundStyle(Color.white)
+                                .font(.system(size: 23, weight: .semibold, design: .serif))
+                                .foregroundStyle(Color.darkBlue)
                             Spacer()
                             Button(action: {
                                 isTutorialPresented = true
                             }) {
                                 Image(systemName: "info.circle")
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.darkBlue)
                                     .font(.title2)
                             }
                         }
                         .padding(.leading, 10)
                         .padding(.trailing, 10)
-                        .padding(.top, 0)
+                        .padding(.top, -10)
                         .padding(.bottom, 14)
-                    }
-                    .frame(height: 40.0)
+                    
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundColor(.lightGrayBit) // Border color
+                        .edgesIgnoringSafeArea(.bottom)
+                        .offset(y: 0)
+                    
+                    
+//                    }
+//                    .frame(height: 40.0)
                     
                     HStack(alignment: .center) {
                         if let existingApiKey = userDefaultsHelper.getOpenAiAPIToken(), !existingApiKey.isEmpty {

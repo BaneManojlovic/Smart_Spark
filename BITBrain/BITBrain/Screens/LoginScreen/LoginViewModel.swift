@@ -16,9 +16,27 @@ class LoginViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var userExists = false
     @Published var isPasswordVisible = false
+    @Published var profileValidation: [ValidationError: Bool] = [.nameInvalid: false, .emailInvalid: false]
 
     let authService = AuthenticationManager()
     let userDefaultsHelper = UserDefaultsHelper()
+    
+    func loginAction(completion: @escaping (Bool) -> Void) {
+        Task {
+            let email = emailText
+            let password = passwordText
+            let user = await self.login(email: email, password: password)
+            
+            if let userData = user {
+                self.saveUserData(user: userData)
+                completion(true)
+                
+            } else {
+                print("login failed")
+                completion(false)
+            }
+        }
+    }
     
     func login(email: String, password: String) async -> UserModel? {
         do {
