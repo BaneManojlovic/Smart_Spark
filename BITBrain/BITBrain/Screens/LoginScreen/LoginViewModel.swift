@@ -37,7 +37,8 @@ class LoginViewModel: ObservableObject {
             }
         }
     }
-    
+
+    // MARK: - Calling API endpoint
     func login(email: String, password: String) async -> UserModel? {
         do {
             let user = try await authService.login(email: email, password: password)

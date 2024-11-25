@@ -10,18 +10,9 @@ import SwiftUI
 struct RegistrationView: View {
     
     @EnvironmentObject private var appRootManager: AppRootManager
-    
     @ObservedObject var authNavViewModel: AuthNavigationViewModel
     @ObservedObject var registerViewModel = RegistrationViewModel()
-    
-    @State private var username = ""
-    @State private var email = ""
-    @State private var password = ""
-    @State private var repeatedPassword = ""
-    @State private var badEmail = 0
-    @State private var wrongUsername = 0
-    @State private var wrongPassword = 0
-    @State private var passwordsDontMatch = 0
+    @ObservedObject var alertViewModel = AlertViewModel()
     @State private var showingChatScreen = true
     
     var body: some View {
@@ -46,30 +37,26 @@ struct RegistrationView: View {
                         .foregroundStyle(Color.darkBlue)
                         .bold()
                         .padding()
-                    TextField("Username", text: $username)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color.black.opacity(0.08))
-                        .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongUsername))
-                    TextField("Email", text: $email)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color.black.opacity(0.08))
-                        .cornerRadius(10)
-                        .border(.red, width: CGFloat(badEmail))
-                    SecureField("Password", text: $password)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color.black.opacity(0.08))
-                        .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongPassword))
-                    SecureField("Repeat Password", text: $repeatedPassword)
-                        .padding()
-                        .frame(width: 300, height: 50)
-                        .background(Color.black.opacity(0.08))
-                        .cornerRadius(10)
-                        .border(.red, width: CGFloat(passwordsDontMatch))
+                    TextualCustomTextField(text: $registerViewModel.username,
+                                           placeholderText: "Username",
+                                           isInputValid: $registerViewModel.profileValidation,
+                                           fieldContentType: .nameInvalid)
+                    
+                    TextualCustomTextField(text: $registerViewModel.emailText,
+                                           placeholderText: "Email",
+                                           isInputValid: $registerViewModel.profileValidation,
+                                           fieldContentType: .emailInvalid)
+                    
+                    PasswordCustomTextField(text: $registerViewModel.passwordText,
+                                            placeholderText: "Password",
+                                            isInputValid: $registerViewModel.profileValidation,
+                                            fieldContentType: .passwordInvalid)
+                    
+                    PasswordCustomTextField(text: $registerViewModel.repeatedPasswordText,
+                                            placeholderText: "Repeat Password",
+                                            isInputValid: $registerViewModel.profileValidation,
+                                            fieldContentType: .passwordsDontMatch)
+                    
                     
                     Button(action: registerAction) {
                         // Authenticate user
@@ -77,12 +64,12 @@ struct RegistrationView: View {
                             Spacer()
                             Text("Register")
                             Spacer()
-                          }
-                          .contentShape(Rectangle())
+                        }
+                        .contentShape(Rectangle())
                     }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
-                    .background(Color.darkBlue)
+                    .background((registerViewModel.username.isEmpty || registerViewModel.emailText.isEmpty || registerViewModel.passwordText.isEmpty || registerViewModel.repeatedPasswordText.isEmpty) ? Color.darkGrayBit : Color.darkBlue)
                     .cornerRadius(10)
                     .padding()
                 }
@@ -104,46 +91,17 @@ struct RegistrationView: View {
     }
     
     func registerAction() {
-        registerUser()
-    }
-    
-    func registerUser() {
-        Task {
-            let email = "bane2@gmail.com"
-            let password = "BakiMaki106@"
-            let user = await registerViewModel.registerNewUser(email: email, password: password)
-            
-            if user != nil {
-                appRootManager.currentRoot = .home
+        registerViewModel.registerAction { success in
+            if success {
+                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    appRootManager.currentRoot = .home
+                }
             } else {
-                print("registration failed")
+                print("regitration failure ...")
+                alertViewModel.presentAlert(alert: CustomAlert(title: "You entered invalid data for email or password, please try again with valid data.",
+                                                               message: "",
+                                                               primaryButton: .default(Text("Ok")), secundaryButton: .cancel()))
             }
         }
     }
-    
-//    func reguisterNewUser(username: String,
-//                          email: String,
-//                          password: String,
-//                          repeatedPassword: String) {
-//
-//        // TODO: - Make proper validation
-//        if username.lowercased() == "baki123" {
-//            wrongUsername = 0
-//            
-//            if password.lowercased() == "baki123" {
-//                wrongPassword = 0
-//                showingChatScreen = true
-//                
-//            } else {
-//                wrongPassword = 2
-//            }
-//            
-//        } else {
-//            wrongUsername = 2
-//        }
-//    }
 }
-
-//#Preview {
-//    RegistrationView()
-//}

@@ -12,7 +12,6 @@ struct PasswordCustomTextField: View {
     
     var text: Binding<String>
     var placeholderText: String
-    //    @Binding var passwordText: String
     @Binding var isInputValid: [ValidationError: Bool]
     var fieldContentType: ValidationError
     @State private var errorMessage = ""
