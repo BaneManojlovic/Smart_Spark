@@ -10,6 +10,10 @@ import SwiftUI
 struct TutorialView: View {
     
     @Environment(\.dismiss) var dismiss
+    let tutorialData: [TutorialData] = [TutorialData(image: "face.smiling", title: "Welcome to Smart Spark App"),
+                                        TutorialData(image: "bubble.left.and.text.bubble.right", title: "Chat easy with your artificial inteligence advisor."),
+                                        TutorialData(image: "lightbulb.max", title: "Suggest some smart features to add in this app."),
+                                        TutorialData(image: "ear.badge.checkmark", title: "Recommend Smart Spark App to your friends!")]
 
     var body: some View {
         
@@ -32,19 +36,23 @@ struct TutorialView: View {
                     Button(action: {
                         dismiss()
                     }) {
-                        Image(systemName: "xmark")
+                        Text("Skip")
                             .foregroundColor(.primaryBlue)
-                            .font(.title2)
+                            .font(.title3)
                     }
                 }
                 .padding(.leading, 10)
                 .padding(.trailing, 10)
                 .padding(.top, 2)
-                Divider()
+               
                 Spacer()
-                Text("This will be tutorial...")
-                Spacer()
-                
+               
+                TabView {
+                    ForEach(tutorialData) { item in
+                        TutorialCardView(card: item)
+                    }
+                }
+                .tabViewStyle(PageTabViewStyle())
             }
             
         }
