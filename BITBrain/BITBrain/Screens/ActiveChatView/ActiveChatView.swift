@@ -49,13 +49,21 @@ struct ActiveChatView: View {
                 }
                 Divider()
                 HStack {
-                    TextField("Type message here...", text: $messageText, axis: .vertical)
-                        .padding(5)
-                        .foregroundColor(.black)
-                        .background(Color.gray.opacity(0.1))
-                        .overlay(RoundedRectangle(cornerRadius: 0)
-                            .stroke(Color.lightGrayBit, lineWidth: 1)
-                        )
+                    ZStack(alignment: .leading) {
+                        if messageText.isEmpty {
+                            Text("Type message here...")
+                                .foregroundColor(.gray)
+                                .padding(.leading, 6)
+                        }
+                        TextField("", text: $messageText, axis: .vertical)
+                            .tint(Color.primaryBlue)
+                            .foregroundColor(Color.darkBlue)
+                            .padding(5)
+                            .background(Color.gray.opacity(0.1))
+                            .overlay(RoundedRectangle(cornerRadius: 0)
+                                .stroke(Color.lightGrayBit, lineWidth: 1)
+                            )
+                    }
                     Button {
                         sendMessageAction()
                     } label: {

@@ -16,10 +16,20 @@ struct BaseSecureTextFieldView: View {
     @Binding var text: String
 
     var body: some View {
-        SecureField(placeholderText, text: $text)
-            .padding()
-            .frame(width: 300, height: 50)
-            .background(backgroundColor)
-            .cornerRadius(10)
+        
+        ZStack(alignment: .leading) {
+            if text.isEmpty {
+                Text(placeholderText)
+                    .foregroundColor(.gray) // Explicit placeholder color
+                    .padding(.leading, 16)
+            }
+            SecureField("", text: $text)
+                .tint(Color.primaryBlue)
+                .foregroundColor(Color.darkBlue)
+                .padding()
+                .frame(width: 300, height: 50)
+                .background(backgroundColor)
+                .cornerRadius(10)
+        }
     }
 }
