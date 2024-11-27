@@ -15,23 +15,29 @@ class RegistrationViewModel: ObservableObject {
     @Published var emailText: String = ""
     @Published var passwordText: String = ""
     @Published var repeatedPasswordText: String = ""
-    @Published var profileValidation: [ValidationError: Bool] = [.nameInvalid: false, .emailInvalid: false]
+    @Published var profileValidation: [ValidationError: Bool] = [.nameInvalid: false, .emailInvalid: false, .passwordInvalid: false, .passwordsDontMatch: false]
 
     let authService = AuthenticationManager()
     let userDefaultsHelper = UserDefaultsHelper()
 
-    func registerAction(completion: @escaping (Bool) -> Void) {
+    func registerAction(completion: @escaping (Bool, String?) -> Void) {
         Task {
             let email = emailText
             let password = passwordText
-            let newUser = await self.registerNewUser(email: email, password: password)
+            let repeatedPassword = repeatedPasswordText
+            
+            if password == repeatedPassword {
+                let newUser = await self.registerNewUser(email: email, password: password)
 
-            if let newUserData = newUser {
-                self.saveUserData(user: newUserData)
-                completion(true)
+                if let newUserData = newUser {
+                    self.saveUserData(user: newUserData)
+                    completion(true, nil)
+                } else {
+                    print("registration failed")
+                    completion(false, "Registration failed, please try again.")
+                }
             } else {
-                print("registration failed")
-                completion(false)
+                completion(false, "Passwords do not match.")
             }
         }
     }

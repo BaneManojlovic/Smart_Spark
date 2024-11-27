@@ -16,6 +16,7 @@ struct LoginView: View {
     @State private var password = ""
     @State private var wrongPassword = 0
     @State private var showingChatScreen = true
+    @State private var isLoading = false
     
     var body: some View {
     
@@ -71,6 +72,16 @@ struct LoginView: View {
                         }
                         .foregroundColor(.blue)
                     }
+                    
+                    if isLoading {
+                        ProgressView()
+                            .controlSize(.large)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(Color.black.opacity(0.3))
+                            .foregroundColor(.white)
+                            .edgesIgnoringSafeArea(.all)
+                    }
+                    
                 }
     
             }
@@ -83,17 +94,21 @@ struct LoginView: View {
     }
     
     func loginAction() {
+        isLoading = true
         loginViewModel.loginAction { success in
-            if success {
-                DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                    appRootManager.currentRoot = .home
+            DispatchQueue.main.async {
+                isLoading = false
+                if success {
+                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                        appRootManager.currentRoot = .home
+                    }
+                } else {
+                    print("login failure ...")
+                    // show Alert
+                    alertViewModel.presentAlert(alert: CustomAlert(title: "You entered wrong email or password, please try again with valid credentials.",
+                                                                   message: "",
+                                                                   primaryButton: .default(Text("Ok")), secundaryButton: .cancel()))
                 }
-            } else {
-                print("login failure ...")
-                // show Alert
-                alertViewModel.presentAlert(alert: CustomAlert(title: "You entered wrong email or password, please try again with valid credentials.",
-                                                               message: "",
-                                                               primaryButton: .default(Text("Ok")), secundaryButton: .cancel()))
             }
         }
     }

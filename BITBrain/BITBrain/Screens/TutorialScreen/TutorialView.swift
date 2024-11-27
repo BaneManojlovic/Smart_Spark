@@ -25,6 +25,10 @@ struct TutorialView: View {
                         .frame(width: 48.0, height: 48.0)
                         .clipShape(.rect(cornerRadii: RectangleCornerRadii(topLeading: 5.0, bottomLeading: 5.0, bottomTrailing: 5.0, topTrailing: 5.0)))
                     Spacer()
+                    Text("Smart Spark!")
+                        .font(.system(size: 23, weight: .semibold, design: .serif))
+                        .foregroundStyle(Color.darkBlue)
+                    Spacer()
                     Button(action: {
                         dismiss()
                     }) {
