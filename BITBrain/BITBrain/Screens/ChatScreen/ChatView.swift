@@ -18,6 +18,7 @@ struct ChatView: View {
     @State private var scale = 1.0
     @StateObject var alertViewModel = AlertViewModel()
     @State private var apiKeyValue = ""
+    @State private var chatActivationButtonTitleText = ""
     
     
     var body: some View {
@@ -32,9 +33,7 @@ struct ChatView: View {
                     .edgesIgnoringSafeArea(.all)
                     
                 VStack {
-//                    ZStack {
-//                        Color.primaryBlue
-//                            .edgesIgnoringSafeArea(.all)
+
                         HStack {
                             Spacer()
                             Text("Welcome to Smart Spark!")
@@ -56,13 +55,9 @@ struct ChatView: View {
                     
                     Rectangle()
                         .frame(height: 1)
-                        .foregroundColor(.lightGrayBit) // Border color
+                        .foregroundColor(.lightGrayBit)
                         .edgesIgnoringSafeArea(.bottom)
                         .offset(y: 0)
-                    
-                    
-//                    }
-//                    .frame(height: 40.0)
                     
                     HStack(alignment: .center) {
                         if let existingApiKey = userDefaultsHelper.getOpenAiAPIToken(), !existingApiKey.isEmpty {
@@ -96,15 +91,28 @@ struct ChatView: View {
                         }
                         
                     }, label: {
-                        Text("Tap here to activate and start \n using your Smart Spark chat.")
-                            .font(.system(size: 18, weight: .semibold, design: .serif))
-                            .italic()
-                            .frame(width: UIScreen.main.bounds.width*0.94, height: 60.0, alignment: .center)
-                            .foregroundColor(.white)
-                            .background(Color.primaryBlue.opacity(0.7))
-                            .overlay(RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.primaryBlue, lineWidth: 1)
-                            )
+                        
+                        if let existingApiKey = userDefaultsHelper.getOpenAiAPIToken(), !existingApiKey.isEmpty {
+                            Text("Tap here to use your Smart Spark chat.")
+                                .font(.system(size: 18, weight: .semibold, design: .serif))
+                                .italic()
+                                .frame(width: UIScreen.main.bounds.width*0.94, height: 60.0, alignment: .center)
+                                .foregroundColor(.white)
+                                .background(Color.primaryBlue.opacity(0.7))
+                                .overlay(RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.primaryBlue, lineWidth: 1)
+                                )
+                        } else {
+                            Text("Tap here to activate and start \n using your Smart Spark chat.")
+                                .font(.system(size: 18, weight: .semibold, design: .serif))
+                                .italic()
+                                .frame(width: UIScreen.main.bounds.width*0.94, height: 60.0, alignment: .center)
+                                .foregroundColor(.white)
+                                .background(Color.primaryBlue.opacity(0.7))
+                                .overlay(RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.primaryBlue, lineWidth: 1)
+                                )
+                        }
                     })
                     .clipShape(.rect(cornerRadii: RectangleCornerRadii(topLeading: 20, bottomLeading: 20, bottomTrailing: 20, topTrailing: 20)))
                     .shadow(color: .gray, radius: 2, x: 0, y: 6)

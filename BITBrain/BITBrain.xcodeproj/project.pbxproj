@@ -57,6 +57,8 @@
 		8D47AD9E2CDE64B400D85C31 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD9D2CDE64B400D85C31 /* TutorialView.swift */; };
 		8D47ADA02CE4CCCD00D85C31 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD9F2CE4CCCD00D85C31 /* UserDefaultsHelper.swift */; };
 		8D47ADA22CE622BC00D85C31 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47ADA12CE622BC00D85C31 /* ProfileViewModel.swift */; };
+		8D5495FC2CF757E10010367B /* TutorialData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5495FB2CF757E10010367B /* TutorialData.swift */; };
+		8D5495FF2CF759FF0010367B /* TutorialCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5495FE2CF759FF0010367B /* TutorialCardView.swift */; };
 		8DF498822CD279F800261CA9 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */; };
 		8DF498842CD31BC400261CA9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8DF498832CD31BC400261CA9 /* FirebaseAnalytics */; };
 		8DF498862CD31F4400261CA9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498852CD31F4400261CA9 /* User.swift */; };
@@ -119,6 +121,8 @@
 		8D47AD9D2CDE64B400D85C31 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		8D47AD9F2CE4CCCD00D85C31 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		8D47ADA12CE622BC00D85C31 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		8D5495FB2CF757E10010367B /* TutorialData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialData.swift; sourceTree = "<group>"; };
+		8D5495FE2CF759FF0010367B /* TutorialCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCardView.swift; sourceTree = "<group>"; };
 		8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		8DF498852CD31F4400261CA9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8DF498872CD3313700261CA9 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
@@ -234,6 +238,7 @@
 		8D2D02A72CC6A91900ED852E /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				8D5495FD2CF759E90010367B /* TutorialCardView */,
 				8D1353072CF0B2A000F386DA /* SecuredEyeButtonView */,
 				8D1352F72CF0963800F386DA /* CustomTextFields */,
 				8D2D02D02CCA935E00ED852E /* CustomAlertViews */,
@@ -303,6 +308,7 @@
 			children = (
 				8DF498852CD31F4400261CA9 /* User.swift */,
 				8DF4988E2CD380BA00261CA9 /* AppChat.swift */,
+				8D5495FB2CF757E10010367B /* TutorialData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -466,6 +472,14 @@
 			path = TutorialScreen;
 			sourceTree = "<group>";
 		};
+		8D5495FD2CF759E90010367B /* TutorialCardView */ = {
+			isa = PBXGroup;
+			children = (
+				8D5495FE2CF759FF0010367B /* TutorialCardView.swift */,
+			);
+			path = TutorialCardView;
+			sourceTree = "<group>";
+		};
 		E7BEDABC3CD5604B2F52A541 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -617,6 +631,7 @@
 				8DF498882CD3313700261CA9 /* SplashScreenViewModel.swift in Sources */,
 				8D2D029B2CC6A1EA00ED852E /* ContentView.swift in Sources */,
 				8D2D02E02CCB8D9100ED852E /* AuthCoordinator.swift in Sources */,
+				8D5495FF2CF759FF0010367B /* TutorialCardView.swift in Sources */,
 				8D2D02E42CCB93FC00ED852E /* SettingsCoordinator.swift in Sources */,
 				8D2D02F82CCBDBA900ED852E /* ProfileView.swift in Sources */,
 				8D1353092CF0B2C200F386DA /* SecuredEyeButtonView.swift in Sources */,
@@ -633,6 +648,7 @@
 				8D2D02C62CC7DF5F00ED852E /* SettingsItem.swift in Sources */,
 				8D2D02F12CCBC57200ED852E /* AuthNavigationViewModel.swift in Sources */,
 				8D2D03202CD13C0D00ED852E /* SettingsNavigationViewModel.swift in Sources */,
+				8D5495FC2CF757E10010367B /* TutorialData.swift in Sources */,
 				8D2D02D42CCA93B800ED852E /* CustomAlert.swift in Sources */,
 				8DF498822CD279F800261CA9 /* RegistrationViewModel.swift in Sources */,
 				8D2D02F32CCBCDD100ED852E /* AppRootManager.swift in Sources */,

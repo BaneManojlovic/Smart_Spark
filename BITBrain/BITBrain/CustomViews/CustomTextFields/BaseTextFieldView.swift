@@ -15,12 +15,22 @@ struct BaseTextFieldView: View {
     @Binding var text: String
     
     var body: some View {
-        TextField(placeholderText, text: $text)
-            .padding()
-            .frame(width: 300, height: 50)
-            .disableAutocorrection(true)
-            .textInputAutocapitalization(.never)
-            .background(backgroundColor)
-            .cornerRadius(10)
+        
+        ZStack(alignment: .leading) {
+            if text.isEmpty {
+                Text(placeholderText)
+                    .foregroundColor(.gray)
+                    .padding(.leading, 16)
+            }
+            TextField("", text: $text)
+                .tint(Color.primaryBlue)
+                .foregroundColor(Color.darkBlue)
+                .padding()
+                .frame(width: 300, height: 50)
+                .disableAutocorrection(true)
+                .textInputAutocapitalization(.never)
+                .background(backgroundColor)
+                .cornerRadius(10)
+        }
     }
 }
