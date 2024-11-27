@@ -15,7 +15,7 @@ struct SettingsView: View {
     
     let settingsItems = [
         SettingsItem(title: "Profile", iconName: "person"),
-        SettingsItem(title: "Thread Archive", iconName: "message"),
+        SettingsItem(title: "Feature Requests", iconName: "questionmark.bubble"),
         SettingsItem(title: "Privacy Policy", iconName: "lock"),
         SettingsItem(title: "Rate", iconName: "star"),
         SettingsItem(title: "Share", iconName: "square.and.arrow.up"),

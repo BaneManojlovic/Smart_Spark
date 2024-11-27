@@ -59,6 +59,8 @@
 		8D47ADA22CE622BC00D85C31 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47ADA12CE622BC00D85C31 /* ProfileViewModel.swift */; };
 		8D5495FC2CF757E10010367B /* TutorialData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5495FB2CF757E10010367B /* TutorialData.swift */; };
 		8D5495FF2CF759FF0010367B /* TutorialCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5495FE2CF759FF0010367B /* TutorialCardView.swift */; };
+		8D5496022CF774C10010367B /* WishKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5496012CF774C10010367B /* WishKit */; };
+		8D5496042CF778BE0010367B /* WhishKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5496032CF778BE0010367B /* WhishKitManager.swift */; };
 		8DF498822CD279F800261CA9 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */; };
 		8DF498842CD31BC400261CA9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8DF498832CD31BC400261CA9 /* FirebaseAnalytics */; };
 		8DF498862CD31F4400261CA9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498852CD31F4400261CA9 /* User.swift */; };
@@ -123,6 +125,7 @@
 		8D47ADA12CE622BC00D85C31 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		8D5495FB2CF757E10010367B /* TutorialData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialData.swift; sourceTree = "<group>"; };
 		8D5495FE2CF759FF0010367B /* TutorialCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCardView.swift; sourceTree = "<group>"; };
+		8D5496032CF778BE0010367B /* WhishKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhishKitManager.swift; sourceTree = "<group>"; };
 		8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		8DF498852CD31F4400261CA9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8DF498872CD3313700261CA9 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
@@ -140,6 +143,7 @@
 			files = (
 				8DF498842CD31BC400261CA9 /* FirebaseAnalytics in Frameworks */,
 				F420F23CC1606387BE9C158F /* Pods_BITBrain.framework in Frameworks */,
+				8D5496022CF774C10010367B /* WishKit in Frameworks */,
 				8D2D03072CCC5B5B00ED852E /* FirebaseFirestore in Frameworks */,
 				8D2D03092CCC5B5B00ED852E /* FirebaseFunctions in Frameworks */,
 				8D2D03052CCC5B5B00ED852E /* FirebaseCore in Frameworks */,
@@ -231,6 +235,7 @@
 		8D2D02A62CC6A91000ED852E /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				8D5496032CF778BE0010367B /* WhishKitManager.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -521,6 +526,7 @@
 				8D2D03082CCC5B5B00ED852E /* FirebaseFunctions */,
 				8D2D03132CCCC85D00ED852E /* OpenAI */,
 				8DF498832CD31BC400261CA9 /* FirebaseAnalytics */,
+				8D5496012CF774C10010367B /* WishKit */,
 			);
 			productName = BITBrain;
 			productReference = 8D2D02952CC6A1EA00ED852E /* BITBrain.app */;
@@ -553,6 +559,7 @@
 			packageReferences = (
 				8D2D03012CCC5B5B00ED852E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				8D2D03122CCCC85D00ED852E /* XCRemoteSwiftPackageReference "OpenAI" */,
+				8D5496002CF774C10010367B /* XCRemoteSwiftPackageReference "wishkit-ios" */,
 			);
 			productRefGroup = 8D2D02962CC6A1EA00ED852E /* Products */;
 			projectDirPath = "";
@@ -649,6 +656,7 @@
 				8D2D02F12CCBC57200ED852E /* AuthNavigationViewModel.swift in Sources */,
 				8D2D03202CD13C0D00ED852E /* SettingsNavigationViewModel.swift in Sources */,
 				8D5495FC2CF757E10010367B /* TutorialData.swift in Sources */,
+				8D5496042CF778BE0010367B /* WhishKitManager.swift in Sources */,
 				8D2D02D42CCA93B800ED852E /* CustomAlert.swift in Sources */,
 				8DF498822CD279F800261CA9 /* RegistrationViewModel.swift in Sources */,
 				8D2D02F32CCBCDD100ED852E /* AppRootManager.swift in Sources */,
@@ -804,6 +812,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -840,6 +849,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -894,6 +904,14 @@
 				minimumVersion = 0.3.0;
 			};
 		};
+		8D5496002CF774C10010367B /* XCRemoteSwiftPackageReference "wishkit-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wishkit/wishkit-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -921,6 +939,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8D2D03122CCCC85D00ED852E /* XCRemoteSwiftPackageReference "OpenAI" */;
 			productName = OpenAI;
+		};
+		8D5496012CF774C10010367B /* WishKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8D5496002CF774C10010367B /* XCRemoteSwiftPackageReference "wishkit-ios" */;
+			productName = WishKit;
 		};
 		8DF498832CD31BC400261CA9 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
