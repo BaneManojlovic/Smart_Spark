@@ -17,9 +17,8 @@ struct PrivacyPolicyView: View {
                 Color.white
                     .edgesIgnoringSafeArea(.all)
                 VStack {
-                    Text("Privacy Policy screen")
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color.darkBlue)
+                    WebView()
+                        .edgesIgnoringSafeArea(.all)
                     
                 }
             }
@@ -30,7 +29,6 @@ struct PrivacyPolicyView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
                     settingsNavViewModel.coordinator.goBack()
-                    print("back back ...")
                 }) {
                     Image(systemName: "chevron.left")
                         .foregroundColor(.primaryBlue)
