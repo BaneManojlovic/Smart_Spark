@@ -36,6 +36,8 @@ struct SettingsViewCell: View {
                 appRootManager.currentRoot = .splash
             },
                                                         secundaryButton: .cancel()))
+        case "Rate this App":
+            ReviewManager.requestReviewManually()
         default:
             
             alertViewModel.presentAlert(alert:

@@ -69,6 +69,7 @@
 		8DF4988C2CD345A900261CA9 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF4988B2CD345A900261CA9 /* ChatViewModel.swift */; };
 		8DF4988F2CD380BA00261CA9 /* AppChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF4988E2CD380BA00261CA9 /* AppChat.swift */; };
 		8DF498912CD38C8F00261CA9 /* MessageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498902CD38C8F00261CA9 /* MessageCellView.swift */; };
+		8DF7740F2CF860CE0094F55E /* ReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF7740E2CF860CE0094F55E /* ReviewManager.swift */; };
 		F420F23CC1606387BE9C158F /* Pods_BITBrain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E19BCE8FC1D8EF39C6CBB7 /* Pods_BITBrain.framework */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +134,7 @@
 		8DF4988B2CD345A900261CA9 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		8DF4988E2CD380BA00261CA9 /* AppChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppChat.swift; sourceTree = "<group>"; };
 		8DF498902CD38C8F00261CA9 /* MessageCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellView.swift; sourceTree = "<group>"; };
+		8DF7740E2CF860CE0094F55E /* ReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewManager.swift; sourceTree = "<group>"; };
 		D8E19BCE8FC1D8EF39C6CBB7 /* Pods_BITBrain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BITBrain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -236,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				8D5496032CF778BE0010367B /* WhishKitManager.swift */,
+				8DF7740E2CF860CE0094F55E /* ReviewManager.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -649,6 +652,7 @@
 				8D1352FB2CF0984B00F386DA /* TextualCustomTextField.swift in Sources */,
 				8D2D03112CCCC65200ED852E /* AppDelegate.swift in Sources */,
 				8D2D030D2CCC5FAA00ED852E /* LoginViewModel.swift in Sources */,
+				8DF7740F2CF860CE0094F55E /* ReviewManager.swift in Sources */,
 				8D47ADA02CE4CCCD00D85C31 /* UserDefaultsHelper.swift in Sources */,
 				8D2D02992CC6A1EA00ED852E /* BITBrainApp.swift in Sources */,
 				8D2D02D62CCA9EC800ED852E /* LoginView.swift in Sources */,

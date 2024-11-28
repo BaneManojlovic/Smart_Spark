@@ -82,13 +82,21 @@ struct ProfileView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
                     settingsNavViewModel.coordinator.goBack()
-                    print("back back ...")
                 }) {
                     Image(systemName: "chevron.left")
                         .foregroundColor(.primaryBlue)
                         .font(.title2)
                     Text("Settings")
                         .foregroundStyle(.primaryBlue)
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    ReviewManager.requestReview()
+                }) {
+                    Image(systemName: "star")
+                        .foregroundColor(.primaryBlue)
+                        .font(.title2)
                 }
             }
         }
@@ -128,10 +136,3 @@ struct ProfileView: View {
         }
     }
 }
-
-
-
-//
-//#Preview {
-//    ProfileView()
-//}

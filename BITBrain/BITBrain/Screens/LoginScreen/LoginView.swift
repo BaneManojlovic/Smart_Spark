@@ -111,7 +111,3 @@ struct LoginView: View {
         }
     }
 }
-/*
- let email = "bane1@gmail.com"
- let password = "BakiMaki106@"
- */
