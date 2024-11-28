@@ -103,8 +103,6 @@ struct LoginView: View {
                         appRootManager.currentRoot = .home
                     }
                 } else {
-                    print("login failure ...")
-                    // show Alert
                     alertViewModel.presentAlert(alert: CustomAlert(title: "You entered wrong email or password, please try again with valid credentials.",
                                                                    message: "",
                                                                    primaryButton: .default(Text("Ok")), secundaryButton: .cancel()))
