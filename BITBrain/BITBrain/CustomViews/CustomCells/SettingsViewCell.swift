@@ -23,7 +23,7 @@ struct SettingsViewCell: View {
             viewModel.coordinator.navigateToProfile()
         case "Privacy Policy":
             viewModel.coordinator.navigateToPrivacyPolicy()
-        case "Thread Archive":
+        case "Feature Requests":
             viewModel.coordinator.navigateToThreadArchive()
         case "Share":
             print("tap tap")
@@ -36,6 +36,8 @@ struct SettingsViewCell: View {
                 appRootManager.currentRoot = .splash
             },
                                                         secundaryButton: .cancel()))
+        case "Rate this App":
+            ReviewManager.requestReviewManually()
         default:
             
             alertViewModel.presentAlert(alert:

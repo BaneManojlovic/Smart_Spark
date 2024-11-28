@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WishKit
 
 struct ThreadArchiveView: View {
     
@@ -17,9 +18,10 @@ struct ThreadArchiveView: View {
                 Color.white
                     .edgesIgnoringSafeArea(.all)
                 VStack {
-                    Text("Thread Archive screen")
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color.darkBlue)
+                    WishKit.FeedbackListView().withNavigation()
+                        .padding(.bottom, 1)
+                        .background(.white)
+                    
                     
                 }
             }

@@ -15,9 +15,9 @@ struct SettingsView: View {
     
     let settingsItems = [
         SettingsItem(title: "Profile", iconName: "person"),
-        SettingsItem(title: "Thread Archive", iconName: "message"),
+        SettingsItem(title: "Feature Requests", iconName: "questionmark.bubble"),
         SettingsItem(title: "Privacy Policy", iconName: "lock"),
-        SettingsItem(title: "Rate", iconName: "star"),
+        SettingsItem(title: "Rate this App", iconName: "star"),
         SettingsItem(title: "Share", iconName: "square.and.arrow.up"),
         SettingsItem(title: "Logout", iconName: "power")
     ]
@@ -54,7 +54,7 @@ struct SettingsView: View {
                 VStack {
                     Rectangle()
                         .frame(height: 1)
-                        .foregroundColor(.lightGrayBit) // Border color
+                        .foregroundColor(.lightGrayBit)
                         .edgesIgnoringSafeArea(.horizontal)
                 },
                 alignment: .top
@@ -82,7 +82,3 @@ struct SettingsView: View {
         }
     }
 }
-
-//#Preview {
-//    SettingsView()
-//}
