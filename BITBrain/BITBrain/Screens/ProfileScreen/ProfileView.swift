@@ -28,11 +28,11 @@ struct ProfileView: View {
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2.0, alignment: .center)
                         .scaledToFill()
                     HStack {
-                        Text("name:")
+                        Text("UserID:")
                             .frame(alignment: .center)
                             .fontWeight(.bold)
                             .foregroundStyle(Color.darkBlue)
-                        Text(" Branislav Manojlovic")
+                        Text(" \(viewModel.getUserId())")
                             .frame(alignment: .center)
                             .fontWeight(.bold)
                             .foregroundStyle(Color.darkBlue)
@@ -129,7 +129,8 @@ struct ProfileView: View {
                     // show Alert
                     alertViewModel.presentAlert(alert: CustomAlert(title: "Error while deleting account.",
                                                                    message: "",
-                                                                   primaryButton: .default(Text("Ok")), secundaryButton: .cancel()))
+                                                                   primaryButton: .default(Text("Ok")), 
+                                                                   secundaryButton: .cancel()))
                 }
             }
             

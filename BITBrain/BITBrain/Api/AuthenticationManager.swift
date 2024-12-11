@@ -13,8 +13,6 @@ import OpenAI
 final class AuthenticationManager {
     
     //    static let shared = AuthenticationManager() // see how to replace this singleton with something else
-//    private let database = Firestore.firestore()
-//    let chatId = "" // Ovo porpravi za stvarno - trenutno je samo primer
     
     //    private init() { }
     

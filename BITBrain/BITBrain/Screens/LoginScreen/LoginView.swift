@@ -105,7 +105,8 @@ struct LoginView: View {
                 } else {
                     alertViewModel.presentAlert(alert: CustomAlert(title: "You entered wrong email or password, please try again with valid credentials.",
                                                                    message: "",
-                                                                   primaryButton: .default(Text("Ok")), secundaryButton: .cancel()))
+                                                                   primaryButton: .default(Text("Ok")), 
+                                                                   secundaryButton: .cancel()))
                 }
             }
         }

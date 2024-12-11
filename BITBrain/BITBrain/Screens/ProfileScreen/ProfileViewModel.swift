@@ -23,6 +23,14 @@ class ProfileViewModel: ObservableObject {
         
     }
     
+    func getUserId() -> String {
+        if let user = userDefaultsHelper.getUser() {
+            return "\(user.uid)"
+        } else {
+            return "--"
+        }
+    }
+    
     func deleteAction(completion: @escaping (Bool) -> Void) {
         Task {
             let result = await self.deleteAccount()
@@ -32,7 +40,7 @@ class ProfileViewModel: ObservableObject {
     
     func deleteAccount() async -> Bool {
         do {
-            let response: () = try await authService.deleteUser()
+            let _: () = try await authService.deleteUser()
             Analytics.logEvent("user_deleted", parameters: nil)
             userDefaultsHelper.emptyUserDefaults()
             return true
