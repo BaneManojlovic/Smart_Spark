@@ -20,11 +20,14 @@ class RegistrationViewModel: ObservableObject {
     let authService = AuthenticationManager()
     let userDefaultsHelper = UserDefaultsHelper()
 
+    // MARK: - Methods for API calling
+
     func registerAction(completion: @escaping (Bool, String?) -> Void) {
         Task {
             let email = emailText
             let password = passwordText
             let repeatedPassword = repeatedPasswordText
+            let username = username
             
             if password == repeatedPassword {
                 let newUser = await self.registerNewUser(email: email, password: password)
@@ -33,7 +36,6 @@ class RegistrationViewModel: ObservableObject {
                     self.saveUserData(user: newUserData)
                     completion(true, nil)
                 } else {
-                    print("registration failed")
                     completion(false, "Registration failed, please try again.")
                 }
             } else {
@@ -42,11 +44,9 @@ class RegistrationViewModel: ObservableObject {
         }
     }
 
-    // MARK: - Calling API endpoint
     func registerNewUser(email: String, password: String) async -> UserModel? {
         do {
             let user = try await authService.register(email: email, password: password)
-            print("User = \(String(describing: user))")
             Analytics.logEvent("sign_up", parameters: nil)
             return user
         } catch {

@@ -41,7 +41,11 @@ struct ChatView: View {
                                 .foregroundStyle(Color.darkBlue)
                             Spacer()
                             Button(action: {
-                                isTutorialPresented = true
+//                                isTutorialPresented = true
+                                Task {
+                                    await self.saveUser()
+                                }
+                                
                             }) {
                                 Image(systemName: "info.circle")
                                     .foregroundColor(.darkBlue)
@@ -157,6 +161,22 @@ struct ChatView: View {
                 apiKeyValue = ""
             }
         }
+    }
+    
+    
+    
+    func saveUser() async {
+        if let user = userDefaultsHelper.getUser() {
+            var userModel = UserModel(user: user)
+            userModel.username = "Baki Maki"
+            do {
+                try await UserDataManager.shared.createNewUser(model: userModel)
+                print("ok")
+            } catch {
+                print("not ok")
+            }
+        }
+        
     }
 }
 

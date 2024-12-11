@@ -118,11 +118,13 @@ struct RegistrationView: View {
                     if let message = message {
                         alertViewModel.presentAlert(alert: CustomAlert(title: message,
                                                                        message: "",
-                                                                       primaryButton: .default(Text("Ok")), secundaryButton: .cancel()))
+                                                                       primaryButton: .default(Text("Ok")), 
+                                                                       secundaryButton: .cancel()))
                     } else {
                         alertViewModel.presentAlert(alert: CustomAlert(title: "You entered invalid data for email or password, please try again with valid data.",
                                                                        message: "",
-                                                                       primaryButton: .default(Text("Ok")), secundaryButton: .cancel()))
+                                                                       primaryButton: .default(Text("Ok")), 
+                                                                       secundaryButton: .cancel()))
                     }
                 }
             }

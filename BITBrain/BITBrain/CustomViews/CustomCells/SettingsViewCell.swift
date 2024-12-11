@@ -32,8 +32,8 @@ struct SettingsViewCell: View {
             alertViewModel.presentAlert(alert:
                                             CustomAlert(title: "\(item.title)",
                                                         message: "Are you sure, that you want to logout?",
-                                                        primaryButton: .default(Text("Ok")) {
-                appRootManager.currentRoot = .splash
+                                                        primaryButton: .default(Text("Ok")) { [weak appRootManager] in
+                appRootManager?.currentRoot = .splash
             },
                                                         secundaryButton: .cancel()))
         case "Rate this App":

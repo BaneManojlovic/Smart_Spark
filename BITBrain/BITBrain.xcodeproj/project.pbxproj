@@ -63,7 +63,7 @@
 		8D5496042CF778BE0010367B /* WhishKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5496032CF778BE0010367B /* WhishKitManager.swift */; };
 		8DF498822CD279F800261CA9 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */; };
 		8DF498842CD31BC400261CA9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8DF498832CD31BC400261CA9 /* FirebaseAnalytics */; };
-		8DF498862CD31F4400261CA9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498852CD31F4400261CA9 /* User.swift */; };
+		8DF498862CD31F4400261CA9 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498852CD31F4400261CA9 /* UserModel.swift */; };
 		8DF498882CD3313700261CA9 /* SplashScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498872CD3313700261CA9 /* SplashScreenViewModel.swift */; };
 		8DF4988A2CD333C200261CA9 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498892CD333C200261CA9 /* SettingsViewModel.swift */; };
 		8DF4988C2CD345A900261CA9 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF4988B2CD345A900261CA9 /* ChatViewModel.swift */; };
@@ -71,6 +71,7 @@
 		8DF498912CD38C8F00261CA9 /* MessageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498902CD38C8F00261CA9 /* MessageCellView.swift */; };
 		8DF7740F2CF860CE0094F55E /* ReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF7740E2CF860CE0094F55E /* ReviewManager.swift */; };
 		8DF774112CF86BBE0094F55E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF774102CF86BBE0094F55E /* WebView.swift */; };
+		8DF774132CF8C9950094F55E /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF774122CF8C9950094F55E /* UserDataManager.swift */; };
 		F420F23CC1606387BE9C158F /* Pods_BITBrain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E19BCE8FC1D8EF39C6CBB7 /* Pods_BITBrain.framework */; };
 /* End PBXBuildFile section */
 
@@ -129,7 +130,7 @@
 		8D5495FE2CF759FF0010367B /* TutorialCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCardView.swift; sourceTree = "<group>"; };
 		8D5496032CF778BE0010367B /* WhishKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhishKitManager.swift; sourceTree = "<group>"; };
 		8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
-		8DF498852CD31F4400261CA9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8DF498852CD31F4400261CA9 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		8DF498872CD3313700261CA9 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
 		8DF498892CD333C200261CA9 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		8DF4988B2CD345A900261CA9 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
@@ -137,6 +138,7 @@
 		8DF498902CD38C8F00261CA9 /* MessageCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellView.swift; sourceTree = "<group>"; };
 		8DF7740E2CF860CE0094F55E /* ReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewManager.swift; sourceTree = "<group>"; };
 		8DF774102CF86BBE0094F55E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		8DF774122CF8C9950094F55E /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		D8E19BCE8FC1D8EF39C6CBB7 /* Pods_BITBrain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BITBrain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -241,6 +243,7 @@
 			children = (
 				8D5496032CF778BE0010367B /* WhishKitManager.swift */,
 				8DF7740E2CF860CE0094F55E /* ReviewManager.swift */,
+				8DF774122CF8C9950094F55E /* UserDataManager.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -316,7 +319,7 @@
 		8D2D02AD2CC6AA0500ED852E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8DF498852CD31F4400261CA9 /* User.swift */,
+				8DF498852CD31F4400261CA9 /* UserModel.swift */,
 				8DF4988E2CD380BA00261CA9 /* AppChat.swift */,
 				8D5495FB2CF757E10010367B /* TutorialData.swift */,
 			);
@@ -638,6 +641,7 @@
 				8D2D02BB2CC76DCB00ED852E /* ChatView.swift in Sources */,
 				8D47AD9E2CDE64B400D85C31 /* TutorialView.swift in Sources */,
 				8D47ADA22CE622BC00D85C31 /* ProfileViewModel.swift in Sources */,
+				8DF774132CF8C9950094F55E /* UserDataManager.swift in Sources */,
 				8D2D02DD2CCB8CAB00ED852E /* Coordinator.swift in Sources */,
 				8D2D02B92CC76D7600ED852E /* CustomTabBarView.swift in Sources */,
 				8D2D02C92CC7EE6600ED852E /* ActiveChatView.swift in Sources */,
@@ -670,7 +674,7 @@
 				8D2D02F32CCBCDD100ED852E /* AppRootManager.swift in Sources */,
 				8D2D030B2CCC5BED00ED852E /* AuthenticationManager.swift in Sources */,
 				8D1353012CF0A5C900F386DA /* PasswordCustomTextField.swift in Sources */,
-				8DF498862CD31F4400261CA9 /* User.swift in Sources */,
+				8DF498862CD31F4400261CA9 /* UserModel.swift in Sources */,
 				8DF4988F2CD380BA00261CA9 /* AppChat.swift in Sources */,
 				8D1352F92CF0965D00F386DA /* BaseTextFieldView.swift in Sources */,
 			);

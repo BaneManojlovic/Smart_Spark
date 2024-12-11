@@ -54,7 +54,7 @@ struct TutorialView: View {
                 }
                 .tabViewStyle(PageTabViewStyle())
             }
-            
+            .frame(maxHeight: .infinity)
         }
         
     }
