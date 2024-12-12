@@ -6,54 +6,56 @@
 //
 
 import Foundation
-import FirebaseFirestore
-import FirebaseAuth
 import OpenAI
 
 final class AuthenticationManager {
     
-    //    static let shared = AuthenticationManager() // see how to replace this singleton with something else
-    
-    //    private init() { }
-    
     func login(email: String, password: String) async throws -> UserModel? {
-        let result = try await Auth.auth().signIn(withEmail: email, password: password)
-        return UserModel(user: result.user)
+//        let result = try await Auth.auth().signIn(withEmail: email, password: password)
+//        return UserModel(user: result.user)
+        return nil
     }
     
     func register(email: String, password: String) async throws -> UserModel?  {
-        let result = try await Auth.auth().createUser(withEmail: email, password: password)
-        return UserModel(user: result.user)
+//        let result = try await Auth.auth().createUser(withEmail: email, password: password)
+//        return UserModel(user: result.user)
+        return nil
     }
     
     func getAuthenticatedUser() throws -> UserModel? {
-        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
-        return UserModel(user: user)
+//        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
+//        return UserModel(user: user)
+        return nil
     }
     
     func signOut() throws {
-        try Auth.auth().signOut()
+//        try Auth.auth().signOut()
+        print("Sign out...")
     }
     
     // TODO: - Add this on Forgot passsword screen
     func resetPassword(email: String) async throws {
-        try await Auth.auth().sendPasswordReset(withEmail: email)
+//        try await Auth.auth().sendPasswordReset(withEmail: email)
+        print("Resset pass...")
     }
     // TODO: - Add this on Profile screen
     func updatePassword(password: String) async throws {
-        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
-        try await user.updatePassword(to: password)
+//        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
+//        try await user.updatePassword(to: password)
+        print("Update pass...")
     }
     // TODO: - Add this on Profile screen
     func updateEmail(email: String) async throws {
-        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
-        //'updateEmail(to:)' is deprecated: `updateEmail` is deprecated and will be removed in a future release. Use sendEmailVerification(beforeUpdatingEmail:) instead.
-        try await user.sendEmailVerification(beforeUpdatingEmail: email)
+//        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
+//        //'updateEmail(to:)' is deprecated: `updateEmail` is deprecated and will be removed in a future release. Use sendEmailVerification(beforeUpdatingEmail:) instead.
+//        try await user.sendEmailVerification(beforeUpdatingEmail: email)
+        print("Update email....")
     }
     // TODO: - Add this on Profile screen
     func deleteUser() async throws {
-        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
-        try await user.delete()
+//        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
+//        try await user.delete()
+        print("deleteUSer....")
     }
     
     // MARK: - Methods for database handling
@@ -91,4 +93,6 @@ final class AuthenticationManager {
     ////
     //    }
     //
+     
 }
+

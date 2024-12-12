@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import FirebaseAuth
-import FirebaseAnalytics
 
 class ProfileViewModel: ObservableObject {
     
@@ -41,7 +39,6 @@ class ProfileViewModel: ObservableObject {
     func deleteAccount() async -> Bool {
         do {
             let _: () = try await authService.deleteUser()
-            Analytics.logEvent("user_deleted", parameters: nil)
             userDefaultsHelper.emptyUserDefaults()
             return true
         } catch {

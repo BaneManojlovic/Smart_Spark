@@ -166,17 +166,18 @@ struct ChatView: View {
     
     
     func saveUser() async {
-        if let user = userDefaultsHelper.getUser() {
-            var userModel = UserModel(user: user)
-            userModel.username = "Baki Maki"
-            do {
-                try await UserDataManager.shared.createNewUser(model: userModel)
-                print("ok")
-            } catch {
-                print("not ok")
-            }
-        }
-        
+//        if let user = userDefaultsHelper.getUser() {
+//            var userModel = UserModel(user: user)
+//            userModel.username = "Baki Maki"
+//            do {
+//                try await UserDataManager.shared.createNewUser(model: userModel)
+//                print("ok")
+//            } catch {
+//                print("not ok")
+//            }
+//        }
+//
+        print("Save user...")
     }
 }
 

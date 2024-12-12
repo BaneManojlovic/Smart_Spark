@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import FirebaseAuth
-import FirebaseAnalytics
 
 class LoginViewModel: ObservableObject {
     
@@ -43,7 +41,6 @@ class LoginViewModel: ObservableObject {
         do {
             let user = try await authService.login(email: email, password: password)
             print("User = \(String(describing: user?.email))")
-            Analytics.logEvent("login", parameters: nil)
             return user
         } catch {
             print("login failed")

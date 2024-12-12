@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import FirebaseAuth
-import FirebaseAnalytics
 
 class RegistrationViewModel: ObservableObject {
     
@@ -47,7 +45,6 @@ class RegistrationViewModel: ObservableObject {
     func registerNewUser(email: String, password: String) async -> UserModel? {
         do {
             let user = try await authService.register(email: email, password: password)
-            Analytics.logEvent("sign_up", parameters: nil)
             return user
         } catch {
             print("error")

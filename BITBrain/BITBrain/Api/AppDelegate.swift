@@ -7,9 +7,6 @@
 
 import Foundation
 import SwiftUI
-import Firebase
-import SwiftUI
-import Firebase
 import WishKit
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -18,7 +15,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
+
         wishKitManager.configureWishKit()
         return true
     }
