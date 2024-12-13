@@ -26,9 +26,8 @@ class LoginViewModel: ObservableObject {
             let user = await self.login(email: email, password: password)
             
             if let userData = user {
-                self.saveUserData(user: userData)
+                let user = await self.getUserDataFromDatabase(userId: userData.id)
                 completion(true)
-                
             } else {
                 print("login failed")
                 completion(false)
@@ -42,6 +41,15 @@ class LoginViewModel: ObservableObject {
         if userLoggedIn {
             let user = await authService.getAuthenticatedUser()
             print("User = \(String(describing: user?.email))")
+            return user
+        } else {
+            return nil
+        }
+    }
+    
+    func getUserDataFromDatabase(userId: UUID) async -> UserModel? {
+        if let user = await authService.getUserData(userId: userId) {
+            self.saveUserData(user: user)
             return user
         } else {
             return nil

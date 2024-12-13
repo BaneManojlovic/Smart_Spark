@@ -69,7 +69,19 @@ class AuthenticationManager {
             completion(error)
         }
     }
-    
+
+    func getUserData(userId: UUID) async -> UserModel? {
+        print("\(userId)")
+        do {
+            let response: [UserModel] = try await databaseClient.from("profiles").select().eq("id",
+                                                                                              value: userId.uuidString.lowercased()).execute().value
+            print("\(response)")
+            return response.first
+        } catch {
+            print("error")
+            return nil
+        }
+    }
 
     func signOut() async {
         do {
