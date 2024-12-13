@@ -6,31 +6,87 @@
 //
 
 import Foundation
+import Observation
 import OpenAI
+import Supabase
+import SwiftUI
 
-final class AuthenticationManager {
+
+extension SupabaseClient {
+
+    static var client: SupabaseClient {
+        SupabaseClient(supabaseURL: URL(string: "https://fafxozxpyqeziargccre.supabase.co")!,
+                       supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhZnhvenhweXFlemlhcmdjY3JlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM5OTU5NzEsImV4cCI6MjA0OTU3MTk3MX0.Wv9zJhaJ-nT2uKPRK1f_L4qVoZOM_E2YyGEspJgAoXk")
+    }
+}
+
+@Observable
+class AuthenticationManager {
+
+    static let shared = AuthenticationManager()
+    let authClient = SupabaseClient.client.auth
+    let databaseClient = SupabaseClient.client
     
-    func login(email: String, password: String) async throws -> UserModel? {
-//        let result = try await Auth.auth().signIn(withEmail: email, password: password)
-//        return UserModel(user: result.user)
-        return nil
+    init() {}
+    
+    func login(email: String, password: String) async -> Bool {
+        do {
+            try await authClient.signIn(email: email, password: password)
+            return true
+        } catch {
+            print(error.localizedDescription)
+            return false
+        }
+    }
+
+    func getAuthenticatedUser() async -> UserModel? {
+        do {
+            let user = try await authClient.user()
+            return UserModel(from: user)
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+
+    func register(email: String, password: String) async -> Bool {
+        do {
+            let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
+            try await authClient.signUp(email: trimmedEmail, password: password)
+            return true
+        } catch {
+            print(error.localizedDescription)
+            return false
+        }
     }
     
-    func register(email: String, password: String) async throws -> UserModel?  {
-//        let result = try await Auth.auth().createUser(withEmail: email, password: password)
-//        return UserModel(user: result.user)
-        return nil
+    func saveUser(user: UserModel, completion: @escaping (Error?) -> Void) async {
+        do {
+            try await databaseClient.from("profiles").insert(user).execute()
+            completion(nil)
+        } catch {
+            debugPrint(error.localizedDescription)
+            completion(error)
+        }
     }
     
-    func getAuthenticatedUser() throws -> UserModel? {
-//        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
-//        return UserModel(user: user)
-        return nil
+
+    func signOut() async {
+        do {
+            try await authClient.signOut()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
-    func signOut() throws {
-//        try Auth.auth().signOut()
-        print("Sign out...")
+    func deleteUser(userId: UUID) async throws {
+        let userIdString = userId.uuidString.lowercased()
+        do {
+            try await databaseClient.from("profiles").delete().eq("id", value: userIdString).execute()
+            print("user deleted...")
+        } catch {
+            print("failure ...")
+        }
     }
     
     // TODO: - Add this on Forgot passsword screen
@@ -51,48 +107,5 @@ final class AuthenticationManager {
 //        try await user.sendEmailVerification(beforeUpdatingEmail: email)
         print("Update email....")
     }
-    // TODO: - Add this on Profile screen
-    func deleteUser() async throws {
-//        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
-//        try await user.delete()
-        print("deleteUSer....")
-    }
-    
-    // MARK: - Methods for database handling
-    //    func createChat(user: String?) async throws -> String? {
-    //        let document = try await database.collection("chats").addDocument(data: ["lastMessageSent": Date(), "owner": user ?? ""])
-    //        return document.documentID
-    //    }
-    //
-    //    func fetchData(user: String?) {
-    //        database.collection("chats").whereField("owner", isEqualTo: user ?? "").addSnapshotListener { [weak self] querySnapshoot, error in
-    //            guard let self = self else { return }
-    //
-    //            if let documents = querySnapshoot?.documents {
-    //                // TODO: - finish this
-    //            }
-    //        }
-    //    }
-    //
-    //    func storeMessage(message: AppMessage) throws -> DocumentReference {
-    //        return try database.collection("chats").document(chatId).collection("message").addDocument(from: message)
-    //    }
-    //
-    //    // TODO: - finish this
-    //    private func setupNewChat() {
-    ////        database.collection("chats").document(chatId).updateData(["model": selectedModel.rawValue])
-    ////        DispatchQueue.main.async { [weak self] in
-    ////            self.chat.model = self.selectedModel
-    //        }
-    //    }
-    //// TODO: - finish this
-    //    private func generateResponse(for message: AppMessage) async throws {
-    ////        let openAI = OpenAI(apiToken: "")
-    ////
-    ////        let queryMessages = messages.map {
-    ////
-    //    }
-    //
-     
 }
 

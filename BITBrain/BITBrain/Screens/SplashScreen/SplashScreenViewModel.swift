@@ -6,19 +6,16 @@
 //
 
 import Foundation
+import Supabase
 
 class SplashScreenViewModel: ObservableObject {
+
+    let authManager = AuthenticationManager.shared
     
-    let authService = AuthenticationManager()
-    
-    func checkForUser() -> UserModel? {
+    func checkForUser() async -> UserModel? {
         do {
-            let user = try authService.getAuthenticatedUser()
-            print("user exists")
+            let user = await authManager.getAuthenticatedUser()
             return user
-        } catch {
-            print("no user")
-            return nil
         }
     }
 }

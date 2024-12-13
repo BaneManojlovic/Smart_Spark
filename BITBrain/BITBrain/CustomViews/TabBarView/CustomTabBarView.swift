@@ -18,14 +18,14 @@ struct CustomTabBarView: View {
             
             TabView {
                 Group {
-                    ChatView(chatController: chatController)
+                    HomeView(chatController: chatController)
                         .tabItem {
-                            Image(systemName: "bubble.left.and.text.bubble.right.fill")
-                            Text("Chat")
+                            Image(systemName: "house.fill")
+                            Text("Home")
                         }
                     SettingsView(settingsNavViewModel: SettingsNavigationViewModel(coordinator: settingsCoordinator))
                         .tabItem {
-                            Image(systemName: "gearshape.2")
+                            Image(systemName: "gear")
                             Text("Settings")
                         }
                 }

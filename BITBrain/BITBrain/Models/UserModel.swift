@@ -6,27 +6,25 @@
 //
 
 import Foundation
+import Supabase
 
 struct UserModel: Codable {
-    let uid: String
+    let id: UUID
     let email: String?
     let photoUrl: String?
-    let password: String?
     var username: String?
 
-    init(uid: String, email: String, photoUrl: String, password: String, username: String) {
-        self.uid = uid
-        self.email = email
-        self.photoUrl = photoUrl
-        self.password = password
-        self.username = username
+    init(from supabaseUser: User) {
+        self.id = supabaseUser.id
+        self.email = supabaseUser.email
+        self.photoUrl = supabaseUser.userMetadata["photoUrl"]?.stringValue
+        self.username = supabaseUser.userMetadata["username"]?.stringValue
     }
 
-    init(user: UserModel) {
-        self.uid = user.uid
-        self.email = user.email
-        self.photoUrl = user.photoUrl
-        self.password = ""
-        self.username = user.username
+    private enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case email = "user_email"
+        case photoUrl = "profile_image"
+        case username = "user_name"
     }
 }

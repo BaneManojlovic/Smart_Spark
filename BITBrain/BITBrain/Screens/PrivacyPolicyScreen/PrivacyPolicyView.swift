@@ -33,8 +33,6 @@ struct PrivacyPolicyView: View {
                     Image(systemName: "chevron.left")
                         .foregroundColor(.primaryBlue)
                         .font(.title2)
-                    Text("Settings")
-                        .foregroundStyle(.primaryBlue)
                 }
             }
         }

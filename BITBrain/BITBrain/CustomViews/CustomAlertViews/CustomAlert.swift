@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-// Da li ovo moze da se napravi kao weak ?
+
 struct CustomAlert {
     let title: String
     let message: String

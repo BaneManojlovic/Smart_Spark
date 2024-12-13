@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ChatView: View {
+struct HomeView: View {
 
     @StateObject var chatController: ChatController
     @ObservedObject var userDefaultsHelper = UserDefaultsHelper()
@@ -41,11 +41,7 @@ struct ChatView: View {
                                 .foregroundStyle(Color.darkBlue)
                             Spacer()
                             Button(action: {
-//                                isTutorialPresented = true
-                                Task {
-                                    await self.saveUser()
-                                }
-                                
+                                isTutorialPresented = true
                             }) {
                                 Image(systemName: "info.circle")
                                     .foregroundColor(.darkBlue)
@@ -161,23 +157,6 @@ struct ChatView: View {
                 apiKeyValue = ""
             }
         }
-    }
-    
-    
-    
-    func saveUser() async {
-//        if let user = userDefaultsHelper.getUser() {
-//            var userModel = UserModel(user: user)
-//            userModel.username = "Baki Maki"
-//            do {
-//                try await UserDataManager.shared.createNewUser(model: userModel)
-//                print("ok")
-//            } catch {
-//                print("not ok")
-//            }
-//        }
-//
-        print("Save user...")
     }
 }
 

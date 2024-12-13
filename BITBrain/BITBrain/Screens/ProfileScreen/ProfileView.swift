@@ -14,6 +14,8 @@ struct ProfileView: View {
     @ObservedObject var settingsNavViewModel: SettingsNavigationViewModel
     @ObservedObject var viewModel = ProfileViewModel()
     @State private var isLoading = false
+    @State private var showDeleteDialog = false
+
 
     var body: some View {
         
@@ -22,20 +24,34 @@ struct ProfileView: View {
                 Color.white
                     .edgesIgnoringSafeArea(.all)
                 VStack(alignment: .center, spacing: 10) {
-                    Image("test_person_image")
+                    Image(systemName: "person")
                         .resizable()
-                        .foregroundColor(.primaryBlue)
+                        .foregroundColor(.lightGrayBit)
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2.0, alignment: .center)
                         .scaledToFill()
                     HStack {
-                        Text("UserID:")
-                            .frame(alignment: .center)
-                            .fontWeight(.bold)
-                            .foregroundStyle(Color.darkBlue)
-                        Text(" \(viewModel.getUserId())")
-                            .frame(alignment: .center)
-                            .fontWeight(.bold)
-                            .foregroundStyle(Color.darkBlue)
+                        
+                        if let username = viewModel.getUsername() {
+                            Text("Username:")
+                                .frame(alignment: .center)
+                                .fontWeight(.bold)
+                                .foregroundStyle(Color.darkBlue)
+                            Text(" \(username)")
+                                .frame(alignment: .center)
+                                .fontWeight(.bold)
+                                .foregroundStyle(Color.darkBlue)
+                        } else {
+                            Text("UserID:")
+                                .frame(alignment: .center)
+                                .fontWeight(.bold)
+                                .foregroundStyle(Color.darkBlue)
+                            Text(" \(viewModel.getUserId())")
+                                .frame(alignment: .center)
+                                .fontWeight(.bold)
+                                .foregroundStyle(Color.darkBlue)
+                        }
+                        
+                        
                     }
                     HStack {
                         Text("email:")
@@ -48,7 +64,7 @@ struct ProfileView: View {
                             .foregroundStyle(Color.darkBlue)
                     }
                     Spacer()
-                    Button(action: deleteAccount) {
+                    Button(action: callForDeleteAction) {
                         HStack {
                             Spacer()
                             Text("Delete account")
@@ -75,8 +91,21 @@ struct ProfileView: View {
         }
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden()
+        .confirmationDialog(
+            "Are you sure you want to delete your account?",
+            isPresented: $showDeleteDialog,
+            titleVisibility: .visible
+        ) {
+            Button("Delete Account", role: .destructive) {
+                deleteAccount()
+            }
+            Button("Cancel", role: .cancel) {}
+        }
         .alert(isPresented: $alertViewModel.showAlert) {
-            Alert(title: Text(alertViewModel.alert?.title ?? "Unknown"), message: Text(""), primaryButton: .default(Text("Ok")), secondaryButton: .cancel())
+            Alert(title: Text(alertViewModel.alert?.title ?? "Unknown"),
+                  message: Text(""),
+                  primaryButton: .default(Text("Ok")),
+                  secondaryButton: .cancel())
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -86,8 +115,6 @@ struct ProfileView: View {
                     Image(systemName: "chevron.left")
                         .foregroundColor(.primaryBlue)
                         .font(.title2)
-                    Text("Settings")
-                        .foregroundStyle(.primaryBlue)
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -101,19 +128,11 @@ struct ProfileView: View {
             }
         }
     }
-    // TODO: - Fix this
-//    func doYouWantToDeleteAccount() {
-//        DispatchQueue.main.async {
-//            alertViewModel.presentAlert(alert:
-//                                            CustomAlert(title: "Are you sure, that you want to delete account?",
-//                                                        message: "",
-//                                                        primaryButton: .default(Text("Ok")) {
-//                deleteAccount()
-//            },
-//                                                        secundaryButton: .cancel()))
-//        }
-//    }
     
+    func callForDeleteAction() {
+        showDeleteDialog = true
+    }
+
     func deleteAccount() {
         print("delete account tapped....")
         isLoading = true

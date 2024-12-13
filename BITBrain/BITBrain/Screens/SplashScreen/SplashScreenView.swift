@@ -6,16 +6,16 @@
 //
 
 import SwiftUI
+import Supabase
 
 struct SplashScreenView: View {
     
     @EnvironmentObject private var appRootManager: AppRootManager
     @ObservedObject var viewModel = SplashScreenViewModel()
-
     @State private var size = 1.0
     @State private var opacity = 0.9
     @State private var isLoggedIn = false
-    
+        
     var body: some View {
         ZStack {
             Color(.primaryBlue)
@@ -37,7 +37,9 @@ struct SplashScreenView: View {
             .scaleEffect(size)
             .opacity(opacity)
             .onAppear {
-                checkForLoggedInUser()
+                Task {
+                    await checkForLoggedInUser()
+                }
                 withAnimation(.easeIn(duration: 1.3)) {
                     self.size = 1.3
                     self.opacity = 1.0
@@ -53,16 +55,15 @@ struct SplashScreenView: View {
                     
                 }
             }
-            
-            
         }
     }
     
-    func checkForLoggedInUser() {
-        if let user = viewModel.checkForUser() {
-            print("Logged in user = \(user.email)")
+    func checkForLoggedInUser() async {
+        if let user = await viewModel.checkForUser() {
+            print("Logged in user = \(String(describing: user.email))")
             isLoggedIn = true
         } else {
+            print("User is not logged in")
             isLoggedIn = false
         }
     }

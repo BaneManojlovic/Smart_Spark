@@ -66,12 +66,9 @@ struct SettingsView: View {
                       message: Text(alertViewModel.alert?.message ?? "Unknown"),
                       primaryButton: .default(Text("Ok"), action: {
                     Task {
-                        do {
-                            try viewModel.logout()
-                            appRootManager.currentRoot = .splash
-                        } catch {
-                            print("error")
-                        }
+                        await viewModel.logout()
+                        print("User logouted...")
+                        appRootManager.currentRoot = .splash
                     }
                     
                 }),
