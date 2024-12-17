@@ -35,7 +35,7 @@ struct CustomTabBarView: View {
                 .toolbarBackground(.visible, for: .tabBar)
                 
             }
-            .tint(.darkYellow)
+            .tint(.primaryBlue)
             
             
             Rectangle()

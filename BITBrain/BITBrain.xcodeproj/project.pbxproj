@@ -61,6 +61,7 @@
 		8DB0714F2D0AE1730085194E /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 8DB0714E2D0AE1730085194E /* Realtime */; };
 		8DB071512D0AE1730085194E /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 8DB071502D0AE1730085194E /* Storage */; };
 		8DB071532D0AE1730085194E /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8DB071522D0AE1730085194E /* Supabase */; };
+		8DF0AF002D11BFA6000ECB32 /* UIAplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF0AEFF2D11BFA6000ECB32 /* UIAplication+Extension.swift */; };
 		8DF498822CD279F800261CA9 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */; };
 		8DF498862CD31F4400261CA9 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498852CD31F4400261CA9 /* UserModel.swift */; };
 		8DF498882CD3313700261CA9 /* SplashScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498872CD3313700261CA9 /* SplashScreenViewModel.swift */; };
@@ -126,6 +127,7 @@
 		8D5495FB2CF757E10010367B /* TutorialData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialData.swift; sourceTree = "<group>"; };
 		8D5495FE2CF759FF0010367B /* TutorialCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCardView.swift; sourceTree = "<group>"; };
 		8D5496032CF778BE0010367B /* WhishKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhishKitManager.swift; sourceTree = "<group>"; };
+		8DF0AEFF2D11BFA6000ECB32 /* UIAplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAplication+Extension.swift"; sourceTree = "<group>"; };
 		8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		8DF498852CD31F4400261CA9 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		8DF498872CD3313700261CA9 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */,
+				8DF0AEFF2D11BFA6000ECB32 /* UIAplication+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				8DF4988A2CD333C200261CA9 /* SettingsViewModel.swift in Sources */,
 				8D2D02FC2CCBDE3900ED852E /* PrivacyPolicyView.swift in Sources */,
 				8D2D02BB2CC76DCB00ED852E /* HomeView.swift in Sources */,
+				8DF0AF002D11BFA6000ECB32 /* UIAplication+Extension.swift in Sources */,
 				8D47AD9E2CDE64B400D85C31 /* TutorialView.swift in Sources */,
 				8D47ADA22CE622BC00D85C31 /* ProfileViewModel.swift in Sources */,
 				8DF774132CF8C9950094F55E /* UserDataManager.swift in Sources */,

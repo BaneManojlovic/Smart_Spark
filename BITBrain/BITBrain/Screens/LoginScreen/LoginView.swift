@@ -93,6 +93,7 @@ struct LoginView: View {
     }
     
     func loginAction() {
+        UIApplication.shared.endEditing(true)
         isLoading = true
         loginViewModel.loginAction { success in
             DispatchQueue.main.async {

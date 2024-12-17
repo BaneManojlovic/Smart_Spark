@@ -105,6 +105,7 @@ struct RegistrationView: View {
     }
     
     func registerAction() {
+        UIApplication.shared.endEditing(true)
         isLoading = true
         registerViewModel.registerAction { success, message  in
             DispatchQueue.main.async {
