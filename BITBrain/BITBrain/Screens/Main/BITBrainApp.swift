@@ -12,6 +12,8 @@ struct BITBrainApp: App {
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var appRootManager = AppRootManager()
+    let authManager = AuthenticationManager.shared
+
     
     var body: some Scene {
         WindowGroup {

@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import FirebaseAuth
-import FirebaseAnalytics
 
 class LoginViewModel: ObservableObject {
     
@@ -28,9 +26,8 @@ class LoginViewModel: ObservableObject {
             let user = await self.login(email: email, password: password)
             
             if let userData = user {
-                self.saveUserData(user: userData)
+                let user = await self.getUserDataFromDatabase(userId: userData.id)
                 completion(true)
-                
             } else {
                 print("login failed")
                 completion(false)
@@ -40,13 +37,21 @@ class LoginViewModel: ObservableObject {
 
     // MARK: - Calling API endpoint
     func login(email: String, password: String) async -> UserModel? {
-        do {
-            let user = try await authService.login(email: email, password: password)
+        let userLoggedIn = await authService.login(email: email, password: password)
+        if userLoggedIn {
+            let user = await authService.getAuthenticatedUser()
             print("User = \(String(describing: user?.email))")
-            Analytics.logEvent("login", parameters: nil)
             return user
-        } catch {
-            print("login failed")
+        } else {
+            return nil
+        }
+    }
+    
+    func getUserDataFromDatabase(userId: UUID) async -> UserModel? {
+        if let user = await authService.getUserData(userId: userId) {
+            self.saveUserData(user: user)
+            return user
+        } else {
             return nil
         }
     }

@@ -39,14 +39,7 @@ struct SettingsViewCell: View {
         case "Rate this App":
             ReviewManager.requestReviewManually()
         default:
-            
-            alertViewModel.presentAlert(alert:
-                                            CustomAlert(title: "\(item.title)",
-                                                        message: "",
-                                                        primaryButton: .default(Text("Ok")) {
-                print("Cell \(item.title) tapped")
-            },
-                                                        secundaryButton: .cancel()))
+            print("default...")
         }
     }
 

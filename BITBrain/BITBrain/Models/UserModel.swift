@@ -6,28 +6,25 @@
 //
 
 import Foundation
-import FirebaseAuth
+import Supabase
 
 struct UserModel: Codable {
-    let uid: String
+    let id: UUID
     let email: String?
     let photoUrl: String?
-    let password: String?
     var username: String?
 
-    init(user: User) {
-        self.uid = user.uid
-        self.email = user.email
-        self.photoUrl = user.photoURL?.absoluteString
-        self.password = ""
-        self.username = user.displayName
+    init(from supabaseUser: User) {
+        self.id = supabaseUser.id
+        self.email = supabaseUser.email
+        self.photoUrl = supabaseUser.userMetadata["photoUrl"]?.stringValue
+        self.username = supabaseUser.userMetadata["username"]?.stringValue
     }
 
-    init(user: UserModel) {
-        self.uid = user.uid
-        self.email = user.email
-        self.photoUrl = user.photoUrl
-        self.password = ""
-        self.username = user.username
+    private enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case email = "user_email"
+        case photoUrl = "profile_image"
+        case username = "user_name"
     }
 }

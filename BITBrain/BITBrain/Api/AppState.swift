@@ -7,8 +7,6 @@
 
 import Foundation
 import SwiftUI
-import FirebaseAuth
-import Firebase
 //
 //class AppState: ObservableObject {
 //    
@@ -19,7 +17,7 @@ import Firebase
 //    }
 //    
 //    init() {
-//        FirebaseApp.configure()
+//       
 //        
 //        if let currentUser = Auth.auth().currentUser {
 //            self.currentUser = currentUser

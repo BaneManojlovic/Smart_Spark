@@ -10,7 +10,7 @@ import SwiftUI
 struct TutorialView: View {
     
     @Environment(\.dismiss) var dismiss
-    let tutorialData: [TutorialData] = [TutorialData(image: "face.smiling", title: "Welcome to Smart Spark App"),
+    let tutorialData: [TutorialData] = [TutorialData(image: "face.smiling", title: "Welcome to Smart Spark App!"),
                                         TutorialData(image: "bubble.left.and.text.bubble.right", title: "Chat easy with your artificial inteligence advisor."),
                                         TutorialData(image: "lightbulb.max", title: "Suggest some smart features to add in this app."),
                                         TutorialData(image: "ear.badge.checkmark", title: "Recommend Smart Spark App to your friends!")]
@@ -53,9 +53,18 @@ struct TutorialView: View {
                     }
                 }
                 .tabViewStyle(PageTabViewStyle())
+                .onAppear {
+                    setupTabDotsAppearance()
+                }
+                
             }
             .frame(maxHeight: .infinity)
         }
         
+    }
+    
+    private func setupTabDotsAppearance() {
+        UIPageControl.appearance().currentPageIndicatorTintColor = .darkYellow
+        UIPageControl.appearance().pageIndicatorTintColor = .lightGrayBit
     }
 }

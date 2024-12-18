@@ -16,11 +16,13 @@ struct TutorialCardView: View {
     var body: some View {
         
         ZStack {
-            VStack(spacing: 10) {
+            VStack(alignment: .center, spacing: 10) {
+                Spacer()
                 Image(systemName: card.image)
                     .resizable()
                     .scaledToFit()
                     .foregroundStyle(.primaryBlue)
+                    .frame(width: 150, height: 150, alignment: .center)
                     .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.15), radius: 8, x: 6, y: 8)
                     .padding(10)
                 Text(card.title)
@@ -32,7 +34,8 @@ struct TutorialCardView: View {
                 Spacer()
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
-            .background(LinearGradient(gradient: Gradient(colors: [Color.white, Color.primaryBlue]), startPoint: .top, endPoint: .bottom))
+            .background(.white)
+            
         }
     }
     
@@ -48,7 +51,6 @@ struct SkipButtonView: View {
       }) {
         HStack(spacing: 8) {
           Text("Skip")
-          
           Image(systemName: "arrow.right.circle")
             .imageScale(.large)
         }

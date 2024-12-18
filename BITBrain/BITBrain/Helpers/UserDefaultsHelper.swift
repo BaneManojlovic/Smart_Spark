@@ -15,6 +15,24 @@ class UserDefaultsHelper: ObservableObject {
     
     private let openAiAPIToken = "openAiAPIToken"
     
+    // Published property to notify SwiftUI views
+    @Published var apiToken: String? {
+        didSet {
+            // Save to UserDefaults whenever the apiToken changes
+            if let token = apiToken {
+                UserDefaults.standard.set(token, forKey: openAiAPIToken)
+            } else {
+                UserDefaults.standard.removeObject(forKey: openAiAPIToken)
+            }
+        }
+    }
+    
+    // MARK: - Initializer
+    init() {
+        // Load initial value from UserDefaults
+        self.apiToken = UserDefaults.standard.string(forKey: openAiAPIToken)
+    }
+    
     // MARK: - UserDefaults methods for hadling UserModel
     
     func setUser(user: UserModel) {

@@ -67,7 +67,6 @@ struct LoginView: View {
                         .disabled(loginViewModel.emailText.isEmpty || loginViewModel.passwordText.isEmpty)
                         
                         Button("Register new user") {
-                            // Register user
                             authNavViewModel.coordinator.navigateToRegistration()
                         }
                         .foregroundColor(.blue)
@@ -94,6 +93,7 @@ struct LoginView: View {
     }
     
     func loginAction() {
+        UIApplication.shared.endEditing(true)
         isLoading = true
         loginViewModel.loginAction { success in
             DispatchQueue.main.async {

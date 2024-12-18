@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import FirebaseAuth
-import FirebaseAnalytics
 
 class RegistrationViewModel: ObservableObject {
     
@@ -16,12 +14,12 @@ class RegistrationViewModel: ObservableObject {
     @Published var passwordText: String = ""
     @Published var repeatedPasswordText: String = ""
     @Published var profileValidation: [ValidationError: Bool] = [.nameInvalid: false, .emailInvalid: false, .passwordInvalid: false, .passwordsDontMatch: false]
-
+    
     let authService = AuthenticationManager()
     let userDefaultsHelper = UserDefaultsHelper()
-
+    
     // MARK: - Methods for API calling
-
+    
     func registerAction(completion: @escaping (Bool, String?) -> Void) {
         Task {
             let email = emailText
@@ -31,9 +29,14 @@ class RegistrationViewModel: ObservableObject {
             
             if password == repeatedPassword {
                 let newUser = await self.registerNewUser(email: email, password: password)
-
+                
                 if let newUserData = newUser {
-                    self.saveUserData(user: newUserData)
+                    
+                    var user = newUserData
+                    user.username = username
+                    
+                    self.saveUserData(user: user)
+                    self.saveUserDataToDatabase(user: user)
                     completion(true, nil)
                 } else {
                     completion(false, "Registration failed, please try again.")
@@ -43,14 +46,15 @@ class RegistrationViewModel: ObservableObject {
             }
         }
     }
-
+    
     func registerNewUser(email: String, password: String) async -> UserModel? {
-        do {
-            let user = try await authService.register(email: email, password: password)
-            Analytics.logEvent("sign_up", parameters: nil)
+        let userRegisteredSuccessfully = await authService.register(email: email, password: password)
+        
+        if userRegisteredSuccessfully {
+            let user = await authService.getAuthenticatedUser()
+            print("User = \(String(describing: user?.email))")
             return user
-        } catch {
-            print("error")
+        } else {
             return nil
         }
     }
@@ -58,4 +62,19 @@ class RegistrationViewModel: ObservableObject {
     func saveUserData(user: UserModel) {
         userDefaultsHelper.setUser(user: user)
     }
+    
+    func saveUserDataToDatabase(user: UserModel) {
+        Task {
+            do {
+                await authService.saveUser(user: user) { error in
+                    if let error {
+                        print(error.localizedDescription)
+                    } else {
+                        print("success...\(user.username)")
+                    }
+                }
+            }
+        }
+    }
+    
 }
