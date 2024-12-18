@@ -12,7 +12,7 @@ import SwiftUI
 class ReviewManager {
 
     static func requestReview() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
                 SKStoreReviewController.requestReview(in: scene)
             }

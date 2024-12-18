@@ -110,7 +110,8 @@ struct CustomSheetView: View {
     }
     
     private func isValidApiKey(_ key: String) -> Bool {
-        return key.count > 5
+        // TODO: - Add method that check validity of API Key based on response form OpenAI
+        return key.count > 150
     }
     
     var body: some View {
