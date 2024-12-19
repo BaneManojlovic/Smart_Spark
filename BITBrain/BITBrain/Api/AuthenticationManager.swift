@@ -76,6 +76,17 @@ class AuthenticationManager {
             completion(error)
         }
     }
+    
+    func updateUserDataInDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
+        print("Bane - called saveUserToDatabase(user: UserModel, completion: @escaping (Error?) -> Void) ")
+        do {
+            try await databaseClient.from("profiles").update(user).eq("id", value: user.id).execute()
+            completion(nil)
+        } catch {
+            debugPrint(error.localizedDescription)
+            completion(error)
+        }
+    }
 
     /// method for getting user data from table "profile" saved on supabase database
     func getUserDataFromDatabase(userId: UUID) async -> UserModel? {
@@ -110,5 +121,43 @@ class AuthenticationManager {
         }
     }
     
+    func saveAndUploadUserProfileImage(avatarImageData: Data) async throws -> String? {
+        
+        var imagePath: String?
+        let uniqueFileName = UUID().uuidString
+        
+        do {
+            let response = try await storageClient
+                .from("photos")
+                .upload("private/\(uniqueFileName).png",
+                        data: avatarImageData,
+                        options: FileOptions(
+                        cacheControl: "3600",
+                        contentType: "image/png",
+                        upsert: false)
+                )
+            imagePath = response.path
+        } catch {
+            print("error...error")
+        }
+        
+        return imagePath
+    }
+
+    func downloadImage(path: String) async -> AvatarImage? {
+        
+        
+        
+//        let baki = "private/15288671-6609-4F73-B51C-42B497713E4E.png"
+        //15288671-6609-4F73-B51C-42B497713E4E.png
+        do {
+            let data = try await storageClient.from("photos").download(path: path)
+            print("Bane - data = \(data)")
+            return AvatarImage(data: data)
+        } catch {
+            print("error")
+            return nil
+        }
+    }
 }
 

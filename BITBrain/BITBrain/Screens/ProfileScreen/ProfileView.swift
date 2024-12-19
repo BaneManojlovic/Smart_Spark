@@ -2,23 +2,24 @@ import SwiftUI
 import PhotosUI
 
 struct ProfileView: View {
-
+    
     // MARK: - Objects
-
+    
     @EnvironmentObject private var appRootManager: AppRootManager
     @ObservedObject var alertViewModel = AlertViewModel()
     @ObservedObject var settingsNavViewModel: SettingsNavigationViewModel
     @ObservedObject var viewModel = ProfileViewModel()
-
+    
     // MARK: - Properties
-
+    
     @State private var isLoading = false
     @State private var showDeleteDialog = false
     @State private var selectedImage: PhotosPickerItem? = nil
     @State private var selectedImageData: Data? = nil
-
+    @State private var isImageChanged = false
+    
     // MARK: - Layout
-
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -28,15 +29,28 @@ struct ProfileView: View {
                 VStack {
                     // Profile Picture with Camera Icon
                     PhotosPicker(selection: $selectedImage, matching: .images, photoLibrary: .shared()) {
+                        
+                        
                         ZStack {
                             // Profile Image
                             if let selectedImageData, let uiImage = UIImage(data: selectedImageData) {
+                                // Show the newly selected image
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 120, height: 120)
+                                    .clipShape(Circle())
+                            } else if let photoUrl = viewModel.avatarImage,
+                                      let uiImage = UIImage(data: photoUrl.data) {
+                                // Show the image from the backend
                                 Image(uiImage: uiImage)
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 120, height: 120)
                                     .clipShape(Circle())
                             } else {
+                                
+                                // Default placeholder
                                 Circle()
                                     .fill(Color.gray.opacity(0.3))
                                     .frame(width: 120, height: 120)
@@ -61,7 +75,7 @@ struct ProfileView: View {
                         .frame(height: 150)
                         .padding(.top, 30)
                     }
-
+                    
                     // Profile Fields
                     VStack(alignment: .leading, spacing: 20) {
                         ProfileField(title: "Username", value: viewModel.userModel?.username ?? "Not set")
@@ -101,6 +115,7 @@ struct ProfileView: View {
                 Task {
                     if let data = try? await newValue?.loadTransferable(type: Data.self) {
                         selectedImageData = data
+                        isImageChanged = true
                     }
                 }
             }
@@ -142,9 +157,10 @@ struct ProfileView: View {
                         saveUpdatedProfile()
                     }) {
                         Text("SAVE")
-                            .foregroundColor(.primaryBlue)
+                            .foregroundColor(isImageChanged ? .primaryBlue : .lightGrayBit)
                             .bold()
                     }
+                    .disabled(!isImageChanged)
                     Button(action: {
                         callForRequestReview()
                     }) {
@@ -158,19 +174,27 @@ struct ProfileView: View {
     }
     
     // MARK: - Methods
-
+    
     func saveUpdatedProfile() {
+        isLoading = true
         print("Save action tapped")
+        Task {
+            if let imageData = selectedImageData {
+                await viewModel.updateProfile(imageData: imageData)
+                isLoading = false
+                isImageChanged = false
+            }
+        }
     }
-
+    
     func callForRequestReview() {
         ReviewManager.requestReview()
     }
-
+    
     func callForDeleteAction() {
         showDeleteDialog = true
     }
-
+    
     func deleteAccount() {
         isLoading = true
         viewModel.deleteAction { success in

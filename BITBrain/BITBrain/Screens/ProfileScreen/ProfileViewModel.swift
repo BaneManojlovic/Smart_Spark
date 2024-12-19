@@ -17,6 +17,7 @@ class ProfileViewModel: ObservableObject {
     // MARK: - Published properties
     
     @Published var userModel: UserModel?
+    @Published var avatarImage: AvatarImage?
 
     // MARK: - Methods
 
@@ -27,11 +28,29 @@ class ProfileViewModel: ObservableObject {
                                   username: user.username,
                                   email: user.email,
                                   photoUrl: user.photoUrl)
+            downloadImage(path: user.photoUrl ?? "")
         } else {
             userModel = nil
         }
     }
-
+    
+    func downloadImage(path: String) {
+        Task {
+            do {
+                
+                let result = try await authService.downloadImage(path: path)
+                if let imageData =  result?.data {
+                    let avatar = AvatarImage(data: imageData)
+                    await MainActor.run {
+                        self.avatarImage = avatar
+                    }
+                }
+            } catch {
+                print("avatar error..")
+            }
+        }
+    }
+    
     func deleteAction(completion: @escaping (Bool) -> Void) {
         Task {
             let result = await self.deleteAccount()
@@ -55,4 +74,29 @@ class ProfileViewModel: ObservableObject {
             return false
         }
     }
+    
+    func updateProfile(imageData: Data) async {
+        do {
+            let imageUrl = try await authService.saveAndUploadUserProfileImage(avatarImageData: imageData)
+            print("Bane = image url = \(imageUrl)")
+            guard let user = self.userModel else { return }
+            
+            let updatedUserModel = UserModel(id: user.id,
+                                             username: user.username,
+                                             email: user.email,
+                                             photoUrl: imageUrl)
+            
+            await authService.updateUserDataInDatabase(user: updatedUserModel) { error in
+                if let error {
+                    print("Bane - ", error.localizedDescription)
+                } else {
+                    print("success...")
+                    self.userDefaultsHelper.setUserToUserDefaults(user: updatedUserModel)
+                }
+            }
+        } catch {
+            print("error")
+        }
+    }
+
 }

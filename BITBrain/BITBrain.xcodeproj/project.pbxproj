@@ -63,6 +63,7 @@
 		8DB071532D0AE1730085194E /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8DB071522D0AE1730085194E /* Supabase */; };
 		8DF0AF002D11BFA6000ECB32 /* UIAplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF0AEFF2D11BFA6000ECB32 /* UIAplication+Extension.swift */; };
 		8DF0AF022D12EE7B000ECB32 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF0AF012D12EE7B000ECB32 /* UIImage+Extensions.swift */; };
+		8DF0AF042D144239000ECB32 /* AvatarImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF0AF032D144239000ECB32 /* AvatarImageHelper.swift */; };
 		8DF498822CD279F800261CA9 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */; };
 		8DF498862CD31F4400261CA9 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498852CD31F4400261CA9 /* UserModel.swift */; };
 		8DF498882CD3313700261CA9 /* SplashScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498872CD3313700261CA9 /* SplashScreenViewModel.swift */; };
@@ -130,6 +131,7 @@
 		8D5496032CF778BE0010367B /* WhishKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhishKitManager.swift; sourceTree = "<group>"; };
 		8DF0AEFF2D11BFA6000ECB32 /* UIAplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAplication+Extension.swift"; sourceTree = "<group>"; };
 		8DF0AF012D12EE7B000ECB32 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		8DF0AF032D144239000ECB32 /* AvatarImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageHelper.swift; sourceTree = "<group>"; };
 		8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		8DF498852CD31F4400261CA9 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		8DF498872CD3313700261CA9 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			children = (
 				8D47AD9F2CE4CCCD00D85C31 /* UserDefaultsHelper.swift */,
 				8D1352FC2CF09F1000F386DA /* StringHelper.swift */,
+				8DF0AF032D144239000ECB32 /* AvatarImageHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -669,6 +672,7 @@
 				8D2D02D62CCA9EC800ED852E /* LoginView.swift in Sources */,
 				8D2D02C62CC7DF5F00ED852E /* SettingsItem.swift in Sources */,
 				8D2D02F12CCBC57200ED852E /* AuthNavigationViewModel.swift in Sources */,
+				8DF0AF042D144239000ECB32 /* AvatarImageHelper.swift in Sources */,
 				8D2D03202CD13C0D00ED852E /* SettingsNavigationViewModel.swift in Sources */,
 				8D5495FC2CF757E10010367B /* TutorialData.swift in Sources */,
 				8D5496042CF778BE0010367B /* WhishKitManager.swift in Sources */,
