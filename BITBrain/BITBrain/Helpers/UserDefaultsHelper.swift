@@ -35,7 +35,8 @@ class UserDefaultsHelper: ObservableObject {
     
     // MARK: - UserDefaults methods for hadling UserModel
     
-    func setUser(user: UserModel) {
+    func setUserToUserDefaults(user: UserModel) {
+        print("Bane - setUserToUserDefaults(user: UserModel) - UserDefaults")
         do {
             let userData = try JSONEncoder().encode(user)
             UserDefaults.standard.set(userData, forKey: UserDefaultKeys.user.rawValue)
@@ -44,7 +45,8 @@ class UserDefaultsHelper: ObservableObject {
         }
     }
 
-    func getUser() -> UserModel? {
+    func getUserFromUserDefaults() -> UserModel? {
+        print("Bane - getUserFromUserDefaults() - UserDefaults")
         do {
             guard let userData = UserDefaults.standard.data(forKey: UserDefaultKeys.user.rawValue) else {
                 return nil
@@ -57,7 +59,8 @@ class UserDefaultsHelper: ObservableObject {
         }
     }
 
-    func removeUser() {
+    func removeUserFromUserDefaults() {
+        print("Bane - removeUserFromUserDefaults() - UserDefaults")
         UserDefaults.standard.removeObject(forKey: UserDefaultKeys.user.rawValue)
     }
 
@@ -78,7 +81,7 @@ class UserDefaultsHelper: ObservableObject {
     // MARK: - Method for emptying user defaults
 
     func emptyUserDefaults() {
-        self.removeUser()
+        self.removeUserFromUserDefaults()
         self.removeOpenAiAPIToken()
     }
 }

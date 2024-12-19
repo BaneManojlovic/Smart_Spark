@@ -59,11 +59,11 @@ struct SplashScreenView: View {
     }
     
     func checkForLoggedInUser() async {
-        if let user = await viewModel.checkForUser() {
-            print("Logged in user = \(String(describing: user.email))")
+        if let userExists = await viewModel.checkForUser(), userExists == true {
+            print("Bane - Logged in user = \(String(describing: userExists))")
             isLoggedIn = true
         } else {
-            print("User is not logged in")
+            print("Bane - User is not logged in")
             isLoggedIn = false
         }
     }

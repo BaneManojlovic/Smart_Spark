@@ -28,15 +28,17 @@ class RegistrationViewModel: ObservableObject {
             let username = username
             
             if password == repeatedPassword {
-                let newUser = await self.registerNewUser(email: email, password: password)
+                let newUserId = await self.registerNewUser(email: email, password: password)
                 
-                if let newUserData = newUser {
+                if let newUserId {
                     
-                    var user = newUserData
-                    user.username = username
-                    
-                    self.saveUserData(user: user)
-                    self.saveUserDataToDatabase(user: user)
+                    let userModel = UserModel(id: newUserId,
+                                          username: username,
+                                          email: email,
+                                          photoUrl: nil)
+                    print("Bane - userModel je = \(userModel.id), \(userModel.username), \(userModel.email), \(userModel.photoUrl)")
+                    self.saveUserData(user: userModel)
+                    self.saveUserDataToDatabase(user: userModel)
                     completion(true, nil)
                 } else {
                     completion(false, "Registration failed, please try again.")
@@ -47,26 +49,26 @@ class RegistrationViewModel: ObservableObject {
         }
     }
     
-    func registerNewUser(email: String, password: String) async -> UserModel? {
+    func registerNewUser(email: String, password: String) async -> UUID? {
         let userRegisteredSuccessfully = await authService.register(email: email, password: password)
         
         if userRegisteredSuccessfully {
-            let user = await authService.getAuthenticatedUser()
-            print("User = \(String(describing: user?.email))")
-            return user
+            let userId = await authService.getAuthenticatedUser()
+            print("User = \(String(describing: userId))")
+            return userId
         } else {
             return nil
         }
     }
     
     func saveUserData(user: UserModel) {
-        userDefaultsHelper.setUser(user: user)
+        userDefaultsHelper.setUserToUserDefaults(user: user)
     }
     
     func saveUserDataToDatabase(user: UserModel) {
         Task {
             do {
-                await authService.saveUser(user: user) { error in
+                await authService.saveUserToDatabase(user: user) { error in
                     if let error {
                         print(error.localizedDescription)
                     } else {

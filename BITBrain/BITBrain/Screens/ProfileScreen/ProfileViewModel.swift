@@ -9,45 +9,43 @@ import Foundation
 
 class ProfileViewModel: ObservableObject {
     
+    // MARK: - Properties
+
     let userDefaultsHelper = UserDefaultsHelper()
     let authService = AuthenticationManager()
     
-    func showUserData() -> String {
-        if let user = userDefaultsHelper.getUser() {
-            return "\(user.email ?? "")"
-        } else {
-            return "--"
-        }
-        
-    }
+    // MARK: - Published properties
     
-    func getUserId() -> String {
-        if let user = userDefaultsHelper.getUser() {
-            return "\(user.id)"
+    @Published var userModel: UserModel?
+
+    // MARK: - Methods
+
+    func fetchUserData() {
+        if let user = userDefaultsHelper.getUserFromUserDefaults() {
+            print("Bane - userModel iz baze je = \(user.id), \(user.username), \(user.email), \(user.photoUrl)")
+            userModel = UserModel(id: user.id,
+                                  username: user.username,
+                                  email: user.email,
+                                  photoUrl: user.photoUrl)
         } else {
-            return "--"
-        }
-    }
-    
-    func getUsername() -> String? {
-        if let user = userDefaultsHelper.getUser() {
-            return user.username
-        } else {
-            return "--"
+            userModel = nil
         }
     }
-    
+
     func deleteAction(completion: @escaping (Bool) -> Void) {
         Task {
             let result = await self.deleteAccount()
+            if result {
+                userModel = nil
+            }
             completion(result)
         }
     }
     
     func deleteAccount() async -> Bool {
-        if let userId = userDefaultsHelper.getUser()?.id {
+        if let userId = userModel?.id {
             do {
-                let _: () = try await authService.deleteUser(userId: userId)
+                try await authService.deleteUserFromDatabase(userId: userId)
                 userDefaultsHelper.emptyUserDefaults()
                 return true
             } catch {

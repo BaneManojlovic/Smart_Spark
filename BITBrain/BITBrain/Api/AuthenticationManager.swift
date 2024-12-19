@@ -24,32 +24,37 @@ extension SupabaseClient {
 class AuthenticationManager {
 
     static let shared = AuthenticationManager()
-    let authClient = SupabaseClient.client.auth
-    let databaseClient = SupabaseClient.client
+    let authClient = SupabaseClient.client.auth        // needed for authentification meaning register, login, logout, delete account
+    let databaseClient = SupabaseClient.client         // needed for saving all types of data to tables in database
+    let storageClient = SupabaseClient.client.storage  // needed for saving images, documents, .. etc to storage
     
     init() {}
     
     func login(email: String, password: String) async -> Bool {
+        print("Bane - called login(email: String, password: String)")
         do {
             try await authClient.signIn(email: email, password: password)
             return true
         } catch {
-            print(error.localizedDescription)
+            print("Bane - error == ", error.localizedDescription)
             return false
         }
     }
-
-    func getAuthenticatedUser() async -> UserModel? {
+    /// method for checking does authenticated user exists on supabase database
+    func getAuthenticatedUser() async -> UUID? {
+        print("Bane - called getAuthenticatedUser()")
         do {
-            let user = try await authClient.user()
-            return UserModel(from: user)
+            let user = try await authClient.user() /// returns User object form supabase database that is different form UserModel - mapping is needed
+            print("Bane - user postoji = \(String(describing: user.email))")
+            return user.id
         } catch {
-            print(error.localizedDescription)
+            print("Bane - error = ", error.localizedDescription)
             return nil
         }
     }
 
     func register(email: String, password: String) async -> Bool {
+        print("Bane - called register(email: String, password: String)")
         do {
             let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
             try await authClient.signUp(email: trimmedEmail, password: password)
@@ -60,7 +65,9 @@ class AuthenticationManager {
         }
     }
     
-    func saveUser(user: UserModel, completion: @escaping (Error?) -> Void) async {
+    /// method for saving user into "profiles" data table in supabase database
+    func saveUserToDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
+        print("Bane - called saveUserToDatabase(user: UserModel, completion: @escaping (Error?) -> Void) ")
         do {
             try await databaseClient.from("profiles").insert(user).execute()
             completion(nil)
@@ -70,7 +77,9 @@ class AuthenticationManager {
         }
     }
 
-    func getUserData(userId: UUID) async -> UserModel? {
+    /// method for getting user data from table "profile" saved on supabase database
+    func getUserDataFromDatabase(userId: UUID) async -> UserModel? {
+        print("Bane - called getUserDataFromDatabase(user: UserModel, completion: @escaping (Error?) -> Void) ")
         print("\(userId)")
         do {
             let response: [UserModel] = try await databaseClient.from("profiles").select().eq("id",
@@ -91,7 +100,7 @@ class AuthenticationManager {
         }
     }
     
-    func deleteUser(userId: UUID) async throws {
+    func deleteUserFromDatabase(userId: UUID) async throws {
         let userIdString = userId.uuidString.lowercased()
         do {
             try await databaseClient.from("profiles").delete().eq("id", value: userIdString).execute()
@@ -101,23 +110,5 @@ class AuthenticationManager {
         }
     }
     
-    // TODO: - Add this on Forgot passsword screen
-    func resetPassword(email: String) async throws {
-//        try await Auth.auth().sendPasswordReset(withEmail: email)
-        print("Resset pass...")
-    }
-    // TODO: - Add this on Profile screen
-    func updatePassword(password: String) async throws {
-//        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
-//        try await user.updatePassword(to: password)
-        print("Update pass...")
-    }
-    // TODO: - Add this on Profile screen
-    func updateEmail(email: String) async throws {
-//        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
-//        //'updateEmail(to:)' is deprecated: `updateEmail` is deprecated and will be removed in a future release. Use sendEmailVerification(beforeUpdatingEmail:) instead.
-//        try await user.sendEmailVerification(beforeUpdatingEmail: email)
-        print("Update email....")
-    }
 }
 

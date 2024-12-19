@@ -106,7 +106,7 @@ struct HomeView: View {
                         }
                     }
                 }
-                .presentationDetents([.medium])
+                .presentationDetents([.height(250)])
             }
         }
         .onAppear {

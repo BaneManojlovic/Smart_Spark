@@ -116,18 +116,25 @@ struct CustomSheetView: View {
     
     var body: some View {
         VStack {
-            // Drag handle
-            Capsule()
-                .frame(width: 40, height: 5)
-                .foregroundColor(.gray.opacity(0.5))
-                .padding(.top, 10)
-
+            // Close button
+            HStack {
+                Spacer()
+                Button {
+                    isVisible = false
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .frame(width: 50, height: 40)
+                        .foregroundColor(.gray.opacity(0.5))
+                        .font(.title)
+                        .padding(.top, 5)
+                }
+            }
+            
             // Title
             Text(isInvalidKey ? "You entered an invalid API Key" : "To start chatting, please \nenter your valid API Key.")
                 .font(.title2)
                 .frame(alignment: .center)
                 .foregroundColor(isInvalidKey ? .red : .darkBlue)
-                .padding(.top, 10)
                 .fontWeight(.bold)
             HStack {
                 ZStack(alignment: .leading) {

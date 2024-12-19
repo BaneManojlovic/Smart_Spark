@@ -1,11 +1,5 @@
-//
-//  ProfileView.swift
-//  BITBrain
-//
-//  Created by Branislav Manojlovic on 25.10.24..
-//
-
 import SwiftUI
+import PhotosUI
 
 struct ProfileView: View {
 
@@ -20,48 +14,58 @@ struct ProfileView: View {
 
     @State private var isLoading = false
     @State private var showDeleteDialog = false
+    @State private var selectedImage: PhotosPickerItem? = nil
+    @State private var selectedImageData: Data? = nil
 
     // MARK: - Layout
 
     var body: some View {
-        
         NavigationView {
             ZStack {
                 // Background
                 Color.white.edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    // Profile Image with Camera Icon
-                    ZStack {
-                        Circle()
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(width: 120, height: 120)
-                        Image(systemName: "person.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 110, height: 110)
-                            .clipShape(Circle())
-                            .foregroundColor(.darkBlue)
-                        
-                        // Camera Icon
-                        Image(systemName: "camera.fill")
-                            .foregroundColor(.white)
-                            .background(
+                    // Profile Picture with Camera Icon
+                    PhotosPicker(selection: $selectedImage, matching: .images, photoLibrary: .shared()) {
+                        ZStack {
+                            // Profile Image
+                            if let selectedImageData, let uiImage = UIImage(data: selectedImageData) {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 120, height: 120)
+                                    .clipShape(Circle())
+                            } else {
                                 Circle()
-                                    .fill(Color.red)
-                                    .frame(width: 30, height: 30)
-                            )
-                            .offset(x: 40, y: 40)
+                                    .fill(Color.gray.opacity(0.3))
+                                    .frame(width: 120, height: 120)
+                                Image(systemName: "person.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 110, height: 110)
+                                    .foregroundColor(.darkBlue)
+                                    .clipShape(Circle())
+                            }
+                            
+                            // Camera Icon
+                            Image(systemName: "camera.fill")
+                                .foregroundColor(.white)
+                                .background(
+                                    Circle()
+                                        .fill(Color.red)
+                                        .frame(width: 30, height: 30)
+                                )
+                                .offset(x: 40, y: 40)
+                        }
+                        .frame(height: 150)
+                        .padding(.top, 30)
                     }
-                    .padding(.top, 30)
-                    
+
                     // Profile Fields
                     VStack(alignment: .leading, spacing: 20) {
-                        ProfileField(title: "Username", value: viewModel.getUsername() ?? "Not set")
-                        ProfileField(title: "Email", value: viewModel.showUserData())
-                        ProfileField(title: "Phone", value: "(123)-456-7890") // Example placeholder
-                        ProfileField(title: "Gender", value: "Male") // Example placeholder
-                        ProfileField(title: "Date of Birth", value: "01/01/1990") // Example placeholder
+                        ProfileField(title: "Username", value: viewModel.userModel?.username ?? "Not set")
+                        ProfileField(title: "Email", value: viewModel.userModel?.email ?? "Not set")
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
@@ -92,6 +96,14 @@ struct ProfileView: View {
                         .edgesIgnoringSafeArea(.all)
                 }
             }
+            .onChange(of: selectedImage) { oldValue, newValue in
+                // Handle image selection and load the data
+                Task {
+                    if let data = try? await newValue?.loadTransferable(type: Data.self) {
+                        selectedImageData = data
+                    }
+                }
+            }
             .confirmationDialog(
                 "Are you sure you want to delete your account?",
                 isPresented: $showDeleteDialog,
@@ -108,7 +120,9 @@ struct ProfileView: View {
                       primaryButton: .default(Text("Ok")),
                       secondaryButton: .cancel())
             }
-            
+        }
+        .onAppear {
+            viewModel.fetchUserData()
         }
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden()
@@ -142,7 +156,7 @@ struct ProfileView: View {
             }
         }
     }
-            
+    
     // MARK: - Methods
 
     func saveUpdatedProfile() {
@@ -163,32 +177,24 @@ struct ProfileView: View {
             DispatchQueue.main.async {
                 isLoading = false
                 if success {
-                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         appRootManager.currentRoot = .splash
                     }
                 } else {
                     alertViewModel.presentAlert(alert: CustomAlert(title: "Error while deleting account.",
                                                                    message: "",
-                                                                   primaryButton: .default(Text("Ok")), 
+                                                                   primaryButton: .default(Text("Ok")),
                                                                    secundaryButton: .cancel()))
                 }
             }
-            
         }
     }
 }
 
-
-
 // MARK: - Profile Field View
 struct ProfileField: View {
-    
-    // MARK: - Properties
-    
     let title: String
     let value: String
-    
-    // MARK: - Layout
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
