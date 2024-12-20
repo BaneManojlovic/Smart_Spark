@@ -6,20 +6,19 @@
 //
 
 import Foundation
-import FirebaseAuth
+import Supabase
 
 class SplashScreenViewModel: ObservableObject {
+
+    let authManager = AuthenticationManager.shared
     
-    let authService = AuthenticationManager()
-    
-    func checkForUser() -> UserModel? {
+    func checkForUser() async -> Bool? {
         do {
-            let user = try authService.getAuthenticatedUser()
-            print("user exists")
-            return user
-        } catch {
-            print("no user")
-            return nil
+            if let userId = await authManager.getAuthenticatedUser(), !userId.uuidString.isEmpty {
+                return true
+            } else {
+                return false
+            }
         }
     }
 }

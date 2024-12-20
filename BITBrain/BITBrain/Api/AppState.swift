@@ -7,24 +7,32 @@
 
 import Foundation
 import SwiftUI
-import FirebaseAuth
-import Firebase
-//
-//class AppState: ObservableObject {
-//    
-//    @Published var currentUser: User?
-//    
-//    var isLoggedIn: Bool {
-//        return currentUser != nil
-//    }
-//    
-//    init() {
-//        FirebaseApp.configure()
-//        
-//        if let currentUser = Auth.auth().currentUser {
-//            self.currentUser = currentUser
-//        } else {
-//            print("No user => User is not logged in")
-//        }
-//    }
-//}
+
+class AppState: ObservableObject {
+    
+    @Published var apiKeyValue: String = "" {
+        didSet {
+            // Update ChatController when API key changes
+            chatController.setApiToken(apiKeyValue)
+        }
+    }
+    
+    let chatController: ChatController
+    
+    init() {
+        // Initialize ChatController with default or stored API key
+        let storedApiKey = UserDefaults.standard.string(forKey: "openAIAPIToken") ?? ""
+        self.apiKeyValue = storedApiKey
+        self.chatController = ChatController(apiToken: storedApiKey)
+    }
+    
+    func clearApiKey() {
+        apiKeyValue = ""
+        UserDefaults.standard.removeObject(forKey: "openAIAPIToken")
+    }
+    
+    func saveApiKey(_ key: String) {
+        apiKeyValue = key
+        UserDefaults.standard.setValue(key, forKey: "openAIAPIToken")
+    }
+}

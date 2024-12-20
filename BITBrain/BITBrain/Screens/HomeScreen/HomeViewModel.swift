@@ -8,7 +8,7 @@
 import Foundation
 import OpenAI
 
-class ChatViewModel: ObservableObject {
+class HomeViewModel: ObservableObject {
     
     @Published var messages: [AppMessage] = []
     @Published var messageText: String = ""

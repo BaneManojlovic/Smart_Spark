@@ -15,9 +15,9 @@ struct SettingsView: View {
     
     let settingsItems = [
         SettingsItem(title: "Profile", iconName: "person"),
-        SettingsItem(title: "Thread Archive", iconName: "message"),
+        SettingsItem(title: "Feature Requests", iconName: "questionmark.bubble"),
         SettingsItem(title: "Privacy Policy", iconName: "lock"),
-        SettingsItem(title: "Rate", iconName: "star"),
+        SettingsItem(title: "Rate this App", iconName: "star"),
         SettingsItem(title: "Share", iconName: "square.and.arrow.up"),
         SettingsItem(title: "Logout", iconName: "power")
     ]
@@ -27,7 +27,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.gray
+                Color.white
                     .edgesIgnoringSafeArea(.all)
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
@@ -38,22 +38,37 @@ struct SettingsView: View {
                         }
                     }
                 }
+                .padding(.top, 10)
                 .padding(.leading, 10)
                 .padding(.trailing, 10)
             }
-            .navigationTitle("Settings")
             .toolbarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Settings")
+                        .foregroundStyle(Color.darkBlue)
+                        .bold()
+                }
+            }
+            .overlay(
+                VStack {
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundColor(.lightGrayBit)
+                        .edgesIgnoringSafeArea(.horizontal)
+                },
+                alignment: .top
+            )
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarBackground(.white, for: .navigationBar)
             .alert(isPresented: $alertViewModel.showAlert) {
                 Alert(title: Text(alertViewModel.alert?.title ?? "Unknown"),
                       message: Text(alertViewModel.alert?.message ?? "Unknown"),
                       primaryButton: .default(Text("Ok"), action: {
                     Task {
-                        do {
-                            try viewModel.logout()
-                            appRootManager.currentRoot = .splash
-                        } catch {
-                            print("error")
-                        }
+                        await viewModel.logout()
+                        print("User logouted...")
+                        appRootManager.currentRoot = .splash
                     }
                     
                 }),
@@ -64,7 +79,3 @@ struct SettingsView: View {
         }
     }
 }
-
-//#Preview {
-//    SettingsView()
-//}

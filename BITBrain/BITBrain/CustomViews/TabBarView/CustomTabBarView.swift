@@ -8,26 +8,44 @@
 import SwiftUI
 
 struct CustomTabBarView: View {
-    
-    @StateObject var chatCoordinator = ChatCoordinator()
+
     @StateObject var settingsCoordinator = SettingsCoordinator()
+    @StateObject var chatController = ChatController(apiToken: "")
+    @StateObject var appState = AppState()
 
     var body: some View {
-        TabView {
-            Group {
-                ChatView(chatNavViewModel: ChatNavigationViewModel(coordinator: chatCoordinator))
-                    .tabItem {
-                        Image(systemName: "message")
-                        Text("Chat")
-                    }
-                SettingsView(settingsNavViewModel: SettingsNavigationViewModel(coordinator: settingsCoordinator))
-                    .tabItem {
-                        Image(systemName: "gearshape")
-                        Text("Settings")
-                    }
+        
+        ZStack(alignment: .bottom) {
+            
+            TabView {
+                Group {
+                    HomeView(chatController: chatController)
+                        .tabItem {
+                            Image(systemName: "house.fill")
+                            Text("Home")
+                        }
+                        .environmentObject(appState)
+
+                    SettingsView(settingsNavViewModel: SettingsNavigationViewModel(coordinator: settingsCoordinator))
+                        .tabItem {
+                            Image(systemName: "gear")
+                            Text("Settings")
+                        }
+                }
+                .clipShape(Rectangle())
+                .background(Color.white)
+                .toolbarBackground(.white, for: .tabBar)
+                .toolbarBackground(.visible, for: .tabBar)
+                
             }
-            .toolbarBackground(.black, for: .tabBar)
-            .toolbarBackground(.visible, for: .tabBar)
+            .tint(.primaryBlue)
+            
+            
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(.lightGrayBit) // Border color
+                .edgesIgnoringSafeArea(.bottom)
+                .offset(y: -49)
         }
     }
 }
@@ -35,3 +53,4 @@ struct CustomTabBarView: View {
 //#Preview {
 //    CustomTabBarView()
 //}
+//.border(Color.primaryBlue, width: 2.0)

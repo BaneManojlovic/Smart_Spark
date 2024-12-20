@@ -14,11 +14,11 @@ struct PrivacyPolicyView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.gray
+                Color.white
                     .edgesIgnoringSafeArea(.all)
                 VStack {
-                    Text("Privacy Policy screen")
-                        .fontWeight(.bold)
+                    WebView()
+                        .edgesIgnoringSafeArea(.all)
                     
                 }
             }
@@ -29,17 +29,12 @@ struct PrivacyPolicyView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
                     settingsNavViewModel.coordinator.goBack()
-                    print("back back ...")
                 }) {
-                    Image(systemName: "arrow.backward")
-                        .foregroundColor(.black)
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(.primaryBlue)
                         .font(.title2)
                 }
             }
         }
     }
 }
-
-//#Preview {
-//    PrivacyPolicyView()
-//}

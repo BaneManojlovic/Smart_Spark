@@ -12,6 +12,8 @@ struct BITBrainApp: App {
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var appRootManager = AppRootManager()
+    let authManager = AuthenticationManager.shared
+
     
     var body: some Scene {
         WindowGroup {
@@ -19,7 +21,7 @@ struct BITBrainApp: App {
                 switch appRootManager.currentRoot {
                 case .splash:
                     SplashScreenView()
-                        .background(.black)
+                        .background(.primaryBlue)
                 case .authentication:
                     LoginView(authNavViewModel: AuthNavigationViewModel(coordinator: AuthCoordinator()) )
                 case .home:

@@ -6,91 +6,143 @@
 //
 
 import Foundation
-import FirebaseFirestore
-import FirebaseAuth
+import Observation
 import OpenAI
+import Supabase
+import SwiftUI
 
-final class AuthenticationManager {
-    
-    //    static let shared = AuthenticationManager() // see how to replace this singleton with something else
-//    private let database = Firestore.firestore()
-//    let chatId = "" // Ovo porpravi za stvarno - trenutno je samo primer
-    
-    //    private init() { }
-    
-    func login(email: String, password: String) async throws -> UserModel? {
-        let result = try await Auth.auth().signIn(withEmail: email, password: password)
-        return UserModel(user: result.user)
+
+extension SupabaseClient {
+
+    static var client: SupabaseClient {
+        SupabaseClient(supabaseURL: URL(string: "https://fafxozxpyqeziargccre.supabase.co")!,
+                       supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhZnhvenhweXFlemlhcmdjY3JlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM5OTU5NzEsImV4cCI6MjA0OTU3MTk3MX0.Wv9zJhaJ-nT2uKPRK1f_L4qVoZOM_E2YyGEspJgAoXk")
     }
-    
-    func register(email: String, password: String) async throws -> UserModel?  {
-        let result = try await Auth.auth().createUser(withEmail: email, password: password)
-        return UserModel(user: result.user)
-    }
-    
-    func getAuthenticatedUser() throws -> UserModel? {
-        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
-        return UserModel(user: user)
-    }
-    
-    func signOut() throws {
-        try Auth.auth().signOut()
-    }
-    
-    // TODO: - Add this on Forgot passsword screen
-    func resetPassword(email: String) async throws {
-        try await Auth.auth().sendPasswordReset(withEmail: email)
-    }
-    // TODO: - Add this on Profile screen
-    func updatePassword(password: String) async throws {
-        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
-        try await user.updatePassword(to: password)
-    }
-    // TODO: - Add this on Profile screen
-    func updateEmail(email: String) async throws {
-        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
-        //'updateEmail(to:)' is deprecated: `updateEmail` is deprecated and will be removed in a future release. Use sendEmailVerification(beforeUpdatingEmail:) instead.
-        try await user.sendEmailVerification(beforeUpdatingEmail: email)
-    }
-    // TODO: - Add this on Profile screen
-    func deleteUser() async throws {
-        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
-        try await user.delete()
-    }
-    
-    // MARK: - Methods for database handling
-    //    func createChat(user: String?) async throws -> String? {
-    //        let document = try await database.collection("chats").addDocument(data: ["lastMessageSent": Date(), "owner": user ?? ""])
-    //        return document.documentID
-    //    }
-    //
-    //    func fetchData(user: String?) {
-    //        database.collection("chats").whereField("owner", isEqualTo: user ?? "").addSnapshotListener { [weak self] querySnapshoot, error in
-    //            guard let self = self else { return }
-    //
-    //            if let documents = querySnapshoot?.documents {
-    //                // TODO: - finish this
-    //            }
-    //        }
-    //    }
-    //
-    //    func storeMessage(message: AppMessage) throws -> DocumentReference {
-    //        return try database.collection("chats").document(chatId).collection("message").addDocument(from: message)
-    //    }
-    //
-    //    // TODO: - finish this
-    //    private func setupNewChat() {
-    ////        database.collection("chats").document(chatId).updateData(["model": selectedModel.rawValue])
-    ////        DispatchQueue.main.async { [weak self] in
-    ////            self.chat.model = self.selectedModel
-    //        }
-    //    }
-    //// TODO: - finish this
-    //    private func generateResponse(for message: AppMessage) async throws {
-    ////        let openAI = OpenAI(apiToken: "")
-    ////
-    ////        let queryMessages = messages.map {
-    ////
-    //    }
-    //
 }
+
+@Observable
+class AuthenticationManager {
+
+    static let shared = AuthenticationManager()
+    let authClient = SupabaseClient.client.auth        // needed for authentification meaning register, login, logout, delete account
+    let databaseClient = SupabaseClient.client         // needed for saving all types of data to tables in database
+    let storageClient = SupabaseClient.client.storage  // needed for saving images, documents, .. etc to storage
+    
+    init() {}
+    
+    func login(email: String, password: String) async -> Bool {
+        do {
+            try await authClient.signIn(email: email, password: password)
+            return true
+        } catch {
+            print(error.localizedDescription)
+            return false
+        }
+    }
+    /// method for checking does authenticated user exists on supabase database
+    func getAuthenticatedUser() async -> UUID? {
+        do {
+            let user = try await authClient.user() /// returns User object form supabase database that is different form UserModel - mapping is needed
+            return user.id
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+
+    func register(email: String, password: String) async -> Bool {
+        do {
+            let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
+            try await authClient.signUp(email: trimmedEmail, password: password)
+            return true
+        } catch {
+            print(error.localizedDescription)
+            return false
+        }
+    }
+    
+    /// method for saving user into "profiles" data table in supabase database
+    func saveUserToDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
+        do {
+            try await databaseClient.from("profiles").insert(user).execute()
+            completion(nil)
+        } catch {
+            debugPrint(error.localizedDescription)
+            completion(error)
+        }
+    }
+    
+    func updateUserDataInDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
+        do {
+            try await databaseClient.from("profiles").update(user).eq("id", value: user.id).execute()
+            completion(nil)
+        } catch {
+            debugPrint(error.localizedDescription)
+            completion(error)
+        }
+    }
+
+    /// method for getting user data from table "profile" saved on supabase database
+    func getUserDataFromDatabase(userId: UUID) async -> UserModel? {
+        do {
+            let response: [UserModel] = try await databaseClient.from("profiles").select().eq("id",
+                                                                                              value: userId.uuidString.lowercased()).execute().value
+            return response.first
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+
+    func signOut() async {
+        do {
+            try await authClient.signOut()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func deleteUserFromDatabase(userId: UUID) async throws {
+        let userIdString = userId.uuidString.lowercased()
+        do {
+            try await databaseClient.from("profiles").delete().eq("id", value: userIdString).execute()
+            print("user deleted...")
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func saveAndUploadUserProfileImage(avatarImageData: Data) async throws -> String? {
+        
+        var imagePath: String?
+        let uniqueFileName = UUID().uuidString
+        
+        do {
+            let response = try await storageClient
+                .from("photos")
+                .upload("private/\(uniqueFileName).png",
+                        data: avatarImageData,
+                        options: FileOptions(
+                        cacheControl: "3600",
+                        contentType: "image/png",
+                        upsert: false)
+                )
+            imagePath = response.path
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        return imagePath
+    }
+
+    func downloadImage(path: String) async -> AvatarImage? {
+        do {
+            let data = try await storageClient.from("photos").download(path: path)
+            return AvatarImage(data: data)
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+}
+

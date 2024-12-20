@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WishKit
 
 struct ThreadArchiveView: View {
     
@@ -14,11 +15,13 @@ struct ThreadArchiveView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.gray
+                Color.white
                     .edgesIgnoringSafeArea(.all)
                 VStack {
-                    Text("Thread Archive screen")
-                        .fontWeight(.bold)
+                    WishKit.FeedbackListView().withNavigation()
+                        .padding(.bottom, 1)
+                        .background(.white)
+                    
                     
                 }
             }
@@ -31,8 +34,8 @@ struct ThreadArchiveView: View {
                     settingsNavViewModel.coordinator.goBack()
                     print("back back ...")
                 }) {
-                    Image(systemName: "arrow.backward")
-                        .foregroundColor(.black)
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(.primaryBlue)
                         .font(.title2)
                 }
             }
