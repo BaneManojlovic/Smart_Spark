@@ -145,11 +145,6 @@ class AuthenticationManager {
     }
 
     func downloadImage(path: String) async -> AvatarImage? {
-        
-        
-        
-//        let baki = "private/15288671-6609-4F73-B51C-42B497713E4E.png"
-        //15288671-6609-4F73-B51C-42B497713E4E.png
         do {
             let data = try await storageClient.from("photos").download(path: path)
             print("Bane - data = \(data)")

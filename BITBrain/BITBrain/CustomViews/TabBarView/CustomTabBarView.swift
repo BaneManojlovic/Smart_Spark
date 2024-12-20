@@ -11,6 +11,7 @@ struct CustomTabBarView: View {
 
     @StateObject var settingsCoordinator = SettingsCoordinator()
     @StateObject var chatController = ChatController(apiToken: "")
+    @StateObject var appState = AppState()
 
     var body: some View {
         
@@ -23,6 +24,8 @@ struct CustomTabBarView: View {
                             Image(systemName: "house.fill")
                             Text("Home")
                         }
+                        .environmentObject(appState)
+
                     SettingsView(settingsNavViewModel: SettingsNavigationViewModel(coordinator: settingsCoordinator))
                         .tabItem {
                             Image(systemName: "gear")

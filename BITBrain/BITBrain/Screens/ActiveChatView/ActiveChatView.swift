@@ -13,28 +13,32 @@ struct ActiveChatView: View {
 
     @State var showAlert: Bool = false
     @StateObject var chatController: ChatController
+    @EnvironmentObject var appState: AppState
     @State var messageText: String = ""
+    @State private var refreshTrigger = UUID()
     
     var body: some View {
         NavigationView {
             VStack {
                 HStack {
-                    Image("spark_icon_image")
-                        .resizable()
-                        .background(Color.primaryBlue)
-                        .frame(width: 48.0, height: 48.0)
-                        .clipShape(.rect(cornerRadii: RectangleCornerRadii(topLeading: 5.0, bottomLeading: 5.0, bottomTrailing: 5.0, topTrailing: 5.0)))
+                    Button(action: {
+                        deactivateChat()
+                    },label: {
+                        Text("Deactivate")
+                            .foregroundStyle(.red)
+                            .font(.body)
+                    })
                     Spacer()
                     Text("Enjoy chatting!")
-                        .font(.system(size: 22, weight: .semibold, design: .serif))
+                        .font(.system(size: 20, weight: .bold, design: .serif))
                         .foregroundStyle(Color.darkBlue)
                     Spacer()
                     Button(action: {
                         dismiss()
                     }) {
-                        Image(systemName: "xmark")
-                            .foregroundColor(.primaryBlue)
-                            .font(.title2)
+                        Text("     Close")
+                            .foregroundStyle(.primaryBlue)
+                            .font(.body)
                     }
                 }
                 .padding(.leading, 10)
@@ -47,6 +51,8 @@ struct ActiveChatView: View {
                             .padding(EdgeInsets(top: 2.5, leading: 10.0, bottom: 2.5, trailing: 10.0))
                     }
                 }
+                .id(refreshTrigger)
+                
                 Divider()
                 HStack {
                     ZStack(alignment: .leading) {
@@ -74,6 +80,10 @@ struct ActiveChatView: View {
                 .padding()
             }
             .background(.white)
+            .onChange(of: chatController.messages.count) { _, _ in
+                print("Bane - broj poruka = \(chatController.messages.count)")
+                refreshTrigger = UUID()
+            }
         }
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden()
@@ -82,7 +92,14 @@ struct ActiveChatView: View {
 
     func sendMessageAction() {
         print("Sending message ...")
-        self.chatController.sendMessage(content: messageText)
+        appState.chatController.sendMessage(content: messageText)
         messageText = ""
+    }
+    
+    /// Handle chat deactivation
+    func deactivateChat() {
+        print("chat deactivated...")
+        appState.clearApiKey() // Clear the API key from AppState
+        dismiss() // Dismiss the ActiveChatView
     }
 }

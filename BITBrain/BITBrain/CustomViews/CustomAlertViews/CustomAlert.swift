@@ -86,34 +86,53 @@ struct CustomAlertView: View {
 
 struct CustomSheetView: View {
 
+    // MARK: - Binding properties
+
     @Binding var isVisible: Bool
     @Binding var apiKeyValue: String
-    let onConfirm: () -> Void
-    @State private var isInvalidKey: Bool = false
 
+    let onConfirm: () -> Void
+    
+    // MARK: - State properties
+
+    @State private var isInvalidKey: Bool = false
+    @State private var isLoading: Bool = false
+    @State private var errorMessage: String? = nil
+
+    // MARK: - Private Methods
 
     private func okButtonAction() {
-        if isValidApiKey(apiKeyValue) {
-            onConfirm()
-            isInvalidKey = false
-            isVisible = false
-        } else {
-            // Show error message
-            withAnimation {
-                isInvalidKey = true
+        isLoading = true
+        validateApiKey(apiKeyValue) { isValid, error in
+            DispatchQueue.main.async {
+                isLoading = false
+                if isValid {
+                    onConfirm()
+                    isInvalidKey = false
+                    isVisible = false
+                } else {
+                    isInvalidKey = true
+                    errorMessage = error ?? "Invalid API Key. Please try again."
+                }
             }
         }
     }
-    
+
     private func cancelButtonAction() {
         isVisible = false
     }
-    
-    private func isValidApiKey(_ key: String) -> Bool {
-        // TODO: - Add method that check validity of API Key based on response form OpenAI
-        return key.count > 150
+
+    private func validateApiKey(_ key: String, completion: @escaping (Bool, String?) -> Void) {
+        // Simulate a network call (replace this with actual API logic)
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+            if key.count > 150 {
+                completion(true, nil)
+            } else {
+                completion(false, "API Key must be at least 150 characters.")
+            }
+        }
     }
-    
+
     var body: some View {
         VStack {
             // Close button
@@ -127,15 +146,19 @@ struct CustomSheetView: View {
                         .foregroundColor(.gray.opacity(0.5))
                         .font(.title)
                         .padding(.top, 5)
+                        .accessibilityLabel("Close")
                 }
             }
             
             // Title
             Text(isInvalidKey ? "You entered an invalid API Key" : "To start chatting, please \nenter your valid API Key.")
                 .font(.title2)
+                .multilineTextAlignment(.center)
                 .frame(alignment: .center)
                 .foregroundColor(isInvalidKey ? .red : .darkBlue)
                 .fontWeight(.bold)
+            
+            // Input Field
             HStack {
                 ZStack(alignment: .leading) {
                     // Input Field
@@ -152,8 +175,15 @@ struct CustomSheetView: View {
                         .overlay(RoundedRectangle(cornerRadius: 0)
                             .stroke(Color.lightGrayBit, lineWidth: 1)
                         )
+                        .accessibilityLabel("API Key Text Field")
                 }
                 .frame(width: UIScreen.main.bounds.width - 40, alignment: .center)
+            }
+
+            // Loading Indicator
+            if isLoading {
+                ProgressView()
+                    .padding()
             }
 
             // Buttons
@@ -171,6 +201,7 @@ struct CustomSheetView: View {
                 .background(Color.lightGrayBit)
                 .foregroundColor(.red)
                 .cornerRadius(8)
+                .accessibilityLabel("Cancel Button")
 
                 Button(action: okButtonAction) {
                     HStack {
@@ -185,6 +216,7 @@ struct CustomSheetView: View {
                 .foregroundColor(.white)
                 .background(Color.darkBlue)
                 .cornerRadius(8)
+                .accessibilityLabel("OK Button")
             }
             .padding(.horizontal)
 
@@ -192,6 +224,10 @@ struct CustomSheetView: View {
         }
         .background(Color.white)
         .cornerRadius(16, corners: [.topLeft, .topRight])
+        .onDisappear {
+            isInvalidKey = false
+            errorMessage = nil
+        }
     }
     
    
