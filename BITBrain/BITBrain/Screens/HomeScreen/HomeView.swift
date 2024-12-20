@@ -9,12 +9,23 @@ import SwiftUI
 
 struct HomeView: View {
 
+    // MARK: - EnvironmentObject properties
+
+    @EnvironmentObject var appState: AppState
+    
+    // MARK: - StateObject properties
+
     @StateObject var chatController: ChatController
     @StateObject var userDefaultsHelper = UserDefaultsHelper()
+    
+    // MARK: - State properties
+
     @State private var isPresented = false
     @State private var isTutorialPresented = false
     @State private var isCustomSheetPresented = false
     @State private var apiKeyValue = ""
+
+    // MARK: - Layout
 
     var body: some View {
         NavigationStack {
@@ -49,14 +60,14 @@ struct HomeView: View {
                         .padding(.bottom, 10)
 
                     HStack {
-                        if let existingApiKey = userDefaultsHelper.apiToken, !existingApiKey.isEmpty {
-                            Text("• Active")
-                                .foregroundStyle(Color.green)
+                        if appState.apiKeyValue.isEmpty {
+                            Text("• Inactive")
+                                .foregroundStyle(Color.gray)
                                 .bold()
                                 .italic()
                         } else {
-                            Text("• Inactive")
-                                .foregroundStyle(Color.gray)
+                            Text("• Active")
+                                .foregroundStyle(Color.green)
                                 .bold()
                                 .italic()
                         }
@@ -64,17 +75,15 @@ struct HomeView: View {
                     .frame(height: 12)
 
                     Button(action: {
-                        if let existingApiKey = userDefaultsHelper.getOpenAiAPIToken(), !existingApiKey.isEmpty {
-                            apiKeyValue = existingApiKey
-                            chatController.setApiToken(apiKeyValue)
-                            isPresented = true
-                        } else {
+                        if appState.apiKeyValue.isEmpty {
                             isCustomSheetPresented = true
+                        } else {
+                            isPresented = true
                         }
                     }) {
-                        Text(userDefaultsHelper.getOpenAiAPIToken() != nil ?
-                             "Tap here to use your Smart Spark chat." :
-                             "Tap here to activate and start\nusing your Smart Spark chat.")
+                        Text(appState.apiKeyValue.isEmpty ?
+                             "Tap here to activate and start\nusing your Smart Spark chat." :
+                             "Tap here to use your Smart Spark chat.")
                             .font(.system(size: 18, weight: .semibold, design: .serif))
                             .italic()
                             .frame(width: UIScreen.main.bounds.width * 0.94, height: 60)
@@ -88,25 +97,20 @@ struct HomeView: View {
             }
             .ignoresSafeArea(.keyboard)
             .fullScreenCover(isPresented: $isPresented) {
-                ActiveChatView(chatController: chatController)
+                ActiveChatView(chatController: appState.chatController)
             }
             .fullScreenCover(isPresented: $isTutorialPresented, content: TutorialView.init)
             .sheet(isPresented: $isCustomSheetPresented) {
                 CustomSheetView(
                     isVisible: $isCustomSheetPresented,
-                    apiKeyValue: $apiKeyValue
+                    apiKeyValue: $appState.apiKeyValue
                 ) {
-                    if !apiKeyValue.isEmpty {
-                        userDefaultsHelper.apiToken = apiKeyValue
-                        chatController.setApiToken(apiKeyValue)
-                        userDefaultsHelper.setOpenAiAPIToken(apiKeyValue)
-                        isCustomSheetPresented = false
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            isPresented = true
-                        }
+                    appState.saveApiKey(appState.apiKeyValue) // Save the validated key
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        isPresented = true // Navigate to ActiveChatView
                     }
                 }
-                .presentationDetents([.medium])
+                .presentationDetents([.height(250)])
             }
         }
         .onAppear {

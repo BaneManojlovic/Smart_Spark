@@ -62,6 +62,8 @@
 		8DB071512D0AE1730085194E /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 8DB071502D0AE1730085194E /* Storage */; };
 		8DB071532D0AE1730085194E /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8DB071522D0AE1730085194E /* Supabase */; };
 		8DF0AF002D11BFA6000ECB32 /* UIAplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF0AEFF2D11BFA6000ECB32 /* UIAplication+Extension.swift */; };
+		8DF0AF022D12EE7B000ECB32 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF0AF012D12EE7B000ECB32 /* UIImage+Extensions.swift */; };
+		8DF0AF042D144239000ECB32 /* AvatarImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF0AF032D144239000ECB32 /* AvatarImageHelper.swift */; };
 		8DF498822CD279F800261CA9 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */; };
 		8DF498862CD31F4400261CA9 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498852CD31F4400261CA9 /* UserModel.swift */; };
 		8DF498882CD3313700261CA9 /* SplashScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498872CD3313700261CA9 /* SplashScreenViewModel.swift */; };
@@ -128,6 +130,8 @@
 		8D5495FE2CF759FF0010367B /* TutorialCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCardView.swift; sourceTree = "<group>"; };
 		8D5496032CF778BE0010367B /* WhishKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhishKitManager.swift; sourceTree = "<group>"; };
 		8DF0AEFF2D11BFA6000ECB32 /* UIAplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAplication+Extension.swift"; sourceTree = "<group>"; };
+		8DF0AF012D12EE7B000ECB32 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		8DF0AF032D144239000ECB32 /* AvatarImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageHelper.swift; sourceTree = "<group>"; };
 		8DF498812CD279F800261CA9 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		8DF498852CD31F4400261CA9 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		8DF498872CD3313700261CA9 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
@@ -265,6 +269,7 @@
 			children = (
 				8D47AD9F2CE4CCCD00D85C31 /* UserDefaultsHelper.swift */,
 				8D1352FC2CF09F1000F386DA /* StringHelper.swift */,
+				8DF0AF032D144239000ECB32 /* AvatarImageHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -274,6 +279,7 @@
 			children = (
 				8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */,
 				8DF0AEFF2D11BFA6000ECB32 /* UIAplication+Extension.swift */,
+				8DF0AF012D12EE7B000ECB32 /* UIImage+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -659,12 +665,14 @@
 				8DF774112CF86BBE0094F55E /* WebView.swift in Sources */,
 				8D2D03112CCCC65200ED852E /* AppDelegate.swift in Sources */,
 				8D2D030D2CCC5FAA00ED852E /* LoginViewModel.swift in Sources */,
+				8DF0AF022D12EE7B000ECB32 /* UIImage+Extensions.swift in Sources */,
 				8DF7740F2CF860CE0094F55E /* ReviewManager.swift in Sources */,
 				8D47ADA02CE4CCCD00D85C31 /* UserDefaultsHelper.swift in Sources */,
 				8D2D02992CC6A1EA00ED852E /* BITBrainApp.swift in Sources */,
 				8D2D02D62CCA9EC800ED852E /* LoginView.swift in Sources */,
 				8D2D02C62CC7DF5F00ED852E /* SettingsItem.swift in Sources */,
 				8D2D02F12CCBC57200ED852E /* AuthNavigationViewModel.swift in Sources */,
+				8DF0AF042D144239000ECB32 /* AvatarImageHelper.swift in Sources */,
 				8D2D03202CD13C0D00ED852E /* SettingsNavigationViewModel.swift in Sources */,
 				8D5495FC2CF757E10010367B /* TutorialData.swift in Sources */,
 				8D5496042CF778BE0010367B /* WhishKitManager.swift in Sources */,
@@ -810,13 +818,14 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = BITBrain/BITBrain.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"BITBrain/Assets/Preview Content\"";
 				DEVELOPMENT_TEAM = 5M4MZAC8G6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BITBrain/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Smart Spark";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Smart Spark app, wants to access your photos in order to set user profile image.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -832,9 +841,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitnovisad.bitbrain;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -847,13 +858,14 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = BITBrain/BITBrain.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"BITBrain/Assets/Preview Content\"";
 				DEVELOPMENT_TEAM = 5M4MZAC8G6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BITBrain/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Smart Spark";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Smart Spark app, wants to access your photos in order to set user profile image.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -869,9 +881,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitnovisad.bitbrain;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

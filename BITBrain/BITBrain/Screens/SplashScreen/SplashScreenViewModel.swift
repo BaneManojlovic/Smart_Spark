@@ -12,10 +12,13 @@ class SplashScreenViewModel: ObservableObject {
 
     let authManager = AuthenticationManager.shared
     
-    func checkForUser() async -> UserModel? {
+    func checkForUser() async -> Bool? {
         do {
-            let user = await authManager.getAuthenticatedUser()
-            return user
+            if let userId = await authManager.getAuthenticatedUser(), !userId.uuidString.isEmpty {
+                return true
+            } else {
+                return false
+            }
         }
     }
 }

@@ -27,117 +27,92 @@ class AlertViewModel: ObservableObject {
     }
 }
 
-struct CustomAlertView: View {
-    @Binding var isVisible: Bool
-    @Binding var apiKeyValue: String
-    let onConfirm: () -> Void
-
-    var body: some View {
-        if isVisible {
-            ZStack {
-                // Fullscreen Dimmed Background
-                Color.black.opacity(0.4)
-                    .edgesIgnoringSafeArea(.all)
-                
-                // Alert Box
-                VStack(spacing: 20) {
-                    Text("To start chatting,\nplease enter your valid API Key.")
-                        .multilineTextAlignment(.center)
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundColor(.black)
-
-                    TextField("Enter API Key", text: $apiKeyValue)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal)
-
-                    HStack(spacing: 30) {
-                        Button("Cancel") {
-                            withAnimation {
-                                isVisible = false
-                            }
-                        }
-                        .foregroundColor(.red)
-
-                        Button("Ok") {
-                            if !apiKeyValue.isEmpty {
-                                onConfirm()
-                                withAnimation {
-                                    isVisible = false
-                                }
-                            }
-                        }
-                        .foregroundColor(.blue)
-                    }
-                }
-                .padding()
-                .background(Color.white)
-                .cornerRadius(12)
-                .shadow(radius: 10)
-                .frame(width: 300)
-            }
-            .transition(.opacity)
-            .animation(.easeInOut(duration: 0.3), value: isVisible)
-        }
-    }
-}
-
-
-
-
 struct CustomSheetView: View {
 
+    // MARK: - Binding properties
+
     @Binding var isVisible: Bool
     @Binding var apiKeyValue: String
-    let onConfirm: () -> Void
-    @State private var isInvalidKey: Bool = false
 
+    let onConfirm: () -> Void
+    
+    // MARK: - State properties
+
+    @State private var localApiKeyValue: String = "" // Temporary state
+    @State private var isInvalidKey: Bool = false
+    @State private var isLoading: Bool = false
+    @State private var errorMessage: String? = nil
+
+    // MARK: - Private Methods
 
     private func okButtonAction() {
-        if isValidApiKey(apiKeyValue) {
-            onConfirm()
-            isInvalidKey = false
-            isVisible = false
-        } else {
-            // Show error message
-            withAnimation {
-                isInvalidKey = true
+        isLoading = true
+        validateApiKey(localApiKeyValue) { isValid, error in
+            DispatchQueue.main.async {
+                isLoading = false
+                if isValid {
+                    apiKeyValue = localApiKeyValue
+                    onConfirm()
+                    isInvalidKey = false
+                    isVisible = false
+                } else {
+                    isInvalidKey = true
+                    errorMessage = error ?? "Invalid API Key. Please try again."
+                }
             }
         }
     }
-    
+
     private func cancelButtonAction() {
         isVisible = false
     }
-    
-    private func isValidApiKey(_ key: String) -> Bool {
-        // TODO: - Add method that check validity of API Key based on response form OpenAI
-        return key.count > 150
+
+    private func validateApiKey(_ key: String, completion: @escaping (Bool, String?) -> Void) {
+        // Simulate a network call (replace this with actual API logic)
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+            if key.count > 150 {
+                completion(true, nil)
+            } else {
+                completion(false, "API Key must be at least 150 characters.")
+            }
+        }
     }
-    
+
     var body: some View {
         VStack {
-            // Drag handle
-            Capsule()
-                .frame(width: 40, height: 5)
-                .foregroundColor(.gray.opacity(0.5))
-                .padding(.top, 10)
-
+            // Close button
+            HStack {
+                Spacer()
+                Button {
+                    isVisible = false
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .frame(width: 50, height: 40)
+                        .foregroundColor(.gray.opacity(0.5))
+                        .font(.title)
+                        .padding(.top, 5)
+                        .accessibilityLabel("Close")
+                }
+            }
+            
             // Title
             Text(isInvalidKey ? "You entered an invalid API Key" : "To start chatting, please \nenter your valid API Key.")
                 .font(.title2)
+                .multilineTextAlignment(.center)
                 .frame(alignment: .center)
                 .foregroundColor(isInvalidKey ? .red : .darkBlue)
-                .padding(.top, 10)
                 .fontWeight(.bold)
+            
+            // Input Field
             HStack {
                 ZStack(alignment: .leading) {
                     // Input Field
-                    if apiKeyValue.isEmpty {
+                    if localApiKeyValue.isEmpty {
                         Text("Enter your API key...")
                             .foregroundColor(.gray)
                             .padding(.leading, 6)
                     }
-                    TextField("", text: $apiKeyValue)
+                    TextField("", text: $localApiKeyValue)
                         .tint(Color.primaryBlue)
                         .foregroundColor(Color.darkBlue)
                         .padding(5)
@@ -145,8 +120,15 @@ struct CustomSheetView: View {
                         .overlay(RoundedRectangle(cornerRadius: 0)
                             .stroke(Color.lightGrayBit, lineWidth: 1)
                         )
+                        .accessibilityLabel("API Key Text Field")
                 }
                 .frame(width: UIScreen.main.bounds.width - 40, alignment: .center)
+            }
+
+            // Loading Indicator
+            if isLoading {
+                ProgressView()
+                    .padding()
             }
 
             // Buttons
@@ -164,6 +146,7 @@ struct CustomSheetView: View {
                 .background(Color.lightGrayBit)
                 .foregroundColor(.red)
                 .cornerRadius(8)
+                .accessibilityLabel("Cancel Button")
 
                 Button(action: okButtonAction) {
                     HStack {
@@ -178,6 +161,7 @@ struct CustomSheetView: View {
                 .foregroundColor(.white)
                 .background(Color.darkBlue)
                 .cornerRadius(8)
+                .accessibilityLabel("OK Button")
             }
             .padding(.horizontal)
 
@@ -185,6 +169,10 @@ struct CustomSheetView: View {
         }
         .background(Color.white)
         .cornerRadius(16, corners: [.topLeft, .topRight])
+        .onDisappear {
+            isInvalidKey = false
+            errorMessage = nil
+        }
     }
     
    

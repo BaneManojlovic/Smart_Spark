@@ -36,7 +36,7 @@ struct TutorialView: View {
                     Button(action: {
                         dismiss()
                     }) {
-                        Text("Skip")
+                        Text("Close")
                             .foregroundColor(.primaryBlue)
                             .font(.title3)
                     }

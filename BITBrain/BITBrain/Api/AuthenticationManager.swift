@@ -24,8 +24,9 @@ extension SupabaseClient {
 class AuthenticationManager {
 
     static let shared = AuthenticationManager()
-    let authClient = SupabaseClient.client.auth
-    let databaseClient = SupabaseClient.client
+    let authClient = SupabaseClient.client.auth        // needed for authentification meaning register, login, logout, delete account
+    let databaseClient = SupabaseClient.client         // needed for saving all types of data to tables in database
+    let storageClient = SupabaseClient.client.storage  // needed for saving images, documents, .. etc to storage
     
     init() {}
     
@@ -38,11 +39,11 @@ class AuthenticationManager {
             return false
         }
     }
-
-    func getAuthenticatedUser() async -> UserModel? {
+    /// method for checking does authenticated user exists on supabase database
+    func getAuthenticatedUser() async -> UUID? {
         do {
-            let user = try await authClient.user()
-            return UserModel(from: user)
+            let user = try await authClient.user() /// returns User object form supabase database that is different form UserModel - mapping is needed
+            return user.id
         } catch {
             print(error.localizedDescription)
             return nil
@@ -60,7 +61,8 @@ class AuthenticationManager {
         }
     }
     
-    func saveUser(user: UserModel, completion: @escaping (Error?) -> Void) async {
+    /// method for saving user into "profiles" data table in supabase database
+    func saveUserToDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
         do {
             try await databaseClient.from("profiles").insert(user).execute()
             completion(nil)
@@ -69,16 +71,25 @@ class AuthenticationManager {
             completion(error)
         }
     }
+    
+    func updateUserDataInDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
+        do {
+            try await databaseClient.from("profiles").update(user).eq("id", value: user.id).execute()
+            completion(nil)
+        } catch {
+            debugPrint(error.localizedDescription)
+            completion(error)
+        }
+    }
 
-    func getUserData(userId: UUID) async -> UserModel? {
-        print("\(userId)")
+    /// method for getting user data from table "profile" saved on supabase database
+    func getUserDataFromDatabase(userId: UUID) async -> UserModel? {
         do {
             let response: [UserModel] = try await databaseClient.from("profiles").select().eq("id",
                                                                                               value: userId.uuidString.lowercased()).execute().value
-            print("\(response)")
             return response.first
         } catch {
-            print("error")
+            print(error.localizedDescription)
             return nil
         }
     }
@@ -91,33 +102,47 @@ class AuthenticationManager {
         }
     }
     
-    func deleteUser(userId: UUID) async throws {
+    func deleteUserFromDatabase(userId: UUID) async throws {
         let userIdString = userId.uuidString.lowercased()
         do {
             try await databaseClient.from("profiles").delete().eq("id", value: userIdString).execute()
             print("user deleted...")
         } catch {
-            print("failure ...")
+            print(error.localizedDescription)
         }
     }
     
-    // TODO: - Add this on Forgot passsword screen
-    func resetPassword(email: String) async throws {
-//        try await Auth.auth().sendPasswordReset(withEmail: email)
-        print("Resset pass...")
+    func saveAndUploadUserProfileImage(avatarImageData: Data) async throws -> String? {
+        
+        var imagePath: String?
+        let uniqueFileName = UUID().uuidString
+        
+        do {
+            let response = try await storageClient
+                .from("photos")
+                .upload("private/\(uniqueFileName).png",
+                        data: avatarImageData,
+                        options: FileOptions(
+                        cacheControl: "3600",
+                        contentType: "image/png",
+                        upsert: false)
+                )
+            imagePath = response.path
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        return imagePath
     }
-    // TODO: - Add this on Profile screen
-    func updatePassword(password: String) async throws {
-//        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
-//        try await user.updatePassword(to: password)
-        print("Update pass...")
-    }
-    // TODO: - Add this on Profile screen
-    func updateEmail(email: String) async throws {
-//        guard let user = Auth.auth().currentUser else { throw URLError(.unknown) }
-//        //'updateEmail(to:)' is deprecated: `updateEmail` is deprecated and will be removed in a future release. Use sendEmailVerification(beforeUpdatingEmail:) instead.
-//        try await user.sendEmailVerification(beforeUpdatingEmail: email)
-        print("Update email....")
+
+    func downloadImage(path: String) async -> AvatarImage? {
+        do {
+            let data = try await storageClient.from("photos").download(path: path)
+            return AvatarImage(data: data)
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
     }
 }
 

@@ -53,11 +53,11 @@ class ChatController: ObservableObject {
             
             switch result {
             case .success(let success):
-                print("bane - success")
                 guard let choice = success.choices.first else { return }
                 let message = choice.message.content?.string
                 DispatchQueue.main.async {
                     self.messages.append(Message(content: message ?? "", isUser: false))
+                    self.messages = self.messages
                 }
             case .failure(let failure):
                 print("failure")

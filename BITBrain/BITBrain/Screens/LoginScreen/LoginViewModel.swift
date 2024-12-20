@@ -23,10 +23,10 @@ class LoginViewModel: ObservableObject {
         Task {
             let email = emailText
             let password = passwordText
-            let user = await self.login(email: email, password: password)
+            let userId = await self.login(email: email, password: password)
             
-            if let userData = user {
-                let user = await self.getUserDataFromDatabase(userId: userData.id)
+            if let userId {
+                let user = await self.getUserDataFromDatabase(userId: userId)
                 completion(true)
             } else {
                 print("login failed")
@@ -36,19 +36,19 @@ class LoginViewModel: ObservableObject {
     }
 
     // MARK: - Calling API endpoint
-    func login(email: String, password: String) async -> UserModel? {
+    func login(email: String, password: String) async -> UUID? {
         let userLoggedIn = await authService.login(email: email, password: password)
         if userLoggedIn {
-            let user = await authService.getAuthenticatedUser()
-            print("User = \(String(describing: user?.email))")
-            return user
+            let userId = await authService.getAuthenticatedUser()
+            print("User = \(String(describing: userId))")
+            return userId
         } else {
             return nil
         }
     }
     
     func getUserDataFromDatabase(userId: UUID) async -> UserModel? {
-        if let user = await authService.getUserData(userId: userId) {
+        if let user = await authService.getUserDataFromDatabase(userId: userId) {
             self.saveUserData(user: user)
             return user
         } else {
@@ -57,6 +57,6 @@ class LoginViewModel: ObservableObject {
     }
 
     func saveUserData(user: UserModel) {
-        userDefaultsHelper.setUser(user: user)
+        userDefaultsHelper.setUserToUserDefaults(user: user)
     }
 }

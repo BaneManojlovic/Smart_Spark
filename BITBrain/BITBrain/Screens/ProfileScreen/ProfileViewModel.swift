@@ -9,45 +9,61 @@ import Foundation
 
 class ProfileViewModel: ObservableObject {
     
+    // MARK: - Properties
+
     let userDefaultsHelper = UserDefaultsHelper()
     let authService = AuthenticationManager()
     
-    func showUserData() -> String {
-        if let user = userDefaultsHelper.getUser() {
-            return "\(user.email ?? "")"
+    // MARK: - Published properties
+    
+    @Published var userModel: UserModel?
+    @Published var avatarImage: AvatarImage?
+
+    // MARK: - Methods
+
+    func fetchUserData() {
+        if let user = userDefaultsHelper.getUserFromUserDefaults() {
+            userModel = UserModel(id: user.id,
+                                  username: user.username,
+                                  email: user.email,
+                                  photoUrl: user.photoUrl)
+            downloadImage(path: user.photoUrl ?? "")
         } else {
-            return "--"
+            userModel = nil
         }
-        
     }
     
-    func getUserId() -> String {
-        if let user = userDefaultsHelper.getUser() {
-            return "\(user.id)"
-        } else {
-            return "--"
-        }
-    }
-    
-    func getUsername() -> String? {
-        if let user = userDefaultsHelper.getUser() {
-            return user.username
-        } else {
-            return "--"
+    func downloadImage(path: String) {
+        Task {
+            do {
+                
+                let result = try await authService.downloadImage(path: path)
+                if let imageData =  result?.data {
+                    let avatar = AvatarImage(data: imageData)
+                    await MainActor.run {
+                        self.avatarImage = avatar
+                    }
+                }
+            } catch {
+                print("avatar error..")
+            }
         }
     }
     
     func deleteAction(completion: @escaping (Bool) -> Void) {
         Task {
             let result = await self.deleteAccount()
+            if result {
+                userModel = nil
+            }
             completion(result)
         }
     }
     
     func deleteAccount() async -> Bool {
-        if let userId = userDefaultsHelper.getUser()?.id {
+        if let userId = userModel?.id {
             do {
-                let _: () = try await authService.deleteUser(userId: userId)
+                try await authService.deleteUserFromDatabase(userId: userId)
                 userDefaultsHelper.emptyUserDefaults()
                 return true
             } catch {
@@ -55,6 +71,29 @@ class ProfileViewModel: ObservableObject {
             }
         } else {
             return false
+        }
+    }
+    
+    func updateProfile(imageData: Data) async {
+        do {
+            let imageUrl = try await authService.saveAndUploadUserProfileImage(avatarImageData: imageData)
+            
+            guard let user = self.userModel else { return }
+            
+            let updatedUserModel = UserModel(id: user.id,
+                                             username: user.username,
+                                             email: user.email,
+                                             photoUrl: imageUrl)
+            
+            await authService.updateUserDataInDatabase(user: updatedUserModel) { error in
+                if let error {
+                    print(error.localizedDescription)
+                } else {
+                    self.userDefaultsHelper.setUserToUserDefaults(user: updatedUserModel)
+                }
+            }
+        } catch {
+            print(error.localizedDescription)
         }
     }
 }
