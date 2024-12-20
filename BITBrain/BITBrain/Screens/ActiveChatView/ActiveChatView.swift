@@ -81,7 +81,6 @@ struct ActiveChatView: View {
             }
             .background(.white)
             .onChange(of: chatController.messages.count) { _, _ in
-                print("Bane - broj poruka = \(chatController.messages.count)")
                 refreshTrigger = UUID()
             }
         }
@@ -91,14 +90,11 @@ struct ActiveChatView: View {
     }
 
     func sendMessageAction() {
-        print("Sending message ...")
         appState.chatController.sendMessage(content: messageText)
         messageText = ""
     }
-    
-    /// Handle chat deactivation
+
     func deactivateChat() {
-        print("chat deactivated...")
         appState.clearApiKey() // Clear the API key from AppState
         dismiss() // Dismiss the ActiveChatView
     }

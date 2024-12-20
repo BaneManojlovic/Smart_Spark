@@ -27,63 +27,6 @@ class AlertViewModel: ObservableObject {
     }
 }
 
-struct CustomAlertView: View {
-    @Binding var isVisible: Bool
-    @Binding var apiKeyValue: String
-    let onConfirm: () -> Void
-
-    var body: some View {
-        if isVisible {
-            ZStack {
-                // Fullscreen Dimmed Background
-                Color.black.opacity(0.4)
-                    .edgesIgnoringSafeArea(.all)
-                
-                // Alert Box
-                VStack(spacing: 20) {
-                    Text("To start chatting,\nplease enter your valid API Key.")
-                        .multilineTextAlignment(.center)
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundColor(.black)
-
-                    TextField("Enter API Key", text: $apiKeyValue)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal)
-
-                    HStack(spacing: 30) {
-                        Button("Cancel") {
-                            withAnimation {
-                                isVisible = false
-                            }
-                        }
-                        .foregroundColor(.red)
-
-                        Button("Ok") {
-                            if !apiKeyValue.isEmpty {
-                                onConfirm()
-                                withAnimation {
-                                    isVisible = false
-                                }
-                            }
-                        }
-                        .foregroundColor(.blue)
-                    }
-                }
-                .padding()
-                .background(Color.white)
-                .cornerRadius(12)
-                .shadow(radius: 10)
-                .frame(width: 300)
-            }
-            .transition(.opacity)
-            .animation(.easeInOut(duration: 0.3), value: isVisible)
-        }
-    }
-}
-
-
-
-
 struct CustomSheetView: View {
 
     // MARK: - Binding properties
@@ -95,6 +38,7 @@ struct CustomSheetView: View {
     
     // MARK: - State properties
 
+    @State private var localApiKeyValue: String = "" // Temporary state
     @State private var isInvalidKey: Bool = false
     @State private var isLoading: Bool = false
     @State private var errorMessage: String? = nil
@@ -103,10 +47,11 @@ struct CustomSheetView: View {
 
     private func okButtonAction() {
         isLoading = true
-        validateApiKey(apiKeyValue) { isValid, error in
+        validateApiKey(localApiKeyValue) { isValid, error in
             DispatchQueue.main.async {
                 isLoading = false
                 if isValid {
+                    apiKeyValue = localApiKeyValue
                     onConfirm()
                     isInvalidKey = false
                     isVisible = false
@@ -162,12 +107,12 @@ struct CustomSheetView: View {
             HStack {
                 ZStack(alignment: .leading) {
                     // Input Field
-                    if apiKeyValue.isEmpty {
+                    if localApiKeyValue.isEmpty {
                         Text("Enter your API key...")
                             .foregroundColor(.gray)
                             .padding(.leading, 6)
                     }
-                    TextField("", text: $apiKeyValue)
+                    TextField("", text: $localApiKeyValue)
                         .tint(Color.primaryBlue)
                         .foregroundColor(Color.darkBlue)
                         .padding(5)

@@ -36,17 +36,15 @@ class UserDefaultsHelper: ObservableObject {
     // MARK: - UserDefaults methods for hadling UserModel
     
     func setUserToUserDefaults(user: UserModel) {
-        print("Bane - setUserToUserDefaults(user: UserModel) - UserDefaults")
         do {
             let userData = try JSONEncoder().encode(user)
             UserDefaults.standard.set(userData, forKey: UserDefaultKeys.user.rawValue)
         } catch {
-            debugPrint(error)
+            debugPrint(error.localizedDescription)
         }
     }
 
     func getUserFromUserDefaults() -> UserModel? {
-        print("Bane - getUserFromUserDefaults() - UserDefaults")
         do {
             guard let userData = UserDefaults.standard.data(forKey: UserDefaultKeys.user.rawValue) else {
                 return nil
@@ -54,13 +52,12 @@ class UserDefaultsHelper: ObservableObject {
             let user = try JSONDecoder().decode(UserModel.self, from: userData)
             return user
         } catch {
-            debugPrint(error)
+            debugPrint(error.localizedDescription)
             return nil
         }
     }
 
     func removeUserFromUserDefaults() {
-        print("Bane - removeUserFromUserDefaults() - UserDefaults")
         UserDefaults.standard.removeObject(forKey: UserDefaultKeys.user.rawValue)
     }
 

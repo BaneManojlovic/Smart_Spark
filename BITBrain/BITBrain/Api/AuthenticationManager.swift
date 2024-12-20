@@ -31,30 +31,26 @@ class AuthenticationManager {
     init() {}
     
     func login(email: String, password: String) async -> Bool {
-        print("Bane - called login(email: String, password: String)")
         do {
             try await authClient.signIn(email: email, password: password)
             return true
         } catch {
-            print("Bane - error == ", error.localizedDescription)
+            print(error.localizedDescription)
             return false
         }
     }
     /// method for checking does authenticated user exists on supabase database
     func getAuthenticatedUser() async -> UUID? {
-        print("Bane - called getAuthenticatedUser()")
         do {
             let user = try await authClient.user() /// returns User object form supabase database that is different form UserModel - mapping is needed
-            print("Bane - user postoji = \(String(describing: user.email))")
             return user.id
         } catch {
-            print("Bane - error = ", error.localizedDescription)
+            print(error.localizedDescription)
             return nil
         }
     }
 
     func register(email: String, password: String) async -> Bool {
-        print("Bane - called register(email: String, password: String)")
         do {
             let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
             try await authClient.signUp(email: trimmedEmail, password: password)
@@ -67,7 +63,6 @@ class AuthenticationManager {
     
     /// method for saving user into "profiles" data table in supabase database
     func saveUserToDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
-        print("Bane - called saveUserToDatabase(user: UserModel, completion: @escaping (Error?) -> Void) ")
         do {
             try await databaseClient.from("profiles").insert(user).execute()
             completion(nil)
@@ -78,7 +73,6 @@ class AuthenticationManager {
     }
     
     func updateUserDataInDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
-        print("Bane - called saveUserToDatabase(user: UserModel, completion: @escaping (Error?) -> Void) ")
         do {
             try await databaseClient.from("profiles").update(user).eq("id", value: user.id).execute()
             completion(nil)
@@ -90,15 +84,12 @@ class AuthenticationManager {
 
     /// method for getting user data from table "profile" saved on supabase database
     func getUserDataFromDatabase(userId: UUID) async -> UserModel? {
-        print("Bane - called getUserDataFromDatabase(user: UserModel, completion: @escaping (Error?) -> Void) ")
-        print("\(userId)")
         do {
             let response: [UserModel] = try await databaseClient.from("profiles").select().eq("id",
                                                                                               value: userId.uuidString.lowercased()).execute().value
-            print("\(response)")
             return response.first
         } catch {
-            print("error")
+            print(error.localizedDescription)
             return nil
         }
     }
@@ -117,7 +108,7 @@ class AuthenticationManager {
             try await databaseClient.from("profiles").delete().eq("id", value: userIdString).execute()
             print("user deleted...")
         } catch {
-            print("failure ...")
+            print(error.localizedDescription)
         }
     }
     
@@ -138,7 +129,7 @@ class AuthenticationManager {
                 )
             imagePath = response.path
         } catch {
-            print("error...error")
+            print(error.localizedDescription)
         }
         
         return imagePath
@@ -147,10 +138,9 @@ class AuthenticationManager {
     func downloadImage(path: String) async -> AvatarImage? {
         do {
             let data = try await storageClient.from("photos").download(path: path)
-            print("Bane - data = \(data)")
             return AvatarImage(data: data)
         } catch {
-            print("error")
+            print(error.localizedDescription)
             return nil
         }
     }

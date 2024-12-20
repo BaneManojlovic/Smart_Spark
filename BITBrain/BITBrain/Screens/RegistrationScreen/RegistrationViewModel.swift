@@ -36,7 +36,6 @@ class RegistrationViewModel: ObservableObject {
                                           username: username,
                                           email: email,
                                           photoUrl: nil)
-                    print("Bane - userModel je = \(userModel.id), \(userModel.username), \(userModel.email), \(userModel.photoUrl)")
                     self.saveUserData(user: userModel)
                     self.saveUserDataToDatabase(user: userModel)
                     completion(true, nil)
@@ -72,7 +71,7 @@ class RegistrationViewModel: ObservableObject {
                     if let error {
                         print(error.localizedDescription)
                     } else {
-                        print("success...\(user.username)")
+                        print("success...\(String(describing: user.username))")
                     }
                 }
             }

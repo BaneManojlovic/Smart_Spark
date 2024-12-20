@@ -23,7 +23,6 @@ class ProfileViewModel: ObservableObject {
 
     func fetchUserData() {
         if let user = userDefaultsHelper.getUserFromUserDefaults() {
-            print("Bane - userModel iz baze je = \(user.id), \(user.username), \(user.email), \(user.photoUrl)")
             userModel = UserModel(id: user.id,
                                   username: user.username,
                                   email: user.email,
@@ -78,7 +77,7 @@ class ProfileViewModel: ObservableObject {
     func updateProfile(imageData: Data) async {
         do {
             let imageUrl = try await authService.saveAndUploadUserProfileImage(avatarImageData: imageData)
-            print("Bane = image url = \(imageUrl)")
+            
             guard let user = self.userModel else { return }
             
             let updatedUserModel = UserModel(id: user.id,
@@ -88,15 +87,13 @@ class ProfileViewModel: ObservableObject {
             
             await authService.updateUserDataInDatabase(user: updatedUserModel) { error in
                 if let error {
-                    print("Bane - ", error.localizedDescription)
+                    print(error.localizedDescription)
                 } else {
-                    print("success...")
                     self.userDefaultsHelper.setUserToUserDefaults(user: updatedUserModel)
                 }
             }
         } catch {
-            print("error")
+            print(error.localizedDescription)
         }
     }
-
 }
