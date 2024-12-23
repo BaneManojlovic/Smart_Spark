@@ -96,12 +96,22 @@ struct CustomSheetView: View {
             }
             
             // Title
-            Text(isInvalidKey ? "You entered an invalid API Key" : "To start chatting, please \nenter your valid API Key.")
+            Text(isInvalidKey ? "You entered an invalid API Key" : "To start chatting, please \nenter your valid OpenAI API Key")
                 .font(.title2)
                 .multilineTextAlignment(.center)
                 .frame(alignment: .center)
                 .foregroundColor(isInvalidKey ? .red : .darkBlue)
                 .fontWeight(.bold)
+            
+            Text("Get an OpenAI API Key [Here](https://platform.openai.com/api-keys). A 'Quota Exceeded' error, means you need to setup billing on your OpenAI account.")
+                .font(.system(size: 14))
+                .multilineTextAlignment(.center)
+                .frame(alignment: .center)
+                .fontWeight(.bold)
+                .foregroundColor(.darkGrayBit)
+                .tint(.blue)
+                .padding()
+            
             
             // Input Field
             HStack {

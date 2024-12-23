@@ -110,7 +110,7 @@ struct HomeView: View {
                         isPresented = true // Navigate to ActiveChatView
                     }
                 }
-                .presentationDetents([.height(250)])
+                .presentationDetents([.height(350)])
             }
         }
         .onAppear {
