@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -78,6 +78,16 @@
 		F420F23CC1606387BE9C158F /* Pods_BITBrain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E19BCE8FC1D8EF39C6CBB7 /* Pods_BITBrain.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8D4117E72D19AF6100F33064 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D2D028D2CC6A1EA00ED852E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D2D02942CC6A1EA00ED852E;
+			remoteInfo = BITBrain;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		4A51E21EB168599D6C330177 /* Pods-BITBrain.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BITBrain.release.xcconfig"; path = "Target Support Files/Pods-BITBrain/Pods-BITBrain.release.xcconfig"; sourceTree = "<group>"; };
 		5E279F225DDD7A82B8E4FC06 /* Pods-BITBrain.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BITBrain.debug.xcconfig"; path = "Target Support Files/Pods-BITBrain/Pods-BITBrain.debug.xcconfig"; sourceTree = "<group>"; };
@@ -124,6 +134,7 @@
 		8D2D03182CD11B5500ED852E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D2D031F2CD13C0D00ED852E /* SettingsNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationViewModel.swift; sourceTree = "<group>"; };
 		8D4117DD2D198A8100F33064 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		8D4117E32D19AF6100F33064 /* BITBrainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BITBrainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+Extensions.swift"; sourceTree = "<group>"; };
 		8D47AD9D2CDE64B400D85C31 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		8D47AD9F2CE4CCCD00D85C31 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
@@ -147,6 +158,10 @@
 		D8E19BCE8FC1D8EF39C6CBB7 /* Pods_BITBrain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BITBrain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		8D4117E42D19AF6100F33064 /* BITBrainTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BITBrainTests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		8D2D02922CC6A1EA00ED852E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -161,6 +176,13 @@
 				8D5496022CF774C10010367B /* WishKit in Frameworks */,
 				8DB071492D0AE1730085194E /* Auth in Frameworks */,
 				8D2D03142CCCC85D00ED852E /* OpenAI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D4117E02D19AF6100F33064 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				8D2D02972CC6A1EA00ED852E /* BITBrain */,
+				8D4117E42D19AF6100F33064 /* BITBrainTests */,
 				8D2D02962CC6A1EA00ED852E /* Products */,
 				EB878DEED1146FB2B6133BDA /* Pods */,
 				E7BEDABC3CD5604B2F52A541 /* Frameworks */,
@@ -209,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				8D2D02952CC6A1EA00ED852E /* BITBrain.app */,
+				8D4117E32D19AF6100F33064 /* BITBrainTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -550,6 +574,29 @@
 			productReference = 8D2D02952CC6A1EA00ED852E /* BITBrain.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8D4117E22D19AF6100F33064 /* BITBrainTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D4117E92D19AF6100F33064 /* Build configuration list for PBXNativeTarget "BITBrainTests" */;
+			buildPhases = (
+				8D4117DF2D19AF6100F33064 /* Sources */,
+				8D4117E02D19AF6100F33064 /* Frameworks */,
+				8D4117E12D19AF6100F33064 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8D4117E82D19AF6100F33064 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8D4117E42D19AF6100F33064 /* BITBrainTests */,
+			);
+			name = BITBrainTests;
+			packageProductDependencies = (
+			);
+			productName = BITBrainTests;
+			productReference = 8D4117E32D19AF6100F33064 /* BITBrainTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -557,11 +604,16 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
+				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					8D2D02942CC6A1EA00ED852E = {
 						CreatedOnToolsVersion = 15.4;
+					};
+					8D4117E22D19AF6100F33064 = {
+						CreatedOnToolsVersion = 16.1;
+						LastSwiftMigration = 1610;
+						TestTargetID = 8D2D02942CC6A1EA00ED852E;
 					};
 				};
 			};
@@ -584,6 +636,7 @@
 			projectRoot = "";
 			targets = (
 				8D2D02942CC6A1EA00ED852E /* BITBrain */,
+				8D4117E22D19AF6100F33064 /* BITBrainTests */,
 			);
 		};
 /* End PBXProject section */
@@ -597,6 +650,13 @@
 				8D2D03192CD11B5500ED852E /* LaunchScreen.storyboard in Resources */,
 				8D4117DE2D198A8100F33064 /* PrivacyInfo.xcprivacy in Resources */,
 				8D2D029D2CC6A1EC00ED852E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D4117E12D19AF6100F33064 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,7 +751,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8D4117DF2D19AF6100F33064 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8D4117E82D19AF6100F33064 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D2D02942CC6A1EA00ED852E /* BITBrain */;
+			targetProxy = 8D4117E72D19AF6100F33064 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		8D2D02A12CC6A1EC00ED852E /* Debug */ = {
@@ -893,6 +968,49 @@
 			};
 			name = Release;
 		};
+		8D4117EA2D19AF6100F33064 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5M4MZAC8G6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitnovisad.BITBrainTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "BITBrainTests/BITBrainTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BITBrain.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BITBrain";
+			};
+			name = Debug;
+		};
+		8D4117EB2D19AF6100F33064 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5M4MZAC8G6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitnovisad.BITBrainTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "BITBrainTests/BITBrainTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BITBrain.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BITBrain";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -910,6 +1028,15 @@
 			buildConfigurations = (
 				8D2D02A42CC6A1EC00ED852E /* Debug */,
 				8D2D02A52CC6A1EC00ED852E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8D4117E92D19AF6100F33064 /* Build configuration list for PBXNativeTarget "BITBrainTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D4117EA2D19AF6100F33064 /* Debug */,
+				8D4117EB2D19AF6100F33064 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

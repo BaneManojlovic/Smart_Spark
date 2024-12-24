@@ -15,8 +15,8 @@ class RegistrationViewModel: ObservableObject {
     @Published var repeatedPasswordText: String = ""
     @Published var profileValidation: [ValidationError: Bool] = [.nameInvalid: false, .emailInvalid: false, .passwordInvalid: false, .passwordsDontMatch: false]
     
-    let authService = AuthenticationManager()
-    let userDefaultsHelper = UserDefaultsHelper()
+    var authService = AuthenticationManager()
+    var userDefaultsHelper = UserDefaultsHelper()
     
     // MARK: - Methods for API calling
     
@@ -64,7 +64,7 @@ class RegistrationViewModel: ObservableObject {
         userDefaultsHelper.setUserToUserDefaults(user: user)
     }
     
-    func saveUserDataToDatabase(user: UserModel) {
+    func saveUserDataToDatabase(user: UserModel, taskCompletion: (() -> Void)? = nil) {
         Task {
             do {
                 await authService.saveUserToDatabase(user: user) { error in
@@ -73,6 +73,7 @@ class RegistrationViewModel: ObservableObject {
                     } else {
                         print("success...\(String(describing: user.username))")
                     }
+                    taskCompletion?()
                 }
             }
         }
