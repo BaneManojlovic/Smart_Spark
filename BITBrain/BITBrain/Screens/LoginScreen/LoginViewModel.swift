@@ -16,8 +16,8 @@ class LoginViewModel: ObservableObject {
     @Published var isPasswordVisible = false
     @Published var profileValidation: [ValidationError: Bool] = [.nameInvalid: false, .emailInvalid: false]
 
-    let authService = AuthenticationManager()
-    let userDefaultsHelper = UserDefaultsHelper()
+    var authService = AuthenticationManager()
+    var userDefaultsHelper = UserDefaultsHelper()
     
     func loginAction(completion: @escaping (Bool) -> Void) {
         Task {

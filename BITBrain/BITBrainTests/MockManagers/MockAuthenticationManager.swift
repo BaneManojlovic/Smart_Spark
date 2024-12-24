@@ -11,17 +11,37 @@ import XCTest
 
 class MockAuthenticationManager: AuthenticationManager {
     // Call tracking
+    /// for Registration
     private var registerCallCount = 0
     private var saveUserToDatabaseCallCount = 0
+    /// for Login
+    private var loginCallCount = 0
+    private var getUserDataCallCount = 0
 
     // Behavior simulation
+    /// for Registration
     var registerShouldSucceed: Bool
     var simulateSaveError: Error?
+    /// for Login
+    var loginShouldSucceed: Bool
+    var simulatedUserId: UUID?
+    var simulatedUserData: UserModel?
 
-    init(registerShouldSucceed: Bool = true, simulateSaveError: Error? = nil) {
+    init(
+        registerShouldSucceed: Bool = true,
+        simulateSaveError: Error? = nil,
+        loginShouldSucceed: Bool = true,
+        simulatedUserId: UUID? = UUID(),
+        simulatedUserData: UserModel? = nil
+    ) {
         self.registerShouldSucceed = registerShouldSucceed
         self.simulateSaveError = simulateSaveError
+        self.loginShouldSucceed = loginShouldSucceed
+        self.simulatedUserId = simulatedUserId
+        self.simulatedUserData = simulatedUserData
     }
+
+    // MARK: - Registration Methods
 
     override func register(email: String, password: String) async -> Bool {
         registerCallCount += 1
@@ -29,21 +49,42 @@ class MockAuthenticationManager: AuthenticationManager {
     }
 
     override func getAuthenticatedUser() async -> UUID? {
-        return UUID()
+        return simulatedUserId
     }
 
     override func saveUserToDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
         saveUserToDatabaseCallCount += 1
         completion(simulateSaveError)
     }
+    
+    // MARK: - Login methods
 
-    // Utility methods for test assertions
+    override func login(email: String, password: String) async -> Bool {
+        loginCallCount += 1
+        return loginShouldSucceed
+    }
+
+    override func getUserDataFromDatabase(userId: UUID) async -> UserModel? {
+        getUserDataCallCount += 1
+        return simulatedUserData
+    }
+
+    // MARK: - Utility methods for test assertions
+
     func wasRegisterCalled() -> Bool {
         return registerCallCount > 0
     }
 
     func wasSaveUserToDatabaseCalled() -> Bool {
         return saveUserToDatabaseCallCount > 0
+    }
+    
+    func wasLoginCalled() -> Bool {
+        return loginCallCount > 0
+    }
+    
+    func wasGetUserDataFromDatabaseCalled() -> Bool {
+        return getUserDataCallCount > 0
     }
 
     func numberOfRegisterCalls() -> Int {
@@ -52,5 +93,13 @@ class MockAuthenticationManager: AuthenticationManager {
 
     func numberOfSaveUserToDatabaseCalls() -> Int {
         return saveUserToDatabaseCallCount
+    }
+    
+    func numberOfLoginCalls() -> Int {
+        return loginCallCount
+    }
+
+    func numberOfGetUserDataFromDatabaseCalls() -> Int {
+        return getUserDataCallCount
     }
 }
