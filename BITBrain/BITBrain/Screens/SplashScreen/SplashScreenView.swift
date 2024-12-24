@@ -38,7 +38,7 @@ struct SplashScreenView: View {
             .opacity(opacity)
             .onAppear {
                 Task {
-                    await checkForLoggedInUser()
+                    isLoggedIn = await viewModel.isUserLoggedIn()
                 }
                 withAnimation(.easeIn(duration: 1.3)) {
                     self.size = 1.3
@@ -47,27 +47,10 @@ struct SplashScreenView: View {
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                    if isLoggedIn {
-                        appRootManager.currentRoot = .home
-                    } else {
-                        appRootManager.currentRoot = .authentication
-                    }
-                    
+                    appRootManager.currentRoot = isLoggedIn ? .home : .authentication
                 }
             }
         }
     }
-    
-    func checkForLoggedInUser() async {
-        if let userExists = await viewModel.checkForUser(), userExists == true {
-            isLoggedIn = true
-        } else {
-            isLoggedIn = false
-        }
-    }
-    
 }
-//
-//#Preview {
-//    SplashScreenView()
-//}
+

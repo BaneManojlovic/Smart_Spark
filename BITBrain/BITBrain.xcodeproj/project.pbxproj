@@ -48,6 +48,7 @@
 		8D2D03192CD11B5500ED852E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D2D03182CD11B5500ED852E /* LaunchScreen.storyboard */; };
 		8D2D03202CD13C0D00ED852E /* SettingsNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D031F2CD13C0D00ED852E /* SettingsNavigationViewModel.swift */; };
 		8D4117DE2D198A8100F33064 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8D4117DD2D198A8100F33064 /* PrivacyInfo.xcprivacy */; };
+		8D41180E2D1B163B00F33064 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 8D41180D2D1B163B00F33064 /* ViewInspector */; };
 		8D47AD992CDE057000D85C31 /* UITabBarController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */; };
 		8D47AD9E2CDE64B400D85C31 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD9D2CDE64B400D85C31 /* TutorialView.swift */; };
 		8D47ADA02CE4CCCD00D85C31 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD9F2CE4CCCD00D85C31 /* UserDefaultsHelper.swift */; };
@@ -183,6 +184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D41180E2D1B163B00F33064 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,6 +594,7 @@
 			);
 			name = BITBrainTests;
 			packageProductDependencies = (
+				8D41180D2D1B163B00F33064 /* ViewInspector */,
 			);
 			productName = BITBrainTests;
 			productReference = 8D4117E32D19AF6100F33064 /* BITBrainTests.xctest */;
@@ -630,6 +633,7 @@
 				8D2D03122CCCC85D00ED852E /* XCRemoteSwiftPackageReference "OpenAI" */,
 				8D5496002CF774C10010367B /* XCRemoteSwiftPackageReference "wishkit-ios" */,
 				8DB071472D0AE1730085194E /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				8D41180A2D1B160C00F33064 /* XCRemoteSwiftPackageReference "ViewInspector" */,
 			);
 			productRefGroup = 8D2D02962CC6A1EA00ED852E /* Products */;
 			projectDirPath = "";
@@ -1052,6 +1056,14 @@
 				minimumVersion = 0.3.0;
 			};
 		};
+		8D41180A2D1B160C00F33064 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.1;
+			};
+		};
 		8D5496002CF774C10010367B /* XCRemoteSwiftPackageReference "wishkit-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/wishkit/wishkit-ios.git";
@@ -1075,6 +1087,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8D2D03122CCCC85D00ED852E /* XCRemoteSwiftPackageReference "OpenAI" */;
 			productName = OpenAI;
+		};
+		8D41180D2D1B163B00F33064 /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8D41180A2D1B160C00F33064 /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
 		};
 		8D5496012CF774C10010367B /* WishKit */ = {
 			isa = XCSwiftPackageProductDependency;
