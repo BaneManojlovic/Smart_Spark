@@ -37,15 +37,16 @@ struct SplashScreenView: View {
             .scaleEffect(size)
             .opacity(opacity)
             .onAppear {
+                // Perform asynchronous user authentication check
                 Task {
                     isLoggedIn = await viewModel.isUserLoggedIn()
                 }
+                // Trigger animations
                 withAnimation(.easeIn(duration: 1.3)) {
                     self.size = 1.3
                     self.opacity = 1.0
                 }
-            }
-            .onAppear {
+                // Transition to the next screen after a delay
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                     appRootManager.currentRoot = isLoggedIn ? .home : .authentication
                 }

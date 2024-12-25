@@ -42,6 +42,8 @@ final class RegistrationViewModelTests: XCTestCase {
         sut.passwordText = "Password123"
         sut.repeatedPasswordText = "Password456" // Different password
     }
+    
+    // MARK: - Tests
 
     func test_registerAction_successfulRegistration() {
         // Arrange
@@ -51,10 +53,11 @@ final class RegistrationViewModelTests: XCTestCase {
         let expectation = self.expectation(description: "Registration should complete")
 
         // Act
-        sut.registerAction { success, errorMessage in
+        sut.registerUser { success in
             // Assert
             XCTAssertTrue(success)
-            XCTAssertNil(errorMessage)
+            XCTAssertFalse(self.sut.isLoading)
+            XCTAssertNil(self.sut.alertMessage)
             XCTAssertTrue(self.mockAuthService.wasRegisterCalled())
             XCTAssertTrue(self.mockUserDefaultsHelper.setUserToUserDefaultsCalled)
             expectation.fulfill()
@@ -69,10 +72,11 @@ final class RegistrationViewModelTests: XCTestCase {
         let expectation = self.expectation(description: "Registration should fail due to mismatched passwords")
 
         // Act
-        sut.registerAction { success, errorMessage in
+        sut.registerUser { success in
             // Assert
             XCTAssertFalse(success)
-            XCTAssertEqual(errorMessage, "Passwords do not match.")
+            XCTAssertFalse(self.sut.isLoading)
+            XCTAssertEqual(self.sut.alertMessage?.message, "Passwords do not match.")
             XCTAssertFalse(self.mockAuthService.wasRegisterCalled())
             XCTAssertFalse(self.mockUserDefaultsHelper.setUserToUserDefaultsCalled)
             expectation.fulfill()
@@ -89,10 +93,11 @@ final class RegistrationViewModelTests: XCTestCase {
         let expectation = self.expectation(description: "Registration should fail due to backend failure")
 
         // Act
-        sut.registerAction { success, errorMessage in
+        sut.registerUser { success in
             // Assert
             XCTAssertFalse(success)
-            XCTAssertEqual(errorMessage, "Registration failed, please try again.")
+            XCTAssertFalse(self.sut.isLoading)
+            XCTAssertEqual(self.sut.alertMessage?.message, "Registration failed, please try again.")
             XCTAssertTrue(self.mockAuthService.wasRegisterCalled())
             XCTAssertFalse(self.mockUserDefaultsHelper.setUserToUserDefaultsCalled)
             expectation.fulfill()
@@ -152,6 +157,7 @@ final class RegistrationViewModelTests: XCTestCase {
         sut.saveUserDataToDatabase(user: user) {
             taskCompletion.fulfill()
         }
+        
 
         await fulfillment(of: [taskCompletion], timeout: 1.0)
 

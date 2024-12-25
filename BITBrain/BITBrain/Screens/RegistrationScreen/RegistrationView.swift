@@ -12,9 +12,6 @@ struct RegistrationView: View {
     @EnvironmentObject private var appRootManager: AppRootManager
     @ObservedObject var authNavViewModel: AuthNavigationViewModel
     @ObservedObject var registerViewModel = RegistrationViewModel()
-    @ObservedObject var alertViewModel = AlertViewModel()
-    @State private var showingChatScreen = true
-    @State private var isLoading = false
     
     var body: some View {
         
@@ -59,7 +56,15 @@ struct RegistrationView: View {
                                             fieldContentType: .passwordsDontMatch)
                     
                     
-                    Button(action: registerAction) {
+                    Button(action: {
+                        registerViewModel.registerUser { success in
+                            if success {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    appRootManager.currentRoot = .home
+                                }
+                            }
+                        }
+                    }) {
                         // Authenticate user
                         HStack {
                             Spacer()
@@ -76,7 +81,7 @@ struct RegistrationView: View {
                     .disabled(registerViewModel.username.isEmpty || registerViewModel.emailText.isEmpty || registerViewModel.passwordText.isEmpty || registerViewModel.repeatedPasswordText.isEmpty)
                 }
                 
-                if isLoading {
+                if registerViewModel.isLoading {
                     ProgressView()
                         .controlSize(.large)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -88,8 +93,8 @@ struct RegistrationView: View {
         }
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden()
-        .alert(isPresented: $alertViewModel.showAlert) {
-            Alert(title: Text(alertViewModel.alert?.title ?? "Unknown"), message: Text(""), primaryButton: .default(Text("Ok")), secondaryButton: .cancel())
+        .alert(item: $registerViewModel.alertMessage) { alertMessage in
+            Alert(title: Text(alertMessage.message))
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -99,34 +104,6 @@ struct RegistrationView: View {
                     Image(systemName: "chevron.left")
                         .foregroundColor(.white)
                         .font(.title2)
-                }
-            }
-        }
-    }
-    
-    func registerAction() {
-        UIApplication.shared.endEditing(true)
-        isLoading = true
-        registerViewModel.registerAction { success, message  in
-            DispatchQueue.main.async {
-                isLoading = false
-                if success {
-                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                        appRootManager.currentRoot = .home
-                    }
-                } else {
-                    print("registration failure ...")
-                    if let message = message {
-                        alertViewModel.presentAlert(alert: CustomAlert(title: message,
-                                                                       message: "",
-                                                                       primaryButton: .default(Text("Ok")), 
-                                                                       secundaryButton: .cancel()))
-                    } else {
-                        alertViewModel.presentAlert(alert: CustomAlert(title: "You entered invalid data for email or password, please try again with valid data.",
-                                                                       message: "",
-                                                                       primaryButton: .default(Text("Ok")), 
-                                                                       secundaryButton: .cancel()))
-                    }
                 }
             }
         }
