@@ -9,8 +9,12 @@ import Foundation
 
 class SettingsViewModel: ObservableObject {
 
-    let authService = AuthenticationManager.shared
-    let userDefaultsHelper = UserDefaultsHelper()
+    // MARK: - Properties
+
+    var authService = AuthenticationManager.shared
+    var userDefaultsHelper = UserDefaultsHelper()
+
+    // MARK: - Methods
 
     func logout() async {
         await authService.signOut()

@@ -17,7 +17,7 @@ class MockAuthenticationManager: AuthenticationManager {
     /// for Login
     private var loginCallCount = 0
     private var getUserDataCallCount = 0
-
+    
     // Behavior simulation
     /// for Registration
     var registerShouldSucceed: Bool
@@ -26,6 +26,8 @@ class MockAuthenticationManager: AuthenticationManager {
     var loginShouldSucceed: Bool
     var simulatedUserId: UUID?
     var simulatedUserData: UserModel?
+    /// for Settings
+    var signOutCalled = false
 
     init(
         registerShouldSucceed: Bool = true,
@@ -55,6 +57,10 @@ class MockAuthenticationManager: AuthenticationManager {
     override func saveUserToDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
         saveUserToDatabaseCallCount += 1
         completion(simulateSaveError)
+    }
+    
+    override func signOut() async {
+        signOutCalled = true
     }
     
     // MARK: - Login methods
