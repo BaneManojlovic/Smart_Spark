@@ -80,11 +80,8 @@ class MockAuthenticationManager: AuthenticationManager {
     }
     
     func wasLoginCalled() -> Bool {
+        print("Bane - wasLoginCalled() \(loginCallCount)")
         return loginCallCount > 0
-    }
-    
-    func wasGetUserDataFromDatabaseCalled() -> Bool {
-        return getUserDataCallCount > 0
     }
 
     func numberOfRegisterCalls() -> Int {

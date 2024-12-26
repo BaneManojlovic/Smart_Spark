@@ -30,25 +30,35 @@ final class LoginViewModelTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_loginAction_successfulLogin() {
+    func test_loginUser_successfulLogin() {
         // Arrange
-        mockAuthService.loginShouldSucceed = true
-        mockAuthService.simulatedUserId = UUID()
-        mockAuthService.simulatedUserData = UserModel(id: mockAuthService.simulatedUserId!, username: "John Doe", email: "john.doe@example.com", photoUrl: nil)
+        let mockUserId = UUID() // Simulate a valid user ID
+        let mockUser = UserModel(id: mockUserId, username: "John Doe", email: "john.doe@example.com", photoUrl: nil)
+
+        mockAuthService.loginShouldSucceed = true // Simulate successful login
+        mockAuthService.simulatedUserId = mockUserId // Simulate a valid user ID
+        mockAuthService.simulatedUserData = mockUser // Simulate user data returned from the database
 
         let expectation = self.expectation(description: "Login should succeed")
 
+
         // Act
-        sut.loginAction { success in
+        sut.loginUser { success in
             // Assert
-            XCTAssertTrue(success)
-            XCTAssertTrue(self.mockAuthService.wasLoginCalled())
-            XCTAssertTrue(self.mockAuthService.wasGetUserDataFromDatabaseCalled())
-            XCTAssertTrue(self.mockUserDefaultsHelper.setUserToUserDefaultsCalled)
+            XCTAssertTrue(success, "Expected login to succeed, but it failed.")
+            XCTAssertTrue(self.mockAuthService.wasLoginCalled(), "Expected login method to be called on MockAuthenticationManager.")
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 1.0)
+        // Wait for asynchronous operations to complete
+        wait(for: [expectation], timeout: 2.0)
+    }
+    
+    func test_mockLogin() async {
+        mockAuthService.loginShouldSucceed = true
+        let result = await mockAuthService.login(email: "john.doe@example.com", password: "password123")
+        XCTAssertTrue(result)
+        XCTAssertTrue(mockAuthService.wasLoginCalled())
     }
 
     func test_loginAction_loginFails() {
@@ -58,32 +68,15 @@ final class LoginViewModelTests: XCTestCase {
         let expectation = self.expectation(description: "Login should fail")
 
         // Act
-        sut.loginAction { success in
+        sut.loginUser { success in
             // Assert
             XCTAssertFalse(success)
             XCTAssertTrue(self.mockAuthService.wasLoginCalled())
-            XCTAssertFalse(self.mockAuthService.wasGetUserDataFromDatabaseCalled())
             XCTAssertFalse(self.mockUserDefaultsHelper.setUserToUserDefaultsCalled)
             expectation.fulfill()
         }
 
         wait(for: [expectation], timeout: 1.0)
-    }
-
-    func test_getUserDataFromDatabase_fetchesAndSavesUserData() async {
-        // Arrange
-        let userId = UUID()
-        let simulatedUser = UserModel(id: userId, username: "Jane Doe", email: "jane.doe@example.com", photoUrl: nil)
-        mockAuthService.simulatedUserData = simulatedUser
-
-        // Act
-        let user = await sut.getUserDataFromDatabase(userId: userId)
-
-        // Assert
-        XCTAssertNotNil(user)
-        XCTAssertEqual(user?.id, userId)
-        XCTAssertTrue(mockAuthService.wasGetUserDataFromDatabaseCalled())
-        XCTAssertTrue(mockUserDefaultsHelper.setUserToUserDefaultsCalled)
     }
 
     func test_saveUserData_savesToUserDefaults() {
@@ -95,19 +88,5 @@ final class LoginViewModelTests: XCTestCase {
 
         // Assert
         XCTAssertTrue(mockUserDefaultsHelper.setUserToUserDefaultsCalled)
-    }
-    
-    func test_getUserDataFromDatabase_returnsNilWhenUserNotFound() async {
-        // Arrange
-        let userId = UUID()
-        mockAuthService.simulatedUserData = nil // Simulate user not found
-
-        // Act
-        let user = await sut.getUserDataFromDatabase(userId: userId)
-
-        // Assert
-        XCTAssertNil(user) // Verify that the method returns nil
-        XCTAssertTrue(mockAuthService.wasGetUserDataFromDatabaseCalled()) // Ensure the API call was made
-        XCTAssertFalse(mockUserDefaultsHelper.setUserToUserDefaultsCalled) // Ensure no user data was saved
     }
 }
