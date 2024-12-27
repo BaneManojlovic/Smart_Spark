@@ -123,5 +123,5 @@ final class SplashScreenViewModelTests: XCTestCase {
 }
 
 class MockAppRootManager: AppRootManaging, ObservableObject {
-    var currentRoot: AppRootManager.eAppRoots = .authentication // Default state
+    var currentRoot: AppRootManager.AppRoot = .authentication // Default state
 }
