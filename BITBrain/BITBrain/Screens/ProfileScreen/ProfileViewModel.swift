@@ -11,13 +11,14 @@ class ProfileViewModel: ObservableObject {
     
     // MARK: - Properties
 
-    let userDefaultsHelper = UserDefaultsHelper()
-    let authService = AuthenticationManager()
+    var userDefaultsHelper = UserDefaultsHelper()
+    var authService = AuthenticationManager()
     
     // MARK: - Published properties
     
     @Published var userModel: UserModel?
     @Published var avatarImage: AvatarImage?
+    @Published var isAvatarLoading: Bool = false
 
     // MARK: - Methods
 
@@ -35,56 +36,63 @@ class ProfileViewModel: ObservableObject {
     
     func downloadImage(path: String) {
         Task {
+            await MainActor.run {
+                self.isAvatarLoading = true
+            }
             do {
-                
                 let result = try await authService.downloadImage(path: path)
                 if let imageData =  result?.data {
                     let avatar = AvatarImage(data: imageData)
                     await MainActor.run {
                         self.avatarImage = avatar
+                        self.isAvatarLoading = false
                     }
                 }
             } catch {
+                await MainActor.run { self.isAvatarLoading = false }
                 print("avatar error..")
             }
         }
     }
     
-    func deleteAction(completion: @escaping (Bool) -> Void) {
+    func deleteAccount(onSuccess: @escaping () -> Void, onError: @escaping () -> Void) {
         Task {
-            let result = await self.deleteAccount()
-            if result {
-                userModel = nil
+            guard let userId = userModel?.id else {
+                DispatchQueue.main.async {
+                    onError()
+                }
+                return
             }
-            completion(result)
-        }
-    }
-    
-    func deleteAccount() async -> Bool {
-        if let userId = userModel?.id {
+            
             do {
                 try await authService.deleteUserFromDatabase(userId: userId)
                 userDefaultsHelper.emptyUserDefaults()
-                return true
+                DispatchQueue.main.async {
+                    self.userModel = nil
+                    onSuccess()
+                }
             } catch {
-                return false
+                DispatchQueue.main.async {
+                    onError()
+                }
             }
-        } else {
-            return false
         }
     }
     
-    func updateProfile(imageData: Data) async {
+    func saveProfile(imageData: Data?) async {
+        guard let imageData = imageData else { return }
+
         do {
             let imageUrl = try await authService.saveAndUploadUserProfileImage(avatarImageData: imageData)
-            
+
             guard let user = self.userModel else { return }
-            
+
             let updatedUserModel = UserModel(id: user.id,
                                              username: user.username,
                                              email: user.email,
                                              photoUrl: imageUrl)
-            
+            self.userModel = updatedUserModel
+
             await authService.updateUserDataInDatabase(user: updatedUserModel) { error in
                 if let error {
                     print(error.localizedDescription)

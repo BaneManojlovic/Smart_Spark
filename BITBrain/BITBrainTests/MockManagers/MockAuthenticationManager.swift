@@ -28,6 +28,15 @@ class MockAuthenticationManager: AuthenticationManager {
     var simulatedUserData: UserModel?
     /// for Settings
     var signOutCalled = false
+    /// for Profile screen
+    var mockDownloadResult: AvatarImage?
+    var downloadImageCalled = false
+    var deleteUserCalled = false
+    var deleteUserSuccess = false
+    var uploadImageCalled = false
+    var mockUploadImageResult: String?
+    var mockUpdateUserError: Error?
+
 
     init(
         registerShouldSucceed: Bool = true,
@@ -61,6 +70,31 @@ class MockAuthenticationManager: AuthenticationManager {
     
     override func signOut() async {
         signOutCalled = true
+    }
+    
+    override func downloadImage(path: String) async -> AvatarImage? {
+        downloadImageCalled = true
+        return mockDownloadResult
+    }
+    
+    override func deleteUserFromDatabase(userId: UUID) async throws {
+        deleteUserCalled = true
+        if !deleteUserSuccess {
+            throw NSError(domain: "DeleteUserError", code: 1, userInfo: nil)
+        }
+    }
+    
+    override func saveAndUploadUserProfileImage(avatarImageData: Data) async throws -> String {
+        uploadImageCalled = true
+        if let result = mockUploadImageResult {
+            return result
+        } else {
+            throw NSError(domain: "UploadImageError", code: 1, userInfo: nil)
+        }
+    }
+    
+    override func updateUserDataInDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
+        completion(mockUpdateUserError)
     }
     
     // MARK: - Login methods

@@ -144,6 +144,7 @@ struct CustomSheetView: View {
             if isLoading {
                 ProgressView()
                     .padding()
+                    .tint(.darkGrayBit)
             }
 
             // Buttons

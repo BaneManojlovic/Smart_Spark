@@ -81,6 +81,7 @@ struct LoginView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(Color.black.opacity(0.3))
                             .foregroundColor(.white)
+                            .tint(.darkGrayBit)
                             .edgesIgnoringSafeArea(.all)
                     }
                     

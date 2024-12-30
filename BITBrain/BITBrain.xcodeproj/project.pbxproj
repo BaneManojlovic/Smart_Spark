@@ -160,6 +160,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		8D0B8A022D1ED6EC003DAF13 /* ProfileFieldView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ProfileFieldView; sourceTree = "<group>"; };
 		8D4117E42D19AF6100F33064 /* BITBrainTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BITBrainTests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -283,6 +284,7 @@
 		8D2D02A72CC6A91900ED852E /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				8D0B8A022D1ED6EC003DAF13 /* ProfileFieldView */,
 				8D5495FD2CF759E90010367B /* TutorialCardView */,
 				8D1353072CF0B2A000F386DA /* SecuredEyeButtonView */,
 				8D1352F72CF0963800F386DA /* CustomTextFields */,
@@ -560,6 +562,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8D0B8A022D1ED6EC003DAF13 /* ProfileFieldView */,
 			);
 			name = BITBrain;
 			packageProductDependencies = (

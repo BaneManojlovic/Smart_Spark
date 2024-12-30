@@ -13,6 +13,7 @@ class MockUserDefaultsHelper: UserDefaultsHelper {
 
     private(set) var setUserToUserDefaultsCalled = false
     var emptyUserDefaultsCalled = false
+    var mockUser: UserModel?
 
     override func setUserToUserDefaults(user: UserModel) {
         setUserToUserDefaultsCalled = true
@@ -20,5 +21,9 @@ class MockUserDefaultsHelper: UserDefaultsHelper {
 
     override func emptyUserDefaults() {
         emptyUserDefaultsCalled = true
+    }
+    
+    override func getUserFromUserDefaults() -> UserModel? {
+        return mockUser
     }
 }
