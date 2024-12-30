@@ -13,6 +13,10 @@ final class SettingsCoordinator: ObservableObject {
     @Published var path: [SettingsDestinations] = []
     
     func goBack() {
+        guard !path.isEmpty else {
+            print("Warning: Attempted to go back, but the path is empty.")
+            return
+        }
         path.removeLast()
     }
     

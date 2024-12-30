@@ -32,7 +32,6 @@
 		8D2D02DB2CCB8A8D00ED852E /* Destinations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02DA2CCB8A8D00ED852E /* Destinations.swift */; };
 		8D2D02DD2CCB8CAB00ED852E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02DC2CCB8CAB00ED852E /* Coordinator.swift */; };
 		8D2D02E02CCB8D9100ED852E /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02DF2CCB8D9100ED852E /* AuthCoordinator.swift */; };
-		8D2D02E22CCB932400ED852E /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02E12CCB932400ED852E /* ChatCoordinator.swift */; };
 		8D2D02E42CCB93FC00ED852E /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02E32CCB93FC00ED852E /* SettingsCoordinator.swift */; };
 		8D2D02E72CCB9BFC00ED852E /* NavigationDestinationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02E62CCB9BFC00ED852E /* NavigationDestinationModifier.swift */; };
 		8D2D02F12CCBC57200ED852E /* AuthNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02F02CCBC57100ED852E /* AuthNavigationViewModel.swift */; };
@@ -75,7 +74,6 @@
 		8DF498912CD38C8F00261CA9 /* MessageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498902CD38C8F00261CA9 /* MessageCellView.swift */; };
 		8DF7740F2CF860CE0094F55E /* ReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF7740E2CF860CE0094F55E /* ReviewManager.swift */; };
 		8DF774112CF86BBE0094F55E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF774102CF86BBE0094F55E /* WebView.swift */; };
-		8DF774132CF8C9950094F55E /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF774122CF8C9950094F55E /* UserDataManager.swift */; };
 		F420F23CC1606387BE9C158F /* Pods_BITBrain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E19BCE8FC1D8EF39C6CBB7 /* Pods_BITBrain.framework */; };
 /* End PBXBuildFile section */
 
@@ -119,7 +117,6 @@
 		8D2D02DA2CCB8A8D00ED852E /* Destinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destinations.swift; sourceTree = "<group>"; };
 		8D2D02DC2CCB8CAB00ED852E /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		8D2D02DF2CCB8D9100ED852E /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
-		8D2D02E12CCB932400ED852E /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
 		8D2D02E32CCB93FC00ED852E /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		8D2D02E62CCB9BFC00ED852E /* NavigationDestinationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestinationModifier.swift; sourceTree = "<group>"; };
 		8D2D02F02CCBC57100ED852E /* AuthNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNavigationViewModel.swift; sourceTree = "<group>"; };
@@ -155,7 +152,6 @@
 		8DF498902CD38C8F00261CA9 /* MessageCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellView.swift; sourceTree = "<group>"; };
 		8DF7740E2CF860CE0094F55E /* ReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewManager.swift; sourceTree = "<group>"; };
 		8DF774102CF86BBE0094F55E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
-		8DF774122CF8C9950094F55E /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		D8E19BCE8FC1D8EF39C6CBB7 /* Pods_BITBrain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BITBrain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -276,7 +272,6 @@
 			children = (
 				8D5496032CF778BE0010367B /* WhishKitManager.swift */,
 				8DF7740E2CF860CE0094F55E /* ReviewManager.swift */,
-				8DF774122CF8C9950094F55E /* UserDataManager.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -473,7 +468,6 @@
 			isa = PBXGroup;
 			children = (
 				8D2D02DF2CCB8D9100ED852E /* AuthCoordinator.swift */,
-				8D2D02E12CCB932400ED852E /* ChatCoordinator.swift */,
 				8D2D02E32CCB93FC00ED852E /* SettingsCoordinator.swift */,
 			);
 			path = Coordinators;
@@ -707,7 +701,6 @@
 				8D2D02BF2CC771B400ED852E /* SettingsViewCell.swift in Sources */,
 				8D1353042CF0AB6200F386DA /* ValidationError.swift in Sources */,
 				8D2D02D82CCB794600ED852E /* RegistrationView.swift in Sources */,
-				8D2D02E22CCB932400ED852E /* ChatCoordinator.swift in Sources */,
 				8D2D02FA2CCBDE0900ED852E /* ThreadArchiveView.swift in Sources */,
 				8D1352FF2CF0A51500F386DA /* BaseSecureTextFieldView.swift in Sources */,
 				8DF4988C2CD345A900261CA9 /* HomeViewModel.swift in Sources */,
@@ -719,7 +712,6 @@
 				8DF0AF002D11BFA6000ECB32 /* UIAplication+Extension.swift in Sources */,
 				8D47AD9E2CDE64B400D85C31 /* TutorialView.swift in Sources */,
 				8D47ADA22CE622BC00D85C31 /* ProfileViewModel.swift in Sources */,
-				8DF774132CF8C9950094F55E /* UserDataManager.swift in Sources */,
 				8D2D02DD2CCB8CAB00ED852E /* Coordinator.swift in Sources */,
 				8D2D02B92CC76D7600ED852E /* CustomTabBarView.swift in Sources */,
 				8D2D02C92CC7EE6600ED852E /* ActiveChatView.swift in Sources */,

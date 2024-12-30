@@ -11,11 +11,15 @@ import SwiftUI
 final class AuthCoordinator: ObservableObject {
     
     @Published var path: [AuthDestinations] = []
-    
+
     func goBack() {
+        guard !path.isEmpty else {
+            print("Warning: Attempted to go back, but the path is empty.")
+            return
+        }
         path.removeLast()
     }
-    
+
     func navigateToRegistration() {
         path.append(AuthDestinations.register)
     }
