@@ -9,50 +9,56 @@ import Foundation
 
 class LoginViewModel: ObservableObject {
     
+    // MARK: - Published Properties
+    
     @Published var emailText: String = ""
     @Published var passwordText: String = ""
     @Published var isLoading = false
-    @Published var userExists = false
-    @Published var isPasswordVisible = false
+    @Published var alertMessage: AlertMessage? = nil
     @Published var profileValidation: [ValidationError: Bool] = [.nameInvalid: false, .emailInvalid: false]
 
-    let authService = AuthenticationManager()
-    let userDefaultsHelper = UserDefaultsHelper()
-    
-    func loginAction(completion: @escaping (Bool) -> Void) {
+    // MARK: - Properties
+
+    var authService = AuthenticationManager()
+    var userDefaultsHelper = UserDefaultsHelper()
+
+    // MARK: - Methods
+
+    func loginUser(completion: @escaping (Bool) -> Void) {
+        isLoading = true
         Task {
             let email = emailText
             let password = passwordText
             let userId = await self.login(email: email, password: password)
             
-            if let userId {
-                let user = await self.getUserDataFromDatabase(userId: userId)
-                completion(true)
-            } else {
-                print("login failed")
-                completion(false)
+            DispatchQueue.main.async {
+                self.isLoading = false
+                if let userId {
+                    self.saveUserDataToDatabase(userId: userId)
+                    completion(true)
+                } else {
+                    self.alertMessage = AlertMessage(message: "You entered wrong email or password, please try again with valid credentials.")
+                    completion(false)
+                }
             }
         }
     }
-
-    // MARK: - Calling API endpoint
-    func login(email: String, password: String) async -> UUID? {
-        let userLoggedIn = await authService.login(email: email, password: password)
-        if userLoggedIn {
-            let userId = await authService.getAuthenticatedUser()
-            print("User = \(String(describing: userId))")
-            return userId
-        } else {
-            return nil
-        }
-    }
     
-    func getUserDataFromDatabase(userId: UUID) async -> UserModel? {
-        if let user = await authService.getUserDataFromDatabase(userId: userId) {
-            self.saveUserData(user: user)
-            return user
-        } else {
-            return nil
+    private func login(email: String, password: String) async -> UUID? {
+            let userLoggedIn = await authService.login(email: email, password: password)
+            if userLoggedIn {
+                return await authService.getAuthenticatedUser()
+            } else {
+                return nil
+            }
+        }
+
+
+    func saveUserDataToDatabase(userId: UUID) {
+        Task {
+            if let user = await authService.getUserDataFromDatabase(userId: userId) {
+                self.saveUserData(user: user)
+            }
         }
     }
 

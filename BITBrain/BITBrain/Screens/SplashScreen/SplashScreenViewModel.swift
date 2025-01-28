@@ -10,15 +10,13 @@ import Supabase
 
 class SplashScreenViewModel: ObservableObject {
 
-    let authManager = AuthenticationManager.shared
+    var authManager = AuthenticationManager.shared
     
-    func checkForUser() async -> Bool? {
-        do {
-            if let userId = await authManager.getAuthenticatedUser(), !userId.uuidString.isEmpty {
-                return true
-            } else {
-                return false
-            }
+    func isUserLoggedIn() async -> Bool {
+        if let userId = await authManager.getAuthenticatedUser(), !userId.uuidString.isEmpty {
+            return true
+        } else {
+            return false
         }
     }
 }

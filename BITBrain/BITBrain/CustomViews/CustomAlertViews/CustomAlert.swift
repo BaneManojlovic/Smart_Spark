@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+struct AlertMessage: Identifiable {
+    var id: UUID = UUID() // A unique identifier for the alert
+    var message: String
+}
+
 struct CustomAlert {
     let title: String
     let message: String
@@ -139,6 +144,7 @@ struct CustomSheetView: View {
             if isLoading {
                 ProgressView()
                     .padding()
+                    .tint(.darkGrayBit)
             }
 
             // Buttons

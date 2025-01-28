@@ -7,11 +7,15 @@
 
 import Foundation
 
-final class AppRootManager: ObservableObject {
+protocol AppRootManaging: AnyObject {
+    var currentRoot: AppRootManager.AppRoot { get set }
+}
+
+final class AppRootManager: ObservableObject, AppRootManaging {
     
-    @Published var currentRoot: eAppRoots = .splash
+    @Published var currentRoot: AppRoot = .splash
     
-    enum eAppRoots {
+    enum AppRoot {
         case splash
         case authentication
         case home

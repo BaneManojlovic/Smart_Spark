@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -32,7 +32,6 @@
 		8D2D02DB2CCB8A8D00ED852E /* Destinations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02DA2CCB8A8D00ED852E /* Destinations.swift */; };
 		8D2D02DD2CCB8CAB00ED852E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02DC2CCB8CAB00ED852E /* Coordinator.swift */; };
 		8D2D02E02CCB8D9100ED852E /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02DF2CCB8D9100ED852E /* AuthCoordinator.swift */; };
-		8D2D02E22CCB932400ED852E /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02E12CCB932400ED852E /* ChatCoordinator.swift */; };
 		8D2D02E42CCB93FC00ED852E /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02E32CCB93FC00ED852E /* SettingsCoordinator.swift */; };
 		8D2D02E72CCB9BFC00ED852E /* NavigationDestinationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02E62CCB9BFC00ED852E /* NavigationDestinationModifier.swift */; };
 		8D2D02F12CCBC57200ED852E /* AuthNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D02F02CCBC57100ED852E /* AuthNavigationViewModel.swift */; };
@@ -48,6 +47,7 @@
 		8D2D03192CD11B5500ED852E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D2D03182CD11B5500ED852E /* LaunchScreen.storyboard */; };
 		8D2D03202CD13C0D00ED852E /* SettingsNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D031F2CD13C0D00ED852E /* SettingsNavigationViewModel.swift */; };
 		8D4117DE2D198A8100F33064 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8D4117DD2D198A8100F33064 /* PrivacyInfo.xcprivacy */; };
+		8D41180E2D1B163B00F33064 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 8D41180D2D1B163B00F33064 /* ViewInspector */; };
 		8D47AD992CDE057000D85C31 /* UITabBarController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */; };
 		8D47AD9E2CDE64B400D85C31 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD9D2CDE64B400D85C31 /* TutorialView.swift */; };
 		8D47ADA02CE4CCCD00D85C31 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD9F2CE4CCCD00D85C31 /* UserDefaultsHelper.swift */; };
@@ -74,9 +74,18 @@
 		8DF498912CD38C8F00261CA9 /* MessageCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF498902CD38C8F00261CA9 /* MessageCellView.swift */; };
 		8DF7740F2CF860CE0094F55E /* ReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF7740E2CF860CE0094F55E /* ReviewManager.swift */; };
 		8DF774112CF86BBE0094F55E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF774102CF86BBE0094F55E /* WebView.swift */; };
-		8DF774132CF8C9950094F55E /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF774122CF8C9950094F55E /* UserDataManager.swift */; };
 		F420F23CC1606387BE9C158F /* Pods_BITBrain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E19BCE8FC1D8EF39C6CBB7 /* Pods_BITBrain.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8D4117E72D19AF6100F33064 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D2D028D2CC6A1EA00ED852E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D2D02942CC6A1EA00ED852E;
+			remoteInfo = BITBrain;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4A51E21EB168599D6C330177 /* Pods-BITBrain.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BITBrain.release.xcconfig"; path = "Target Support Files/Pods-BITBrain/Pods-BITBrain.release.xcconfig"; sourceTree = "<group>"; };
@@ -108,7 +117,6 @@
 		8D2D02DA2CCB8A8D00ED852E /* Destinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destinations.swift; sourceTree = "<group>"; };
 		8D2D02DC2CCB8CAB00ED852E /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		8D2D02DF2CCB8D9100ED852E /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
-		8D2D02E12CCB932400ED852E /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
 		8D2D02E32CCB93FC00ED852E /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		8D2D02E62CCB9BFC00ED852E /* NavigationDestinationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestinationModifier.swift; sourceTree = "<group>"; };
 		8D2D02F02CCBC57100ED852E /* AuthNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNavigationViewModel.swift; sourceTree = "<group>"; };
@@ -124,6 +132,7 @@
 		8D2D03182CD11B5500ED852E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D2D031F2CD13C0D00ED852E /* SettingsNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationViewModel.swift; sourceTree = "<group>"; };
 		8D4117DD2D198A8100F33064 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		8D4117E32D19AF6100F33064 /* BITBrainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BITBrainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+Extensions.swift"; sourceTree = "<group>"; };
 		8D47AD9D2CDE64B400D85C31 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		8D47AD9F2CE4CCCD00D85C31 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
@@ -143,9 +152,13 @@
 		8DF498902CD38C8F00261CA9 /* MessageCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellView.swift; sourceTree = "<group>"; };
 		8DF7740E2CF860CE0094F55E /* ReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewManager.swift; sourceTree = "<group>"; };
 		8DF774102CF86BBE0094F55E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
-		8DF774122CF8C9950094F55E /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		D8E19BCE8FC1D8EF39C6CBB7 /* Pods_BITBrain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BITBrain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		8D0B8A022D1ED6EC003DAF13 /* ProfileFieldView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ProfileFieldView; sourceTree = "<group>"; };
+		8D4117E42D19AF6100F33064 /* BITBrainTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = BITBrainTests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8D2D02922CC6A1EA00ED852E /* Frameworks */ = {
@@ -161,6 +174,14 @@
 				8D5496022CF774C10010367B /* WishKit in Frameworks */,
 				8DB071492D0AE1730085194E /* Auth in Frameworks */,
 				8D2D03142CCCC85D00ED852E /* OpenAI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D4117E02D19AF6100F33064 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D41180E2D1B163B00F33064 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				8D2D02972CC6A1EA00ED852E /* BITBrain */,
+				8D4117E42D19AF6100F33064 /* BITBrainTests */,
 				8D2D02962CC6A1EA00ED852E /* Products */,
 				EB878DEED1146FB2B6133BDA /* Pods */,
 				E7BEDABC3CD5604B2F52A541 /* Frameworks */,
@@ -209,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				8D2D02952CC6A1EA00ED852E /* BITBrain.app */,
+				8D4117E32D19AF6100F33064 /* BITBrainTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -249,7 +272,6 @@
 			children = (
 				8D5496032CF778BE0010367B /* WhishKitManager.swift */,
 				8DF7740E2CF860CE0094F55E /* ReviewManager.swift */,
-				8DF774122CF8C9950094F55E /* UserDataManager.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -257,6 +279,7 @@
 		8D2D02A72CC6A91900ED852E /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				8D0B8A022D1ED6EC003DAF13 /* ProfileFieldView */,
 				8D5495FD2CF759E90010367B /* TutorialCardView */,
 				8D1353072CF0B2A000F386DA /* SecuredEyeButtonView */,
 				8D1352F72CF0963800F386DA /* CustomTextFields */,
@@ -445,7 +468,6 @@
 			isa = PBXGroup;
 			children = (
 				8D2D02DF2CCB8D9100ED852E /* AuthCoordinator.swift */,
-				8D2D02E12CCB932400ED852E /* ChatCoordinator.swift */,
 				8D2D02E32CCB93FC00ED852E /* SettingsCoordinator.swift */,
 			);
 			path = Coordinators;
@@ -535,6 +557,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				8D0B8A022D1ED6EC003DAF13 /* ProfileFieldView */,
+			);
 			name = BITBrain;
 			packageProductDependencies = (
 				8D2D03132CCCC85D00ED852E /* OpenAI */,
@@ -550,6 +575,30 @@
 			productReference = 8D2D02952CC6A1EA00ED852E /* BITBrain.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8D4117E22D19AF6100F33064 /* BITBrainTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D4117E92D19AF6100F33064 /* Build configuration list for PBXNativeTarget "BITBrainTests" */;
+			buildPhases = (
+				8D4117DF2D19AF6100F33064 /* Sources */,
+				8D4117E02D19AF6100F33064 /* Frameworks */,
+				8D4117E12D19AF6100F33064 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8D4117E82D19AF6100F33064 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				8D4117E42D19AF6100F33064 /* BITBrainTests */,
+			);
+			name = BITBrainTests;
+			packageProductDependencies = (
+				8D41180D2D1B163B00F33064 /* ViewInspector */,
+			);
+			productName = BITBrainTests;
+			productReference = 8D4117E32D19AF6100F33064 /* BITBrainTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -557,11 +606,16 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
+				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					8D2D02942CC6A1EA00ED852E = {
 						CreatedOnToolsVersion = 15.4;
+					};
+					8D4117E22D19AF6100F33064 = {
+						CreatedOnToolsVersion = 16.1;
+						LastSwiftMigration = 1610;
+						TestTargetID = 8D2D02942CC6A1EA00ED852E;
 					};
 				};
 			};
@@ -578,12 +632,14 @@
 				8D2D03122CCCC85D00ED852E /* XCRemoteSwiftPackageReference "OpenAI" */,
 				8D5496002CF774C10010367B /* XCRemoteSwiftPackageReference "wishkit-ios" */,
 				8DB071472D0AE1730085194E /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				8D41180A2D1B160C00F33064 /* XCRemoteSwiftPackageReference "ViewInspector" */,
 			);
 			productRefGroup = 8D2D02962CC6A1EA00ED852E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				8D2D02942CC6A1EA00ED852E /* BITBrain */,
+				8D4117E22D19AF6100F33064 /* BITBrainTests */,
 			);
 		};
 /* End PBXProject section */
@@ -597,6 +653,13 @@
 				8D2D03192CD11B5500ED852E /* LaunchScreen.storyboard in Resources */,
 				8D4117DE2D198A8100F33064 /* PrivacyInfo.xcprivacy in Resources */,
 				8D2D029D2CC6A1EC00ED852E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D4117E12D19AF6100F33064 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,7 +701,6 @@
 				8D2D02BF2CC771B400ED852E /* SettingsViewCell.swift in Sources */,
 				8D1353042CF0AB6200F386DA /* ValidationError.swift in Sources */,
 				8D2D02D82CCB794600ED852E /* RegistrationView.swift in Sources */,
-				8D2D02E22CCB932400ED852E /* ChatCoordinator.swift in Sources */,
 				8D2D02FA2CCBDE0900ED852E /* ThreadArchiveView.swift in Sources */,
 				8D1352FF2CF0A51500F386DA /* BaseSecureTextFieldView.swift in Sources */,
 				8DF4988C2CD345A900261CA9 /* HomeViewModel.swift in Sources */,
@@ -650,7 +712,6 @@
 				8DF0AF002D11BFA6000ECB32 /* UIAplication+Extension.swift in Sources */,
 				8D47AD9E2CDE64B400D85C31 /* TutorialView.swift in Sources */,
 				8D47ADA22CE622BC00D85C31 /* ProfileViewModel.swift in Sources */,
-				8DF774132CF8C9950094F55E /* UserDataManager.swift in Sources */,
 				8D2D02DD2CCB8CAB00ED852E /* Coordinator.swift in Sources */,
 				8D2D02B92CC76D7600ED852E /* CustomTabBarView.swift in Sources */,
 				8D2D02C92CC7EE6600ED852E /* ActiveChatView.swift in Sources */,
@@ -691,7 +752,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8D4117DF2D19AF6100F33064 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8D4117E82D19AF6100F33064 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D2D02942CC6A1EA00ED852E /* BITBrain */;
+			targetProxy = 8D4117E72D19AF6100F33064 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		8D2D02A12CC6A1EC00ED852E /* Debug */ = {
@@ -893,6 +969,49 @@
 			};
 			name = Release;
 		};
+		8D4117EA2D19AF6100F33064 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5M4MZAC8G6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitnovisad.BITBrainTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "BITBrainTests/BITBrainTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BITBrain.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BITBrain";
+			};
+			name = Debug;
+		};
+		8D4117EB2D19AF6100F33064 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5M4MZAC8G6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitnovisad.BITBrainTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "BITBrainTests/BITBrainTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BITBrain.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BITBrain";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -914,6 +1033,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		8D4117E92D19AF6100F33064 /* Build configuration list for PBXNativeTarget "BITBrainTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D4117EA2D19AF6100F33064 /* Debug */,
+				8D4117EB2D19AF6100F33064 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -923,6 +1051,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.3.0;
+			};
+		};
+		8D41180A2D1B160C00F33064 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.1;
 			};
 		};
 		8D5496002CF774C10010367B /* XCRemoteSwiftPackageReference "wishkit-ios" */ = {
@@ -948,6 +1084,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8D2D03122CCCC85D00ED852E /* XCRemoteSwiftPackageReference "OpenAI" */;
 			productName = OpenAI;
+		};
+		8D41180D2D1B163B00F33064 /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8D41180A2D1B160C00F33064 /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
 		};
 		8D5496012CF774C10010367B /* WishKit */ = {
 			isa = XCSwiftPackageProductDependency;

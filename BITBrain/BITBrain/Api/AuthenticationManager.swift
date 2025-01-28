@@ -135,7 +135,7 @@ class AuthenticationManager {
         return imagePath
     }
 
-    func downloadImage(path: String) async -> AvatarImage? {
+    func downloadImage(path: String) async throws -> AvatarImage? {
         do {
             let data = try await storageClient.from("photos").download(path: path)
             return AvatarImage(data: data)

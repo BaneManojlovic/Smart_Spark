@@ -24,7 +24,9 @@ struct Message: Identifiable {
 }
 
 class ChatController: ObservableObject {
+
     @Published var messages: [Message] = []
+
     var openAI: OpenAI?
 
     init(messages: [Message] = [], apiToken: String) {

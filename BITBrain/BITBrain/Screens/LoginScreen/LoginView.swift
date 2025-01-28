@@ -12,11 +12,6 @@ struct LoginView: View {
     @EnvironmentObject private var appRootManager: AppRootManager
     @ObservedObject var authNavViewModel: AuthNavigationViewModel
     @ObservedObject var loginViewModel = LoginViewModel()
-    @ObservedObject var alertViewModel = AlertViewModel()
-    @State private var password = ""
-    @State private var wrongPassword = 0
-    @State private var showingChatScreen = true
-    @State private var isLoading = false
     
     var body: some View {
     
@@ -51,13 +46,21 @@ struct LoginView: View {
                                                 isInputValid: $loginViewModel.profileValidation,
                                                 fieldContentType: .passwordInvalid)
                         
-                        Button(action: loginAction) {
+                        Button(action: {
+                            loginViewModel.loginUser { success in
+                                if success {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        appRootManager.currentRoot = .home
+                                    }
+                                }
+                            }
+                        }) {
                             HStack {
                                 Spacer()
                                 Text("Login")
                                 Spacer()
-                              }
-                              .contentShape(Rectangle())
+                            }
+                            .contentShape(Rectangle())
                         }
                         .foregroundColor(.white)
                         .frame(width: 300, height: 50)
@@ -72,12 +75,13 @@ struct LoginView: View {
                         .foregroundColor(.blue)
                     }
                     
-                    if isLoading {
+                    if loginViewModel.isLoading {
                         ProgressView()
                             .controlSize(.large)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(Color.black.opacity(0.3))
                             .foregroundColor(.white)
+                            .tint(.darkGrayBit)
                             .edgesIgnoringSafeArea(.all)
                     }
                     
@@ -85,30 +89,10 @@ struct LoginView: View {
     
             }
             .navigationBarHidden(true)
-            .alert(isPresented: $alertViewModel.showAlert) {
-                Alert(title: Text(alertViewModel.alert?.title ?? "Unknown"), message: Text(""), primaryButton: .default(Text("Ok")), secondaryButton: .cancel())
+            .alert(item: $loginViewModel.alertMessage) { alertMessage in
+                Alert(title: Text(alertMessage.message))
             }
             .applyNavigation(coordinator: authNavViewModel.coordinator)
         
-    }
-    
-    func loginAction() {
-        UIApplication.shared.endEditing(true)
-        isLoading = true
-        loginViewModel.loginAction { success in
-            DispatchQueue.main.async {
-                isLoading = false
-                if success {
-                    DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-                        appRootManager.currentRoot = .home
-                    }
-                } else {
-                    alertViewModel.presentAlert(alert: CustomAlert(title: "You entered wrong email or password, please try again with valid credentials.",
-                                                                   message: "",
-                                                                   primaryButton: .default(Text("Ok")), 
-                                                                   secundaryButton: .cancel()))
-                }
-            }
-        }
     }
 }

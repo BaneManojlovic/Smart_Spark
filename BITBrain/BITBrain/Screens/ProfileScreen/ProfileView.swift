@@ -62,6 +62,14 @@ struct ProfileView: View {
                                     .clipShape(Circle())
                             }
                             
+                            if viewModel.isAvatarLoading {
+                                ProgressView()
+                                    .scaleEffect(1.5)
+                                    .frame(width: 120, height: 120)
+                                    .foregroundColor(.white)
+                                    .tint(.white)
+                            }
+                            
                             // Camera Icon
                             Image(systemName: "camera.fill")
                                 .foregroundColor(.white)
@@ -78,8 +86,8 @@ struct ProfileView: View {
                     
                     // Profile Fields
                     VStack(alignment: .leading, spacing: 20) {
-                        ProfileField(title: "Username", value: viewModel.userModel?.username ?? "Not set")
-                        ProfileField(title: "Email", value: viewModel.userModel?.email ?? "Not set")
+                        ProfileFieldView(title: "Username", value: viewModel.userModel?.username ?? "Not set")
+                        ProfileFieldView(title: "Email", value: viewModel.userModel?.email ?? "Not set")
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
@@ -105,8 +113,9 @@ struct ProfileView: View {
                     ProgressView()
                         .controlSize(.large)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Color.black.opacity(0.3))
+                        .background(.clear)
                         .foregroundColor(.white)
+                        .tint(.darkGrayBit)
                         .edgesIgnoringSafeArea(.all)
                 }
             }
@@ -154,7 +163,12 @@ struct ProfileView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack(spacing: 20) {
                     Button(action: {
-                        saveUpdatedProfile()
+                        isLoading = true
+                        Task {
+                            await viewModel.saveProfile(imageData: selectedImageData)
+                            isLoading = false
+                            isImageChanged = false
+                        }
                     }) {
                         Text("SAVE")
                             .foregroundColor(isImageChanged ? .primaryBlue : .lightGrayBit)
@@ -175,18 +189,6 @@ struct ProfileView: View {
     
     // MARK: - Methods
     
-    func saveUpdatedProfile() {
-        isLoading = true
-        print("Save action tapped")
-        Task {
-            if let imageData = selectedImageData {
-                await viewModel.updateProfile(imageData: imageData)
-                isLoading = false
-                isImageChanged = false
-            }
-        }
-    }
-    
     func callForRequestReview() {
         ReviewManager.requestReview()
     }
@@ -194,41 +196,20 @@ struct ProfileView: View {
     func callForDeleteAction() {
         showDeleteDialog = true
     }
-    
-    func deleteAccount() {
-        isLoading = true
-        viewModel.deleteAction { success in
-            DispatchQueue.main.async {
-                isLoading = false
-                if success {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        appRootManager.currentRoot = .splash
-                    }
-                } else {
-                    alertViewModel.presentAlert(alert: CustomAlert(title: "Error while deleting account.",
-                                                                   message: "",
-                                                                   primaryButton: .default(Text("Ok")),
-                                                                   secundaryButton: .cancel()))
-                }
-            }
-        }
-    }
-}
 
-// MARK: - Profile Field View
-struct ProfileField: View {
-    let title: String
-    let value: String
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text(title)
-                .font(.caption)
-                .foregroundColor(.gray)
-            Text(value)
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(.black)
-            Divider()
-        }
+    func deleteAccount() {
+        viewModel.deleteAccount(
+            onSuccess: {
+                appRootManager.currentRoot = .splash
+            },
+            onError: {
+                alertViewModel.presentAlert(alert: CustomAlert(
+                    title: "Error while deleting account.",
+                    message: "",
+                    primaryButton: .default(Text("Ok")),
+                    secundaryButton: .cancel()
+                ))
+            }
+        )
     }
 }

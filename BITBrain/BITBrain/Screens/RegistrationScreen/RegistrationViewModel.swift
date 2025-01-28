@@ -9,73 +9,71 @@ import Foundation
 
 class RegistrationViewModel: ObservableObject {
     
+    // MARK: - Published properties
+    
     @Published var username: String = ""
     @Published var emailText: String = ""
     @Published var passwordText: String = ""
     @Published var repeatedPasswordText: String = ""
     @Published var profileValidation: [ValidationError: Bool] = [.nameInvalid: false, .emailInvalid: false, .passwordInvalid: false, .passwordsDontMatch: false]
+    @Published var isLoading: Bool = false
+    @Published var alertMessage: AlertMessage? = nil
     
-    let authService = AuthenticationManager()
-    let userDefaultsHelper = UserDefaultsHelper()
+    // MARK: - Properties
+    
+    var authService = AuthenticationManager()
+    var userDefaultsHelper = UserDefaultsHelper()
     
     // MARK: - Methods for API calling
     
-    func registerAction(completion: @escaping (Bool, String?) -> Void) {
+    func registerUser(completion: @escaping (Bool) -> Void) {
+        isLoading = true
         Task {
-            let email = emailText
-            let password = passwordText
-            let repeatedPassword = repeatedPasswordText
-            let username = username
+            if passwordText != repeatedPasswordText {
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    self.alertMessage = AlertMessage(message: "Passwords do not match.")
+                    completion(false)
+                }
+                return
+            }
             
-            if password == repeatedPassword {
-                let newUserId = await self.registerNewUser(email: email, password: password)
-                
-                if let newUserId {
-                    
-                    let userModel = UserModel(id: newUserId,
-                                          username: username,
-                                          email: email,
-                                          photoUrl: nil)
+            let userId = await registerNewUser(email: emailText, password: passwordText)
+            DispatchQueue.main.async {
+                self.isLoading = false
+                if let userId {
+                    let userModel = UserModel(id: userId, username: self.username, email: self.emailText, photoUrl: nil)
                     self.saveUserData(user: userModel)
                     self.saveUserDataToDatabase(user: userModel)
-                    completion(true, nil)
+                    completion(true)
                 } else {
-                    completion(false, "Registration failed, please try again.")
+                    self.alertMessage = AlertMessage(message: "Registration failed, please try again.")
+                    completion(false)
                 }
-            } else {
-                completion(false, "Passwords do not match.")
             }
         }
     }
-    
+
     func registerNewUser(email: String, password: String) async -> UUID? {
         let userRegisteredSuccessfully = await authService.register(email: email, password: password)
-        
         if userRegisteredSuccessfully {
-            let userId = await authService.getAuthenticatedUser()
-            print("User = \(String(describing: userId))")
-            return userId
-        } else {
-            return nil
+            return await authService.getAuthenticatedUser()
         }
+        return nil
     }
     
     func saveUserData(user: UserModel) {
         userDefaultsHelper.setUserToUserDefaults(user: user)
     }
     
-    func saveUserDataToDatabase(user: UserModel) {
+    func saveUserDataToDatabase(user: UserModel, taskCompletion: (() -> Void)? = nil) {
         Task {
-            do {
-                await authService.saveUserToDatabase(user: user) { error in
-                    if let error {
-                        print(error.localizedDescription)
-                    } else {
-                        print("success...\(String(describing: user.username))")
-                    }
+            await authService.saveUserToDatabase(user: user) { error in
+                if let error {
+                    print(error.localizedDescription)
                 }
+                taskCompletion?() // Call the completion handler after the task is finished
             }
         }
     }
-    
 }
