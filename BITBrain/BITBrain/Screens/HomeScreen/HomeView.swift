@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct HomeView: View {
 
@@ -24,6 +25,7 @@ struct HomeView: View {
     @State private var isTutorialPresented = false
     @State private var isCustomSheetPresented = false
     @State private var apiKeyValue = ""
+    @State private var isPermissionAlertPresented = false
 
     // MARK: - Layout
 
@@ -115,6 +117,65 @@ struct HomeView: View {
         }
         .onAppear {
             apiKeyValue = userDefaultsHelper.getOpenAiAPIToken() ?? ""
+            checkForNotificationPermission()
         }
+        .alert("Permission denied!", isPresented: $isPermissionAlertPresented) {
+            Button("Settings", role: .none ) {
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Please Turn on the Notification to get info about project pausing.")
+        }
+    }
+    
+    private func checkForNotificationPermission() {
+        // TODO: - Make and move this into special helper class
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.getNotificationSettings { settings in
+            
+            switch settings.authorizationStatus {
+            case .notDetermined:
+                notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { allowed, error in
+                    if allowed {
+                        dispatchNotification()
+                    }
+                }
+            case .denied:
+                showAlertToOpenSettings()
+            case .provisional, .ephemeral:
+                return
+            case .authorized:
+                dispatchNotification()
+            @unknown default:
+                return
+            }
+        }
+    }
+    
+    private func dispatchNotification() {
+        // TODO: - Make this into special helper class
+        let notificationCenter = UNUserNotificationCenter.current()
+        
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = "Supabase Reminder"
+        notificationContent.body = "Please upodate your profile image so that your Supabase project don't get paused."
+        notificationContent.sound = .default
+        
+        let calendar = Calendar.current
+//        var dateComponents = DateComponents(calendar: calendar, timeZone: TimeZone.current)
+//        dateComponents.hour = 12
+//        dateComponents.minute = 49
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 345600, repeats: true) //345600 = 4 days
+
+        let request = UNNotificationRequest(identifier: "supabaseReminder", content: notificationContent, trigger: trigger)
+        
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: ["supabaseReminder"])
+        notificationCenter.add(request)
+    }
+    
+    private func showAlertToOpenSettings() {
+        isPermissionAlertPresented = true
     }
 }
