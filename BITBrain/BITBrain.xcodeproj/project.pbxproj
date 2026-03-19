@@ -46,6 +46,7 @@
 		8D2D03142CCCC85D00ED852E /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 8D2D03132CCCC85D00ED852E /* OpenAI */; };
 		8D2D03192CD11B5500ED852E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D2D03182CD11B5500ED852E /* LaunchScreen.storyboard */; };
 		8D2D03202CD13C0D00ED852E /* SettingsNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2D031F2CD13C0D00ED852E /* SettingsNavigationViewModel.swift */; };
+		8D3CBB4F2F6C18AC00D358B9 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3CBB4E2F6C18AC00D358B9 /* NotificationService.swift */; };
 		8D4117DE2D198A8100F33064 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8D4117DD2D198A8100F33064 /* PrivacyInfo.xcprivacy */; };
 		8D41180E2D1B163B00F33064 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 8D41180D2D1B163B00F33064 /* ViewInspector */; };
 		8D47AD992CDE057000D85C31 /* UITabBarController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */; };
@@ -131,6 +132,7 @@
 		8D2D03172CD1194100ED852E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D2D03182CD11B5500ED852E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D2D031F2CD13C0D00ED852E /* SettingsNavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNavigationViewModel.swift; sourceTree = "<group>"; };
+		8D3CBB4E2F6C18AC00D358B9 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		8D4117DD2D198A8100F33064 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		8D4117E32D19AF6100F33064 /* BITBrainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BITBrainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D47AD982CDE057000D85C31 /* UITabBarController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+Extensions.swift"; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				8D2D02A72CC6A91900ED852E /* CustomViews */,
 				8D2D02AA2CC6A99F00ED852E /* Screens */,
 				8D4117DD2D198A8100F33064 /* PrivacyInfo.xcprivacy */,
+				8D3CBB4D2F6C18A200D358B9 /* Services */,
 			);
 			path = BITBrain;
 			sourceTree = "<group>";
@@ -508,6 +511,14 @@
 			path = PrivacyPolicyScreen;
 			sourceTree = "<group>";
 		};
+		8D3CBB4D2F6C18A200D358B9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8D3CBB4E2F6C18AC00D358B9 /* NotificationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		8D47AD9C2CDE649400D85C31 /* TutorialScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -738,6 +749,7 @@
 				8D2D02C62CC7DF5F00ED852E /* SettingsItem.swift in Sources */,
 				8D2D02F12CCBC57200ED852E /* AuthNavigationViewModel.swift in Sources */,
 				8DF0AF042D144239000ECB32 /* AvatarImageHelper.swift in Sources */,
+				8D3CBB4F2F6C18AC00D358B9 /* NotificationService.swift in Sources */,
 				8D2D03202CD13C0D00ED852E /* SettingsNavigationViewModel.swift in Sources */,
 				8D5495FC2CF757E10010367B /* TutorialData.swift in Sources */,
 				8D5496042CF778BE0010367B /* WhishKitManager.swift in Sources */,
