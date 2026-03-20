@@ -6,29 +6,28 @@
 //
 
 import Foundation
-import XCTest
 @testable import BITBrain
 
-class MockAuthenticationManager: AuthenticationManager {
-    // Call tracking
-    /// for Registration
-    private var registerCallCount = 0
-    private var saveUserToDatabaseCallCount = 0
-    /// for Login
-    private var loginCallCount = 0
-    private var getUserDataCallCount = 0
-    
-    // Behavior simulation
-    /// for Registration
+/// A test-only implementation of `AuthenticationManagerProtocol`.
+/// Conforms to the protocol directly — no Supabase clients are ever created,
+/// so tests run without any network setup.
+final class MockAuthenticationManager: AuthenticationManagerProtocol {
+
+    // MARK: - Call tracking
+
+    private(set) var registerCallCount = 0
+    private(set) var saveUserToDatabaseCallCount = 0
+    private(set) var loginCallCount = 0
+    private(set) var getUserDataCallCount = 0
+
+    // MARK: - Behavior simulation
+
     var registerShouldSucceed: Bool
     var simulateSaveError: Error?
-    /// for Login
     var loginShouldSucceed: Bool
     var simulatedUserId: UUID?
     var simulatedUserData: UserModel?
-    /// for Settings
     var signOutCalled = false
-    /// for Profile screen
     var mockDownloadResult: AvatarImage?
     var downloadImageCalled = false
     var deleteUserCalled = false
@@ -36,7 +35,6 @@ class MockAuthenticationManager: AuthenticationManager {
     var uploadImageCalled = false
     var mockUploadImageResult: String?
     var mockUpdateUserError: Error?
-
 
     init(
         registerShouldSucceed: Bool = true,
@@ -52,39 +50,48 @@ class MockAuthenticationManager: AuthenticationManager {
         self.simulatedUserData = simulatedUserData
     }
 
-    // MARK: - Registration Methods
+    // MARK: - AuthenticationManagerProtocol
 
-    override func register(email: String, password: String) async -> Bool {
+    func login(email: String, password: String) async -> Bool {
+        loginCallCount += 1
+        return loginShouldSucceed
+    }
+
+    func getAuthenticatedUser() async -> UUID? {
+        return simulatedUserId
+    }
+
+    func register(email: String, password: String) async -> Bool {
         registerCallCount += 1
         return registerShouldSucceed
     }
 
-    override func getAuthenticatedUser() async -> UUID? {
-        return simulatedUserId
-    }
-
-    override func saveUserToDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
+    func saveUserToDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
         saveUserToDatabaseCallCount += 1
         completion(simulateSaveError)
     }
-    
-    override func signOut() async {
+
+    func updateUserDataInDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
+        completion(mockUpdateUserError)
+    }
+
+    func getUserDataFromDatabase(userId: UUID) async -> UserModel? {
+        getUserDataCallCount += 1
+        return simulatedUserData
+    }
+
+    func signOut() async {
         signOutCalled = true
     }
-    
-    override func downloadImage(path: String) async -> AvatarImage? {
-        downloadImageCalled = true
-        return mockDownloadResult
-    }
-    
-    override func deleteUserFromDatabase(userId: UUID) async throws {
+
+    func deleteUserFromDatabase(userId: UUID) async throws {
         deleteUserCalled = true
         if !deleteUserSuccess {
             throw NSError(domain: "DeleteUserError", code: 1, userInfo: nil)
         }
     }
-    
-    override func saveAndUploadUserProfileImage(avatarImageData: Data) async throws -> String {
+
+    func saveAndUploadUserProfileImage(avatarImageData: Data) async throws -> String? {
         uploadImageCalled = true
         if let result = mockUploadImageResult {
             return result
@@ -92,51 +99,19 @@ class MockAuthenticationManager: AuthenticationManager {
             throw NSError(domain: "UploadImageError", code: 1, userInfo: nil)
         }
     }
-    
-    override func updateUserDataInDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async {
-        completion(mockUpdateUserError)
-    }
-    
-    // MARK: - Login methods
 
-    override func login(email: String, password: String) async -> Bool {
-        loginCallCount += 1
-        return loginShouldSucceed
+    func downloadImage(path: String) async throws -> AvatarImage? {
+        downloadImageCalled = true
+        return mockDownloadResult
     }
 
-    override func getUserDataFromDatabase(userId: UUID) async -> UserModel? {
-        getUserDataCallCount += 1
-        return simulatedUserData
-    }
+    // MARK: - Assertion helpers
 
-    // MARK: - Utility methods for test assertions
-
-    func wasRegisterCalled() -> Bool {
-        return registerCallCount > 0
-    }
-
-    func wasSaveUserToDatabaseCalled() -> Bool {
-        return saveUserToDatabaseCallCount > 0
-    }
-    
-    func wasLoginCalled() -> Bool {
-        print("Bane - wasLoginCalled() \(loginCallCount)")
-        return loginCallCount > 0
-    }
-
-    func numberOfRegisterCalls() -> Int {
-        return registerCallCount
-    }
-
-    func numberOfSaveUserToDatabaseCalls() -> Int {
-        return saveUserToDatabaseCallCount
-    }
-    
-    func numberOfLoginCalls() -> Int {
-        return loginCallCount
-    }
-
-    func numberOfGetUserDataFromDatabaseCalls() -> Int {
-        return getUserDataCallCount
-    }
+    func wasRegisterCalled() -> Bool { registerCallCount > 0 }
+    func wasSaveUserToDatabaseCalled() -> Bool { saveUserToDatabaseCallCount > 0 }
+    func wasLoginCalled() -> Bool { loginCallCount > 0 }
+    func numberOfRegisterCalls() -> Int { registerCallCount }
+    func numberOfSaveUserToDatabaseCalls() -> Int { saveUserToDatabaseCallCount }
+    func numberOfLoginCalls() -> Int { loginCallCount }
+    func numberOfGetUserDataFromDatabaseCalls() -> Int { getUserDataCallCount }
 }

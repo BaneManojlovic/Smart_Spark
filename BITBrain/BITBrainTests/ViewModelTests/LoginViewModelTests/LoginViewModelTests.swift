@@ -18,9 +18,7 @@ final class LoginViewModelTests: XCTestCase {
         super.setUp()
         mockAuthService = MockAuthenticationManager()
         mockUserDefaultsHelper = MockUserDefaultsHelper()
-        sut = LoginViewModel()
-        sut.authService = mockAuthService
-        sut.userDefaultsHelper = mockUserDefaultsHelper
+        sut = LoginViewModel(authService: mockAuthService, userDefaultsHelper: mockUserDefaultsHelper)
     }
 
     override func tearDown() {

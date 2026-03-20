@@ -19,9 +19,7 @@ final class RegistrationViewModelTests: XCTestCase {
         super.setUp()
         mockAuthService = MockAuthenticationManager()
         mockUserDefaultsHelper = MockUserDefaultsHelper()
-        sut = RegistrationViewModel()
-        sut.authService = mockAuthService
-        sut.userDefaultsHelper = mockUserDefaultsHelper
+        sut = RegistrationViewModel(authService: mockAuthService, userDefaultsHelper: mockUserDefaultsHelper)
     }
 
     override func tearDown() {

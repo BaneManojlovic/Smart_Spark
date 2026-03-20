@@ -7,11 +7,29 @@
 
 import Foundation
 
+// MARK: - Protocol
+
+/// Abstracts all UserDefaults access so ViewModels can be tested without
+/// touching real persistent storage.
+protocol UserDefaultsHelperProtocol: AnyObject {
+    func setUserToUserDefaults(user: UserModel)
+    func getUserFromUserDefaults() -> UserModel?
+    func removeUserFromUserDefaults()
+    func setOpenAiAPIToken(_ apiToken: String)
+    func getOpenAiAPIToken() -> String?
+    func removeOpenAiAPIToken()
+    func emptyUserDefaults()
+}
+
+// MARK: - Keys
+
 enum UserDefaultKeys: String {
     case user
 }
 
-class UserDefaultsHelper: ObservableObject {
+// MARK: - Concrete implementation
+
+class UserDefaultsHelper: ObservableObject, UserDefaultsHelperProtocol {
     
     private let openAiAPIToken = "openAiAPIToken"
     

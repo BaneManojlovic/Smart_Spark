@@ -11,8 +11,16 @@ class ProfileViewModel: ObservableObject {
     
     // MARK: - Properties
 
-    var userDefaultsHelper = UserDefaultsHelper()
-    var authService = AuthenticationManager()
+    var userDefaultsHelper: UserDefaultsHelperProtocol
+    var authService: AuthenticationManagerProtocol
+
+    // MARK: - Init
+
+    init(authService: AuthenticationManagerProtocol = AuthenticationManager.shared,
+         userDefaultsHelper: UserDefaultsHelperProtocol = UserDefaultsHelper()) {
+        self.authService = authService
+        self.userDefaultsHelper = userDefaultsHelper
+    }
     
     // MARK: - Published properties
     

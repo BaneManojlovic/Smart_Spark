@@ -6,24 +6,52 @@
 //
 
 import Foundation
-import XCTest
 @testable import BITBrain
 
-class MockUserDefaultsHelper: UserDefaultsHelper {
+/// A test-only implementation of `UserDefaultsHelperProtocol`.
+/// Stores values in memory only — no `UserDefaults.standard` is touched during tests.
+final class MockUserDefaultsHelper: UserDefaultsHelperProtocol {
+
+    // MARK: - Call tracking
 
     private(set) var setUserToUserDefaultsCalled = false
-    var emptyUserDefaultsCalled = false
+    private(set) var emptyUserDefaultsCalled = false
+
+    // MARK: - Stored state
+
     var mockUser: UserModel?
+    var mockApiToken: String?
 
-    override func setUserToUserDefaults(user: UserModel) {
+    // MARK: - UserDefaultsHelperProtocol
+
+    func setUserToUserDefaults(user: UserModel) {
         setUserToUserDefaultsCalled = true
+        mockUser = user
     }
 
-    override func emptyUserDefaults() {
-        emptyUserDefaultsCalled = true
-    }
-    
-    override func getUserFromUserDefaults() -> UserModel? {
+    func getUserFromUserDefaults() -> UserModel? {
         return mockUser
+    }
+
+    func removeUserFromUserDefaults() {
+        mockUser = nil
+    }
+
+    func setOpenAiAPIToken(_ apiToken: String) {
+        mockApiToken = apiToken
+    }
+
+    func getOpenAiAPIToken() -> String? {
+        return mockApiToken
+    }
+
+    func removeOpenAiAPIToken() {
+        mockApiToken = nil
+    }
+
+    func emptyUserDefaults() {
+        emptyUserDefaultsCalled = true
+        mockUser = nil
+        mockApiToken = nil
     }
 }

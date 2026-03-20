@@ -19,11 +19,7 @@ final class SettingsViewModelTests: XCTestCase {
         super.setUp()
         mockAuthService = MockAuthenticationManager()
         mockUserDefaultsHelper = MockUserDefaultsHelper()
-        sut = SettingsViewModel()
-        
-        // Inject mocks
-        sut.authService = mockAuthService
-        sut.userDefaultsHelper = mockUserDefaultsHelper
+        sut = SettingsViewModel(authService: mockAuthService, userDefaultsHelper: mockUserDefaultsHelper)
     }
     
     override func tearDown() {

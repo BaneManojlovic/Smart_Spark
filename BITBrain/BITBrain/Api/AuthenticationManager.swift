@@ -11,6 +11,25 @@ import OpenAI
 import Supabase
 import SwiftUI
 
+// MARK: - Protocol
+
+/// Defines all authentication and data operations performed against Supabase.
+/// ViewModels depend on this protocol, not the concrete class, so tests can
+/// inject a mock without touching any real network code.
+protocol AuthenticationManagerProtocol: AnyObject {
+    func login(email: String, password: String) async -> Bool
+    func getAuthenticatedUser() async -> UUID?
+    func register(email: String, password: String) async -> Bool
+    func saveUserToDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async
+    func updateUserDataInDatabase(user: UserModel, completion: @escaping (Error?) -> Void) async
+    func getUserDataFromDatabase(userId: UUID) async -> UserModel?
+    func signOut() async
+    func deleteUserFromDatabase(userId: UUID) async throws
+    func saveAndUploadUserProfileImage(avatarImageData: Data) async throws -> String?
+    func downloadImage(path: String) async throws -> AvatarImage?
+}
+
+// MARK: - Supabase client factory
 
 extension SupabaseClient {
 
@@ -20,8 +39,10 @@ extension SupabaseClient {
     }
 }
 
+// MARK: - Concrete implementation
+
 @Observable
-class AuthenticationManager {
+class AuthenticationManager: AuthenticationManagerProtocol {
 
     static let shared = AuthenticationManager()
     let authClient = SupabaseClient.client.auth        // needed for authentification meaning register, login, logout, delete account

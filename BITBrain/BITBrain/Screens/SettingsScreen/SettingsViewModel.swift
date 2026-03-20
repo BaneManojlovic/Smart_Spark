@@ -11,8 +11,16 @@ class SettingsViewModel: ObservableObject {
 
     // MARK: - Properties
 
-    var authService = AuthenticationManager.shared
-    var userDefaultsHelper = UserDefaultsHelper()
+    var authService: AuthenticationManagerProtocol
+    var userDefaultsHelper: UserDefaultsHelperProtocol
+
+    // MARK: - Init
+
+    init(authService: AuthenticationManagerProtocol = AuthenticationManager.shared,
+         userDefaultsHelper: UserDefaultsHelperProtocol = UserDefaultsHelper()) {
+        self.authService = authService
+        self.userDefaultsHelper = userDefaultsHelper
+    }
 
     // MARK: - Methods
 

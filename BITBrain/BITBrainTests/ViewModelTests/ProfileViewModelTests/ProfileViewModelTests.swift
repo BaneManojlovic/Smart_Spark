@@ -18,9 +18,7 @@ final class ProfileViewModelTests: XCTestCase {
         super.setUp()
         mockAuthService = MockAuthenticationManager()
         mockUserDefaultsHelper = MockUserDefaultsHelper()
-        sut = ProfileViewModel()
-        sut.authService = mockAuthService
-        sut.userDefaultsHelper = mockUserDefaultsHelper
+        sut = ProfileViewModel(authService: mockAuthService, userDefaultsHelper: mockUserDefaultsHelper)
     }
     
     override func tearDown() {
